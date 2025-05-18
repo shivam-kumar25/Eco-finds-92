@@ -114,8 +114,7 @@ def init_db():
                         eco_impact_score=4,
                         estimated_co2_saved=3.5,
                         original_packaging=False
-                    ),
-                    Product(
+                    ),                    Product(
                         name='Reusable Water Bottle',
                         description='Stainless steel water bottle, keeps drinks cold for 24 hours or hot for 12 hours. Minor scratches but perfect functionality.',
                         price=10.99,
@@ -126,6 +125,71 @@ def init_db():
                         created_at=datetime.utcnow() - timedelta(days=15),
                         eco_impact_score=4,
                         estimated_co2_saved=2.1,
+                        original_packaging=False
+                    ),
+                    Product(
+                        name='Vintage Mechanical Typewriter',
+                        description='Beautiful 1960s typewriter in working condition. Perfect for writers seeking an authentic typing experience or as a decorative piece.',
+                        price=95.00,
+                        condition='Vintage - Good',
+                        image_url='https://images.unsplash.com/photo-1558434787-303fd4df6a33?w=500',
+                        seller_id=seller1.id,
+                        category_id=electronics.id,
+                        created_at=datetime.utcnow() - timedelta(days=8),
+                        eco_impact_score=5,
+                        estimated_co2_saved=18.7,
+                        original_packaging=False
+                    ),
+                    Product(
+                        name='Handmade Ceramic Planter',
+                        description='Beautifully crafted ceramic plant pot, perfect for indoor plants. Each piece is unique with slight variations in the glaze.',
+                        price=22.50,
+                        condition='Used - Excellent',
+                        image_url='https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=500',
+                        seller_id=buyer1.id,
+                        category_id=home_garden.id,
+                        created_at=datetime.utcnow() - timedelta(days=4),
+                        eco_impact_score=4,
+                        estimated_co2_saved=1.8,
+                        original_packaging=False
+                    ),
+                    Product(
+                        name='Mountain Bike',
+                        description='26-inch mountain bike with aluminum frame. 21 speeds with Shimano gears. Some cosmetic scratches but mechanically perfect.',
+                        price=175.00,
+                        condition='Used - Very Good',
+                        image_url='https://images.unsplash.com/photo-1511994298241-608e28f14fde?w=500',
+                        seller_id=admin.id,
+                        category_id=sports.id,
+                        created_at=datetime.utcnow() - timedelta(days=12),
+                        eco_impact_score=5,
+                        estimated_co2_saved=45.2,
+                        original_packaging=False
+                    ),
+                    Product(
+                        name='Vintage Record Player',
+                        description='Classic turntable from the 1970s. Recently serviced and in excellent working condition. Comes with 5 vinyl records.',
+                        price=120.00,
+                        condition='Vintage - Very Good',
+                        image_url='https://images.unsplash.com/photo-1545454675-3531b543be5d?w=500',
+                        seller_id=seller1.id,
+                        category_id=electronics.id,
+                        created_at=datetime.utcnow() - timedelta(days=6),
+                        eco_impact_score=4,
+                        estimated_co2_saved=22.5,
+                        original_packaging=True
+                    ),
+                    Product(
+                        name='Wooden Chess Set',
+                        description='Hand-carved wooden chess set with inlaid board. Minor wear but all pieces present and in great condition.',
+                        price=35.99,
+                        condition='Used - Good',
+                        image_url='https://images.unsplash.com/photo-1586165368502-1bad197a6461?w=500',
+                        seller_id=buyer1.id,
+                        category_id=books_media.id,
+                        created_at=datetime.utcnow() - timedelta(days=9),
+                        eco_impact_score=3,
+                        estimated_co2_saved=3.7,
                         original_packaging=False
                     )
                 ]
