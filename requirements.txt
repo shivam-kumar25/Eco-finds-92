@@ -1,0 +1,10 @@
+Sure, here's the contents for the file: /ecofinds/requirements.txt
+
+Flask
+Flask-SQLAlchemy
+Flask-Migrate
+Flask-WTF
+Flask-Login
+requests
+pytest
+```
