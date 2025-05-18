@@ -3,6 +3,19 @@ from src.models.category import Category
 from src.models.user import User
 from src.models.product import Product
 from datetime import datetime, timedelta
+import sys
+
+def reset_db():
+    """Drop all tables and recreate them"""
+    app = create_app()
+    with app.app_context():
+        # Drop all tables
+        db.drop_all()
+        print('All tables dropped!')
+        
+        # Create tables
+        db.create_all()
+        print('Tables recreated successfully!')
 
 def init_db():
     app = create_app()
@@ -24,16 +37,15 @@ def init_db():
             db.session.add_all(categories)
             db.session.commit()
             print('Default categories created!')
-        
-        # Create demo users if no users exist
+          # Create demo users if no users exist
         if User.query.count() == 0:
-            admin = User(username='admin', email='admin@example.com')
+            admin = User(username='admin', email='admin@example.com', is_admin=True)
             admin.set_password('adminpassword')
             
-            seller1 = User(username='ecoSeller', email='seller@example.com')
+            seller1 = User(username='ecoSeller', email='seller@example.com', is_admin=False)
             seller1.set_password('password')
             
-            buyer1 = User(username='greenBuyer', email='buyer@example.com')
+            buyer1 = User(username='greenBuyer', email='buyer@example.com', is_admin=False)
             buyer1.set_password('password')
             
             db.session.add_all([admin, seller1, buyer1])
@@ -55,7 +67,7 @@ def init_db():
                         description='Fully functional smartphone in excellent condition. Battery health at 90%. Comes with charger and box.',
                         price=249.99,
                         condition='Refurbished - Excellent',
-                        image_url='https://images.unsplash.com/photo-1598327105666-5b89351aff97?w=500',
+                        image_filename='smartphone.jpg',
                         seller_id=seller1.id,
                         category_id=electronics.id,
                         created_at=datetime.utcnow() - timedelta(days=5),
@@ -68,7 +80,7 @@ def init_db():
                         description='Genuine vintage denim jacket from the 90s. Size M. Great condition with minimal wear.',
                         price=45.00,
                         condition='Used - Very Good',
-                        image_url='https://images.unsplash.com/photo-1551537482-f2075a1d41f2?w=500',
+                        image_filename='denim_jacket.jpg',
                         seller_id=seller1.id,
                         category_id=clothing.id,
                         created_at=datetime.utcnow() - timedelta(days=10),
@@ -81,7 +93,7 @@ def init_db():
                         description='Eco-friendly bamboo cutlery set with knife, fork, spoon and chopsticks. Perfect for camping or daily use.',
                         price=12.50,
                         condition='Used - Like New',
-                        image_url='https://images.unsplash.com/photo-1584269600519-112d071b35e6?w=500',
+                        image_filename='bamboo_cutlery.jpg',
                         seller_id=admin.id,
                         category_id=home_garden.id,
                         created_at=datetime.utcnow() - timedelta(days=3),
@@ -94,7 +106,7 @@ def init_db():
                         description='Set of 5 classic novels in paperback. All in good condition with minimal highlighting.',
                         price=18.99,
                         condition='Used - Good',
-                        image_url='https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=500',
+                        image_filename='novels.jpg',
                         seller_id=admin.id,
                         category_id=books_media.id,
                         created_at=datetime.utcnow() - timedelta(days=7),
@@ -107,7 +119,7 @@ def init_db():
                         description='High-quality yoga mat, 6mm thickness. Used only a few times and thoroughly cleaned.',
                         price=15.00,
                         condition='Used - Like New',
-                        image_url='https://images.unsplash.com/photo-1592432678016-e910b452f9a2?w=500',
+                        image_filename='yoga_mat.jpg',
                         seller_id=seller1.id,
                         category_id=sports.id,
                         created_at=datetime.utcnow() - timedelta(days=2),
@@ -119,7 +131,7 @@ def init_db():
                         description='Stainless steel water bottle, keeps drinks cold for 24 hours or hot for 12 hours. Minor scratches but perfect functionality.',
                         price=10.99,
                         condition='Used - Good',
-                        image_url='https://images.unsplash.com/photo-1602143407151-7111542de6e8?w=500',
+                        image_filename='water_bottle.jpg',
                         seller_id=admin.id,
                         category_id=home_garden.id,
                         created_at=datetime.utcnow() - timedelta(days=15),
@@ -130,9 +142,8 @@ def init_db():
                     Product(
                         name='Vintage Mechanical Typewriter',
                         description='Beautiful 1960s typewriter in working condition. Perfect for writers seeking an authentic typing experience or as a decorative piece.',
-                        price=95.00,
-                        condition='Vintage - Good',
-                        image_url='https://images.unsplash.com/photo-1558434787-303fd4df6a33?w=500',
+                        price=95.00,                        condition='Vintage - Good',
+                        image_filename='typewriter.jpg',
                         seller_id=seller1.id,
                         category_id=electronics.id,
                         created_at=datetime.utcnow() - timedelta(days=8),
@@ -143,9 +154,8 @@ def init_db():
                     Product(
                         name='Handmade Ceramic Planter',
                         description='Beautifully crafted ceramic plant pot, perfect for indoor plants. Each piece is unique with slight variations in the glaze.',
-                        price=22.50,
-                        condition='Used - Excellent',
-                        image_url='https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=500',
+                        price=22.50,                        condition='Used - Excellent',
+                        image_filename='ceramic_planter.jpg',
                         seller_id=buyer1.id,
                         category_id=home_garden.id,
                         created_at=datetime.utcnow() - timedelta(days=4),
@@ -156,9 +166,8 @@ def init_db():
                     Product(
                         name='Mountain Bike',
                         description='26-inch mountain bike with aluminum frame. 21 speeds with Shimano gears. Some cosmetic scratches but mechanically perfect.',
-                        price=175.00,
-                        condition='Used - Very Good',
-                        image_url='https://images.unsplash.com/photo-1511994298241-608e28f14fde?w=500',
+                        price=175.00,                        condition='Used - Very Good',
+                        image_filename='mountain_bike.jpg',
                         seller_id=admin.id,
                         category_id=sports.id,
                         created_at=datetime.utcnow() - timedelta(days=12),
@@ -169,9 +178,8 @@ def init_db():
                     Product(
                         name='Vintage Record Player',
                         description='Classic turntable from the 1970s. Recently serviced and in excellent working condition. Comes with 5 vinyl records.',
-                        price=120.00,
-                        condition='Vintage - Very Good',
-                        image_url='https://images.unsplash.com/photo-1545454675-3531b543be5d?w=500',
+                        price=120.00,                        condition='Vintage - Very Good',
+                        image_filename='record_player.jpg',
                         seller_id=seller1.id,
                         category_id=electronics.id,
                         created_at=datetime.utcnow() - timedelta(days=6),
@@ -182,9 +190,8 @@ def init_db():
                     Product(
                         name='Wooden Chess Set',
                         description='Hand-carved wooden chess set with inlaid board. Minor wear but all pieces present and in great condition.',
-                        price=35.99,
-                        condition='Used - Good',
-                        image_url='https://images.unsplash.com/photo-1586165368502-1bad197a6461?w=500',
+                        price=35.99,                        condition='Used - Good',
+                        image_filename='chess_set.jpg',
                         seller_id=buyer1.id,
                         category_id=books_media.id,
                         created_at=datetime.utcnow() - timedelta(days=9),
@@ -201,4 +208,6 @@ def init_db():
         print('Database initialized successfully!')
 
 if __name__ == '__main__':
+    if len(sys.argv) > 1 and sys.argv[1] == '--reset':
+        reset_db()
     init_db()

@@ -25,9 +25,8 @@
                             {% for item in cart_items %}
                             <tr>
                                 <td>
-                                    <div class="d-flex align-items-center">
-                                        {% if item.product.image_url %}
-                                        <img src="{{ item.product.image_url }}" alt="{{ item.product.name }}" class="cart-item-image me-3">
+                                    <div class="d-flex align-items-center">                                        {% if item.product.image_filename %}
+                                        <img src="{{ url_for('static', filename='uploads/' + item.product.image_filename) }}" alt="{{ item.product.name }}" class="cart-item-image me-3">
                                         {% else %}
                                         <div class="cart-item-placeholder me-3">
                                             <i class="bi bi-image"></i>
