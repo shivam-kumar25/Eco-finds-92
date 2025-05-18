@@ -34,10 +34,11 @@ python run.py
 ```
 The application will be accessible at `http://127.0.0.1:5000`.
 
-## Contributing
 
-Contributions are welcome! Please open an issue or submit a pull request for any enhancements or bug fixes.
+## Setup Database
+```
+python reset_db.py
+```
 
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
+## Video
+[  ] ()
