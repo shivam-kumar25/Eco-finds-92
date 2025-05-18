@@ -77,7 +77,7 @@ eco-finds-92/
 ---
 
 ## Video
-Link: https://drive.google.com/drive/folders/1cWphwFjqHeZ7OhSqZjKXbTLqhr8IiW-e?usp=sharing
+Link: https://drive.google.com/file/d/1Gl7CSseizFGrnMWZnwjRZN4Lq8pZ3rsm/view?usp=drive_link
 
 
 ## Default Users
