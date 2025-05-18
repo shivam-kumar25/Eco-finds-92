@@ -1,44 +1,92 @@
-# eco-finds-92
-EcoFinds – Empowering Sustainable Consumption through a  Second-Hand Marketplace
-# Ecofinds
+# EcoFinds
 
-Ecofinds is a Flask application designed to help users discover and manage eco-friendly products. This project aims to provide a platform for users to browse, add, and purchase sustainable products while promoting eco-conscious living.
+Empowering Sustainable Consumption through a Second-Hand Marketplace
+
+EcoFinds is a Flask-based web application that helps users discover, buy, and sell eco-friendly second-hand products. The platform promotes sustainable living by making it easy to list unused items, shop for pre-loved goods, and support a circular economy.
+
+---
 
 ## Features
 
 - User authentication and registration
-- Product listings with detailed descriptions
-- Shopping cart functionality
-- User dashboard to manage listings and purchases
+- Product listings with images and detailed descriptions
+- Add, edit, and manage your own product listings
+- Shopping cart and checkout functionality
+- Order history and previous purchases
+- User dashboard for managing listings and purchases
+- Responsive, modern UI with Bootstrap 5
+
+---
 
 ## Installation
 
-1. Clone the repository:
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/shivam-kumar25/Eco-finds-92.git
+   cd Eco-finds-92
    ```
-   git clone https://github.com/yourusername/ecofinds.git
+
+2. **(Optional) Create and activate a virtual environment:**
+   ```sh
+   python -m venv venv
+   venv\Scripts\activate
    ```
-2. Navigate to the project directory:
-   ```
-   cd ecofinds
-   ```
-3. Install the required packages:
-   ```
+
+3. **Install dependencies:**
+   ```sh
    pip install -r requirements.txt
    ```
 
-## Usage
+---
 
-To run the application, execute the following command:
-```
-python run.py
-```
-The application will be accessible at `http://127.0.0.1:5000`.
+## Database Setup
 
-
-## Setup Database
-```
+To reset and initialize the database, run:
+```sh
 python reset_db.py
 ```
 
+---
+
+## Running the Application
+
+Start the Flask app with:
+```sh
+python run.py
+```
+The application will be accessible at [http://127.0.0.1:5000](http://127.0.0.1:5000).
+
+---
+
+## Project Structure
+
+```
+eco-finds-92/
+│
+├── src/
+│   ├── templates/         # HTML templates (Jinja2)
+│   ├── static/            # CSS, JS, images
+│   ├── init_db.py         # Database initialization logic
+│   └── ...                # Other modules
+├── reset_db.py            # Script to reset and reinitialize the database
+├── run.py                 # Application entry point
+├── requirements.txt
+└── README.md
+```
+
+---
+
 ## Video
-[  ] ()
+Link: 
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request for any enhancements or bug fixes.
+
+---
+
+## License
+
+This project is licensed under the [Apache 2.0 License](LICENSE).
+
+---
