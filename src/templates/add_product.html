@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ecofinds | Add Product</title>
+  <link rel="stylesheet" href="/src/static/css/add_product.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo">EcoFinds</div>
+      <div class="icons">
+        <span class="cart-icon">🛒</span>
+        <span class="profile-icon">⚪</span>
+      </div>
+    </header>
+
+    <h2 class="page-title">Add a New Product</h2>
+
+    <form class="product-form" id="productForm">
+      <label for="imageUpload">Add Product Image</label>
+      <input type="file" id="imageUpload" accept="image/*" />
+
+      <input type="text" placeholder="Product Title" required />
+      <input type="text" placeholder="Product Category" required />
+      <textarea placeholder="Product Description" rows="3" required></textarea>
+      <input type="number" placeholder="Price" required />
+      <input type="number" placeholder="Quantity" required />
+      <input type="text" placeholder="Condition" required />
+      <input type="text" placeholder="Year of Manufacture" />
+      <input type="text" placeholder="Brand" />
+      <input type="text" placeholder="Model" />
+      <input type="text" placeholder="Dimensions (L x W x H)" />
+      <input type="text" placeholder="Weight" />
+      <input type="text" placeholder="Material" />
+      <input type="text" placeholder="Color" />
+      <label><input type="checkbox" /> Original Packaging Included</label>
+      <label><input type="checkbox" /> Manual/Instructions Included</label>
+      <textarea placeholder="Working Condition Description" rows="3"></textarea>
+
+      <button type="submit">Add Item</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("productForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      alert("Product added! Redirecting to My Listings...");
+      // Redirect or push data to your backend here
+      window.location.href = "my-listings.html";
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #f8f6ef;
+  color: #1c4325;
+}
+
+.container {
+  max-width: 480px;
+  margin: auto;
+  padding: 15px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2e7d32;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.product-page-btn {
+  width: 100%;
+  padding: 10px;
+  background: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  margin: 10px 0 20px;
+}
+
+.image-section {
+  background: #e0f2f1;
+  padding: 10px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.carousel-dots {
+  margin-top: 10px;
+}
+
+.dot {
+  height: 10px;
+}
