@@ -6,7 +6,11 @@ class Product(db.Model):
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=False)
     price = db.Column(db.Float, nullable=False)
-    image_url = db.Column(db.String(200))
+    image_filename = db.Column(db.String(200))
+    condition = db.Column(db.String(50), default='Used - Good')
+    original_packaging = db.Column(db.Boolean, default=False)
+    eco_impact_score = db.Column(db.Integer, default=3)  # Scale 1-5
+    estimated_co2_saved = db.Column(db.Float, default=0.0)  # in kg
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     
