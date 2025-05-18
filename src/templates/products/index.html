@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>
+            {% if category %}
+                {{ category.name }} Products
+            {% else %}
+                All Products
+            {% endif %}
+        </h1>
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('products.new_product') }}" class="btn btn-success">
+            <i class="bi bi-plus-circle me-1"></i> Add New Product
+        </a>
+        {% endif %}
+    </div>
+
+    <!-- Category filter -->
+    <div class="mb-4">
+        <div class="d-flex flex-wrap gap-2">
+            <a href="{{ url_for('products.all_products') }}" class="btn {% if not request.args.get('category') %}btn-success{% else %}btn-outline-success{% endif %} btn-sm">
+                All Categories
+            </a>
+            {% for cat in categories %}
+            <a href="{{ url_for('products.all_products', category=cat.id) }}" class="btn {% if request.args.get('category')|int == cat.id %}btn-success{% else %}btn-outline-success{% endif %} btn-sm">
+                {{ cat.name }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="row">
+        {% for product in products.items %}
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 product-card">
+                <div class="card-img-container">
+                    {% if product.image_url %}
+                    <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}">
+                    {% else %}
+                    <div class="card-img-placeholder d-flex align-items-center justify-content-center">
+                        <i class="bi bi-image text-muted"></i>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text product-desc">{{ product.description|truncate(100) }}</p>
+                    <p class="card-text text-success fw-bold">${{ "%.2f"|format(product.price) }}</p>
+                </div>
+                <div class="card-footer bg-transparent d-flex justify-content-between align-items-center">
+                    <a href="{{ url_for('products.product_detail', product_id=product.id) }}" class="btn btn-sm btn-outline-primary">View Details</a>
+                    {% if current_user.is_authenticated %}
+                    <form method="POST" action="{{ url_for('cart.add_to_cart', product_id=product.id) }}" class="add-to-cart-form" data-ajax="true">
+                        <input type="hidden" name="quantity" value="1">
+                        <button type="submit" class="btn btn-sm btn-success">Add to Cart</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-12">
+            <div class="alert alert-info">
+                <i class="bi bi-info-circle me-2"></i> No products found in this category.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% if products.items and products.pages > 1 %}
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if products.has_prev %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('products.all_products', page=products.prev_num, category=request.args.get('category')) }}">Previous</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Previous</span>
+            </li>
+            {% endif %}
+
+            {% for page_num in products.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+                {% if page_num %}
+                    {% if page_num == products.page %}
+                    <li class="page-item active">
+                        <span class="page-link">{{ page_num }}</span>
+                    </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ url_for('products.all_products', page=page_num, category=request.args.get('category')) }}">{{ page_num }}</a>
+                    </li>
+                    {% endif %}
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link">...</span>
+                    </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if products.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="{{ url_for('products.all_products', page=products.next_num, category=request.args.get('category')) }}">Next</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled">
+                <span class="page-link">Next</span>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

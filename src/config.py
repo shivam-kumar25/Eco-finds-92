@@ -1,21 +1,13 @@
-ecofinds
-├── src
-│   ├── __init__.py
-│   ├── app.py
-│   ├── config.py
-│   ├── models
-│   │   └── __init__.py
-│   ├── routes
-│   │   └── __init__.py
-│   ├── templates
-│   │   ├── base.html
-│   │   └── index.html
-│   └── static
-│       ├── css
-│       │   └── style.css
-│       └── js
-│           └── main.js
-├── tests
-│   └── __init__.py
-├── requirements.txt
-└── README.md
+import os
+
+class Config:
+    # Flask configuration
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'secret-key'
+    
+    # Database configuration
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///ecofinds.db'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    
+    # Debug configuration
+    DEBUG = True
+    TESTING = False

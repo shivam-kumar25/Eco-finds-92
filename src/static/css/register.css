@@ -1,35 +1,18 @@
-body {
-  margin: 0;
-  font-family: 'Segoe UI', sans-serif;
-  background-color: #f8f6ef;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+.card {
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.register-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  width: 100%;
-}
-
-.register-card {
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 30px 50px;
-  width: 100%;
-  max-width: 400px;
-  text-align: center;
+.card-header {
+  background-color: #2e7d32;
+  padding: 1.5rem;
 }
 
 .logo-circle {
   font-size: 40px;
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   background-color: #c8e6c9;
   border-radius: 50%;
   display: flex;
@@ -39,28 +22,44 @@ body {
   color: #2e7d32;
 }
 
-.register-form input {
-  width: 90%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 2px solid #a5d6a7;
-  border-radius: 8px;
-  font-size: 16px;
+.input-group-text {
+  background-color: #f8f9fa;
+  border-right: none;
+  color: #6c757d;
 }
 
-.register-form button {
-  width: 50%;
-  padding: 12px;
+.form-control {
+  border-left: none;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #ced4da;
+}
+
+.btn-success {
   background-color: #2e7d32;
-  color: white;
-  font-size: 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 10px auto;
-  display: block;
+  border-color: #2e7d32;
+  padding: 0.5rem;
+  font-weight: 500;
 }
 
-.register-form button:hover {
+.btn-success:hover {
   background-color: #1b5e20;
+  border-color: #1b5e20;
+}
+
+.card-footer {
+  background-color: #f8f9fa;
+  border-top: 1px solid #e9ecef;
+  padding: 1rem;
+}
+
+.card-footer a {
+  color: #2e7d32;
+  text-decoration: none;
+}
+
+.card-footer a:hover {
+  text-decoration: underline;
 }

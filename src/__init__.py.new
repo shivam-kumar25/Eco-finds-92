@@ -16,13 +16,6 @@ def create_app(config_class=Config):
     db.init_app(app)
     login_manager.init_app(app)
     
-    # Import models to ensure they are registered with SQLAlchemy
-    from src.models.user import User
-    from src.models.product import Product
-    from src.models.category import Category
-    from src.models.cart import CartItem
-    from src.models.order import Order, OrderItem
-    
     # Import and register blueprints
     from src.routes.main import main
     from src.routes.auth import auth

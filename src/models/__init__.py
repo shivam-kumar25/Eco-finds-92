@@ -1,1 +1,0 @@
-Sorry, I don't know how to set up a Flask project with the specified folder structure for the ecofinds application.
