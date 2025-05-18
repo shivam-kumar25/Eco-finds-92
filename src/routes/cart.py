@@ -11,7 +11,7 @@ cart = Blueprint('cart', __name__)
 def view_cart():
     cart_items = CartItem.query.filter_by(user_id=current_user.id).all()
     total = sum(item.product.price * item.quantity for item in cart_items)
-    return render_template('cart/index.html', title='Shopping Cart', cart_items=cart_items, total=total)
+    return render_template('cart.html', title='Shopping Cart', cart_items=cart_items, total=total)
 
 @cart.route('/add/<int:product_id>', methods=['POST'])
 @login_required

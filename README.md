@@ -79,6 +79,18 @@ eco-finds-92/
 ## Video
 Link: https://drive.google.com/drive/folders/1cWphwFjqHeZ7OhSqZjKXbTLqhr8IiW-e?usp=sharing
 
+
+## Default Users
+
+After database initialization, the following default users are available for testing:
+
+| Username      | Email               | Password        | Role    |
+|---------------|---------------------|-----------------|---------|
+| admin         | admin@example.com   | adminpassword   | Admin   |
+| ecoSeller     | seller@example.com  | password        | Seller  |
+| greenBuyer    | buyer@example.com   | password        | Buyer   |
+
+
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request for any enhancements or bug fixes.
