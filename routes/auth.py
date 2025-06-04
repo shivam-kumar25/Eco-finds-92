@@ -1,6 +1,7 @@
 from models.user import User
 from flask_mail import Message
 from flask_mail import Mail
+import random
 
 
 
@@ -8,6 +9,8 @@ from flask_mail import Mail
 from flask import Blueprint, render_template, redirect, url_for, flash, request, session
 from __init__ import db
 from models.user import User
+from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadSignature
+from flask import current_app
 
 
 
@@ -25,8 +28,29 @@ def send_welcome_email(user_email, username):
     )
     mail.send(msg)
 
+def generate_verification_token(email):
+    serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
+    return serializer.dumps(email, salt='email-verify')
+
+def confirm_verification_token(token, expiration=3600):
+    serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
+    try:
+        email = serializer.loads(token, salt='email-verify', max_age=expiration)
+    except (SignatureExpired, BadSignature):
+        return None
+    return email
 
 
+def generate_otp():
+    return str(random.randint(100000, 999999))
+
+def send_verification_otp(user_email, username, otp):
+    msg = Message(
+        subject="EcoFinds Email Verification OTP",
+        recipients=[user_email],
+        body=f"Hello {username},\n\nYour OTP for email verification is: {otp}\n\nIf you did not register, please ignore this email.\n\nBest,\nEcoFinds Team"
+    )
+    mail.send(msg)
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
@@ -57,19 +81,57 @@ def register():
             flash('Email already registered', 'danger')
             return render_template('/auth/register.html', title='Register')
 
-        # Create new user
+        # Create new user (not yet verified)
         user = User(username=username, email=email)
         user.set_password(password)
         db.session.add(user)
         db.session.commit()
 
-        # Send welcome email
-        send_welcome_email(email, username)
+        # Generate OTP and store in session
+        otp = generate_otp()
+        session['pending_verification_email'] = email
+        session['pending_verification_username'] = username
+        session['pending_verification_otp'] = otp
 
-        flash('Registration successful! Please log in.', 'success')
-        return redirect(url_for('auth.login'))
+        # Send OTP email
+        send_verification_otp(email, username, otp)
+
+        flash('Registration successful! Please check your email for the OTP to verify your account.', 'success')
+        return redirect(url_for('auth.verify_otp'))
 
     return render_template('auth/register.html', title='Register')
+
+@auth.route('/verify', methods=['GET', 'POST'])
+def verify_otp():
+    if 'pending_verification_email' not in session:
+        flash('No verification in progress.', 'warning')
+        return redirect(url_for('auth.login'))
+
+    if request.method == 'POST':
+        input_otp = request.form.get('otp')
+        if input_otp == session.get('pending_verification_otp'):
+            user = User.query.filter_by(email=session['pending_verification_email']).first()
+            if user:
+                # If you have an is_verified field, set it here
+                # user.is_verified = True
+                # db.session.commit()
+                flash('Your email has been verified! You can now log in.', 'success')
+            else:
+                flash('User not found.', 'danger')
+            # Clear verification session data
+            session.pop('pending_verification_email', None)
+            session.pop('pending_verification_username', None)
+            session.pop('pending_verification_otp', None)
+            return redirect(url_for('auth.login'))
+        else:
+            flash('Invalid OTP. Please try again.', 'danger')
+    return render_template('auth/verify_otp.html', title='Verify Email')
+
+
+
+
+
+
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -113,6 +175,22 @@ def profile():
         return redirect(url_for('auth.login'))
     # Redirect to user dashboard
     return redirect(url_for('main.user_dashboard'))
+
+@auth.route('/verify/<token>')
+def verify_email(token):
+    email = confirm_verification_token(token)
+    if not email:
+        flash('The verification link is invalid or has expired.', 'danger')
+        return redirect(url_for('auth.login'))
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        flash('Account not found.', 'danger')
+        return redirect(url_for('auth.login'))
+    # You can add a field like user.is_verified = True and save it
+    # user.is_verified = True
+    # db.session.commit()
+    flash('Your email has been verified! You can now log in.', 'success')
+    return redirect(url_for('auth.login'))
 
 
 

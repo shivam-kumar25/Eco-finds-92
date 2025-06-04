@@ -28,12 +28,12 @@ def create_app(config_class=Config):
     # Import blueprints to register them
     from routes.auth import auth 
     from routes.intro import intro
-    from routes.home import home
+    
     from routes.user import user
     from routes.product import product
     from routes.payment import payment
     
-    
+    from routes.auction import auction
     
     
         
@@ -45,10 +45,10 @@ def create_app(config_class=Config):
     # app.register_blueprint(main)
     app.register_blueprint(auth, url_prefix='/auth')
     app.register_blueprint(intro)
-    app.register_blueprint(home)
     app.register_blueprint(user, url_prefix='/user')
     app.register_blueprint(product, url_prefix='/product')
     app.register_blueprint(payment)
+    app.register_blueprint(auction, url_prefix='/auction')
     
     
     return app
