@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoFinds | Dashboard</title>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/static/CSS/home.css" />
+</head>
+<body>
+  <!-- Animated Background Shapes -->
+  <div class="bg-shape shape-circle circle-1"></div>
+  <div class="bg-shape shape-circle circle-2"></div>
+  <div class="bg-shape shape-blob blob-1"></div>
+  <div class="bg-shape shape-blob blob-2"></div>
+
+  <!-- Header / Navigation -->
+  <header class="header animate-fade-down">
+    <div class="container header-container">
+      <div class="logo">
+        <a href="#">EcoFinds</a>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="/dashboard" class="active">Dashboard</a></li>
+          <li><a href="/listings">My Listings</a></li>
+          <li><a href="/search">Search Items</a></li>
+          <li><a href="/profile">Profile</a></li>
+          <li><a href="/settings">Settings</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <span class="user-greeting animate-fade-in-up" style="animation-delay: 0.4s;">Hello, <strong>Jane Doe</strong></span>
+        <a href="/logout" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
+          Log Out
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Dashboard Content -->
+  <main class="main-content">
+    <div class="container">
+      <!-- Welcome Section -->
+      <section class="welcome-section animate-fade-in-up" style="animation-delay: 0.8s;">
+        <h1 class="welcome-title">Welcome Back, Jane!</h1>
+        <p class="welcome-subtitle">Browse new listings, manage your items, and connect with the community.</p>
+      </section>
+
+      <!-- Quick Stats -->
+      <section class="stats-section">
+        <div class="stats-grid">
+          <div class="stat-card animate-pop-in" style="animation-delay: 1s;">
+            <div class="stat-icon">📦</div>
+            <div class="stat-info">
+              <h3>Active Listings</h3>
+              <p class="stat-value">12</p>
+            </div>
+          </div>
+          <div class="stat-card animate-pop-in" style="animation-delay: 1.2s;">
+            <div class="stat-icon">🛒</div>
+            <div class="stat-info">
+              <h3>Items Sold</h3>
+              <p class="stat-value">34</p>
+            </div>
+          </div>
+          <div class="stat-card animate-pop-in" style="animation-delay: 1.4s;">
+            <div class="stat-icon">💬</div>
+            <div class="stat-info">
+              <h3>Messages</h3>
+              <p class="stat-value">5</p>
+            </div>
+          </div>
+          <div class="stat-card animate-pop-in" style="animation-delay: 1.6s;">
+            <div class="stat-icon">⭐</div>
+            <div class="stat-info">
+              <h3>Reviews</h3>
+              <p class="stat-value">18</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Recent Listings -->
+      <section class="recent-listings-section animate-fade-in-up" style="animation-delay: 1.8s;">
+        <h2 class="section-heading">Your Recent Listings</h2>
+        <div class="listings-grid">
+          <div class="listing-card animate-slide-in-left" style="animation-delay: 2s;">
+            <img src="https://via.placeholder.com/300x180?text=Vintage+Chair" alt="Vintage Chair" />
+            <div class="listing-info">
+              <h3>Vintage Wooden Chair</h3>
+              <p class="listing-status">Status: Active</p>
+              <a href="/listing/1" class="btn view-btn">View</a>
+            </div>
+          </div>
+          <div class="listing-card animate-fade-in-up" style="animation-delay: 2.2s;">
+            <img src="https://via.placeholder.com/300x180?text=Mountain+Bike" alt="Mountain Bike" />
+            <div class="listing-info">
+              <h3>Mountain Bike</h3>
+              <p class="listing-status">Status: Sold</p>
+              <a href="/listing/2" class="btn view-btn">View</a>
+            </div>
+          </div>
+          <div class="listing-card animate-slide-in-right" style="animation-delay: 2.4s;">
+            <img src="https://via.placeholder.com/300x180?text=Ceramic+Vase" alt="Ceramic Vase" />
+            <div class="listing-info">
+              <h3>Handmade Ceramic Vase</h3>
+              <p class="listing-status">Status: Active</p>
+              <a href="/listing/3" class="btn view-btn">View</a>
+            </div>
+          </div>
+        </div>
+        <a href="/listings" class="btn all-listings-btn animate-pop-in" style="animation-delay: 2.6s;">
+          View All My Listings →
+        </a>
+      </section>
+
+      <!-- Community Spotlight -->
+      <section class="community-section animate-fade-in-up" style="animation-delay: 2.8s;">
+        <h2 class="section-heading">Community Spotlight</h2>
+        <div class="community-grid">
+          <div class="community-card animate-slide-in-left" style="animation-delay: 3s;">
+            <div class="community-icon">💡</div>
+            <p>“I found a rare vinyl record here and connected with a fellow collector!” <strong>– Alex M.</strong></p>
+          </div>
+          <div class="community-card animate-fade-in-up" style="animation-delay: 3.2s;">
+            <div class="community-icon">🌿</div>
+            <p>“Selling my old camera gave it a second life and helped me declutter!” <strong>– Lauren S.</strong></p>
+          </div>
+          <div class="community-card animate-slide-in-right" style="animation-delay: 3.4s;">
+            <div class="community-icon">🔄</div>
+            <p>“I love supporting local sellers and reducing waste through reuse.” <strong>– Michael T.</strong></p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer animate-fade-up" style="animation-delay: 3.6s;">
+    <div class="container footer-container">
+      <ul class="footer-links">
+        <li><a href="#">Help Center</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Service</a></li>
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+      <div class="social-icons">
+        <a href="#" aria-label="Twitter">🐦</a>
+        <a href="#" aria-label="Facebook">📘</a>
+        <a href="#" aria-label="Instagram">📷</a>
+      </div>
+      <p class="footer-copy">© 2023 EcoFinds. All rights reserved.</p>
+      <p class="footer-contact">support@ecofinds.com | +1 (800) 123-4567</p>
+    </div>
+  </footer>
+</body>
+</html>
+
+

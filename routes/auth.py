@@ -25,6 +25,22 @@ def send_welcome_email(user_email, username):
     )
     mail.send(msg)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
     if 'user_id' in session:
