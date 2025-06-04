@@ -39,19 +39,19 @@ def register():
         # Form validation
         if not all([username, email, password, confirm_password]):
             flash('All fields are required', 'danger')
-            return render_template('register.html', title='Register')
+            return render_template('auth/register.html', title='Register')
 
         if password != confirm_password:
             flash('Passwords do not match', 'danger')
-            return render_template('register.html', title='Register')
+            return render_template('auth/register.html', title='Register')
 
         if User.query.filter_by(username=username).first():
             flash('Username already taken', 'danger')
-            return render_template('register.html', title='Register')
+            return render_template('auth/register.html', title='Register')
 
         if User.query.filter_by(email=email).first():
             flash('Email already registered', 'danger')
-            return render_template('register.html', title='Register')
+            return render_template('/auth/register.html', title='Register')
 
         # Create new user
         user = User(username=username, email=email)
@@ -65,7 +65,7 @@ def register():
         flash('Registration successful! Please log in.', 'success')
         return redirect(url_for('auth.login'))
 
-    return render_template('register.html', title='Register')
+    return render_template('auth/register.html', title='Register')
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
@@ -89,7 +89,7 @@ def login():
         else:
             flash('Invalid email or password', 'danger')
     
-    return render_template('login.html', title='Login')
+    return render_template('auth/login.html', title='Login')
 
 @auth.route('/logout')
 def logout():
