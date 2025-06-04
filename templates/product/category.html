@@ -1,6 +1,161 @@
 
 
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoFinds | Categories</title>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/static/CSS/category.css" />
+</head>
+<body>
+  <!-- Animated Background Shapes -->
+  <div class="bg-shape shape-circle circle-1"></div>
+  <div class="bg-shape shape-circle circle-2"></div>
+  <div class="bg-shape shape-blob blob-1"></div>
+  <div class="bg-shape shape-blob blob-2"></div>
+
+  <!-- Header / Navigation -->
+  <header class="header animate-fade-down">
+    <div class="container header-container">
+      <div class="logo">
+        <a href="/">EcoFinds</a>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/listings">Browse Listings</a></li>
+          <li><a href="/search">Search</a></li>
+          <li><a href="/categories" class="active">Categories</a></li>
+          <li><a href="/profile">Profile</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <span class="user-greeting animate-fade-in-up" style="animation-delay: 0.4s;">
+          Hello, <strong>Jane Doe</strong>
+        </span>
+        <a href="/logout" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
+          Log Out
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Category Banner -->
+  <section class="category-banner animate-fade-in-up" style="animation-delay: 0.8s;">
+    <div class="container">
+      <h1 class="banner-title">Shop by Category</h1>
+      <p class="banner-subtitle">
+        Explore curated categories to find sustainable treasures across all interests.
+      </p>
+    </div>
+  </section>
+
+  <!-- Category Grid -->
+  <main class="category-main">
+    <div class="container">
+      <section class="category-grid animate-fade-in-up" style="animation-delay: 1s;">
+        <!-- Category Card: Furniture -->
+        <div class="category-card animate-slide-in-left" style="animation-delay: 1.2s;">
+          <div class="category-image">
+            <img src="https://via.placeholder.com/300x180?text=Furniture" alt="Furniture" />
+          </div>
+          <div class="category-info">
+            <h2>Furniture</h2>
+            <p>Chairs, tables, sofas, and more sustainable home pieces.</p>
+            <a href="/categories/furniture" class="btn view-btn">View Furniture</a>
+          </div>
+        </div>
+
+        <!-- Category Card: Electronics -->
+        <div class="category-card animate-fade-in-up" style="animation-delay: 1.4s;">
+          <div class="category-image">
+            <img src="https://via.placeholder.com/300x180?text=Electronics" alt="Electronics" />
+          </div>
+          <div class="category-info">
+            <h2>Electronics</h2>
+            <p>Smartphones, laptops, cameras, and other pre-loved gadgets.</p>
+            <a href="/categories/electronics" class="btn view-btn">View Electronics</a>
+          </div>
+        </div>
+
+        <!-- Category Card: Home Decor -->
+        <div class="category-card animate-slide-in-right" style="animation-delay: 1.6s;">
+          <div class="category-image">
+            <img src="https://via.placeholder.com/300x180?text=Home+Decor" alt="Home Decor" />
+          </div>
+          <div class="category-info">
+            <h2>Home Decor</h2>
+            <p>Art, rugs, lamps, and unique pieces to personalize your space.</p>
+            <a href="/categories/home-decor" class="btn view-btn">View Home Decor</a>
+          </div>
+        </div>
+
+        <!-- Category Card: Books -->
+        <div class="category-card animate-slide-in-left" style="animation-delay: 1.8s;">
+          <div class="category-image">
+            <img src="https://via.placeholder.com/300x180?text=Books" alt="Books" />
+          </div>
+          <div class="category-info">
+            <h2>Books</h2>
+            <p>Bestsellers, classics, and niche titles—read sustainably.</p>
+            <a href="/categories/books" class="btn view-btn">View Books</a>
+          </div>
+        </div>
+
+        <!-- Category Card: Clothing -->
+        <div class="category-card animate-fade-in-up" style="animation-delay: 2s;">
+          <div class="category-image">
+            <img src="https://via.placeholder.com/300x180?text=Clothing" alt="Clothing" />
+          </div>
+          <div class="category-info">
+            <h2>Clothing</h2>
+            <p>Vintage styles, gently used fashion, and eco-friendly apparel.</p>
+            <a href="/categories/clothing" class="btn view-btn">View Clothing</a>
+          </div>
+        </div>
+
+        <!-- Category Card: Accessories -->
+        <div class="category-card animate-slide-in-right" style="animation-delay: 2.2s;">
+          <div class="category-image">
+            <img src="https://via.placeholder.com/300x180?text=Accessories" alt="Accessories" />
+          </div>
+          <div class="category-info">
+            <h2>Accessories</h2>
+            <p>Bags, jewelry, hats, and more pre-loved accents.</p>
+            <a href="/categories/accessories" class="btn view-btn">View Accessories</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer animate-fade-up" style="animation-delay: 2.4s;">
+    <div class="container footer-container">
+      <ul class="footer-links">
+        <li><a href="/help">Help Center</a></li>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms of Service</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+      <div class="social-icons">
+        <a href="#" aria-label="Twitter">🐦</a>
+        <a href="#" aria-label="Facebook">📘</a>
+        <a href="#" aria-label="Instagram">📷</a>
+      </div>
+      <p class="footer-copy">© 2023 EcoFinds. All rights reserved.</p>
+      <p class="footer-contact">support@ecofinds.com | +1 (800) 123-4567</p>
+    </div>
+  </footer>
+</body>
+</html>
 
 
 

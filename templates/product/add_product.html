@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoFinds | Add Listing</title>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/static/CSS/add_product.css" />
+</head>
+<body>
+  <!-- Animated Background Shapes -->
+  <div class="bg-shape shape-circle circle-1"></div>
+  <div class="bg-shape shape-circle circle-2"></div>
+  <div class="bg-shape shape-blob blob-1"></div>
+  <div class="bg-shape shape-blob blob-2"></div>
+
+  <!-- Header / Navigation -->
+  <header class="header animate-fade-down">
+    <div class="container header-container">
+      <div class="logo">
+        <a href="#">EcoFinds</a>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/listings">Browse Listings</a></li>
+          <li><a href="/add" class="active">Add Listing</a></li>
+          <li><a href="/profile">Profile</a></li>
+          <li><a href="/settings">Settings</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <span class="user-greeting animate-fade-in-up" style="animation-delay: 0.4s;">
+          Hello, <strong>Jane Doe</strong>
+        </span>
+        <a href="/logout" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
+          Log Out
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Add Listing Main Content -->
+  <main class="add-main">
+    <div class="container">
+      <section class="add-header animate-fade-in-up" style="animation-delay: 0.8s;">
+        <h1 class="section-title">Create a New Listing</h1>
+        <p class="section-subtitle">Help others find your sustainable treasure</p>
+      </section>
+
+      <form class="add-form animate-fade-in-up" style="animation-delay: 1s;" action="/add/submit" method="POST" enctype="multipart/form-data">
+        <!-- Basic Info -->
+        <div class="form-section animate-slide-in-left" style="animation-delay: 1.2s;">
+          <h2>Basic Information</h2>
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" placeholder="Vintage Wooden Chair" required />
+          </div>
+          <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category" name="category" required>
+              <option value="">Select Category</option>
+              <option>Furniture</option>
+              <option>Electronics</option>
+              <option>Home Decor</option>
+              <option>Books</option>
+              <option>Clothing</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" rows="4" placeholder="Describe your item…" required></textarea>
+          </div>
+        </div>
+
+        <!-- Pricing & Location -->
+        <div class="form-section animate-slide-in-right" style="animation-delay: 1.4s;">
+          <h2>Pricing & Location</h2>
+          <div class="form-group">
+            <label for="price">Price ($)</label>
+            <input type="number" id="price" name="price" min="0" placeholder="75.00" required />
+          </div>
+          <div class="form-group">
+            <label for="location">Location (City or ZIP)</label>
+            <input type="text" id="location" name="location" placeholder="Anytown, USA" required />
+          </div>
+        </div>
+
+        <!-- Details -->
+        <div class="form-section animate-slide-in-left" style="animation-delay: 1.6s;">
+          <h2>Item Details</h2>
+          <div class="form-row">
+            <div class="half-group">
+              <label for="condition">Condition</label>
+              <select id="condition" name="condition" required>
+                <option value="">Select Condition</option>
+                <option>New</option>
+                <option>Like New</option>
+                <option>Good</option>
+                <option>Fair</option>
+                <option>Vintage</option>
+              </select>
+            </div>
+            <div class="half-group">
+              <label for="quantity">Quantity</label>
+              <input type="number" id="quantity" name="quantity" min="1" value="1" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="half-group">
+              <label for="width">Width (in)</label>
+              <input type="number" id="width" name="width" min="0" placeholder="18" />
+            </div>
+            <div class="half-group">
+              <label for="height">Height (in)</label>
+              <input type="number" id="height" name="height" min="0" placeholder="34" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="half-group">
+              <label for="depth">Depth (in)</label>
+              <input type="number" id="depth" name="depth" min="0" placeholder="20" />
+            </div>
+            <div class="half-group">
+              <label for="weight">Weight (lbs)</label>
+              <input type="number" id="weight" name="weight" min="0" placeholder="12" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Image Upload -->
+        <div class="form-section animate-slide-in-right" style="animation-delay: 1.8s;">
+          <h2>Upload Images</h2>
+          <div class="form-group">
+            <label for="images">Select up to 5 photos</label>
+            <input type="file" id="images" name="images[]" accept="image/*" multiple required />
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-section animate-pop-in" style="animation-delay: 2s;">
+          <button type="submit" class="btn submit-btn">Post Listing</button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer animate-fade-up" style="animation-delay: 2.4s;">
+    <div class="container footer-container">
+      <ul class="footer-links">
+        <li><a href="/help">Help Center</a></li>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms of Service</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+      <div class="social-icons">
+        <a href="#" aria-label="Twitter">🐦</a>
+        <a href="#" aria-label="Facebook">📘</a>
+        <a href="#" aria-label="Instagram">📷</a>
+      </div>
+      <p class="footer-copy">© 2023 EcoFinds. All rights reserved.</p>
+      <p class="footer-contact">support@ecofinds.com | +1 (800) 123-4567</p>
+    </div>
+  </footer>
+</body>
+</html>
+
+

@@ -24,14 +24,22 @@ def product_listing():
 
 
 
-# product description
+# product details
+@product.route('/product_details')
+def product_details():
+    return render_template('/product/product_details.html')
 
 
 
 
 # product addition
-
-
+@product.route('/add_product', methods=['GET', 'POST'])
+def add_product():
+    # if request.method == 'POST':
+    #     # Handle product addition logic here
+    #     flash('Product added successfully!')
+    #     return redirect(url_for('product.product_listing'))
+    return render_template('/product/add_product.html')
 
 
 # product deletion
@@ -44,7 +52,7 @@ def product_listing():
 
 
 # product search
-@product.route('/product_search', methods=['GET', 'POST'])
+@product.route('/search', methods=['GET', 'POST'])
 def product_search():
     # if request.method == 'POST':
     #     search_query = request.form.get('search_query')
@@ -52,17 +60,24 @@ def product_search():
     #     # For now, we'll just flash a message
     #     flash(f'Searching for products related to: {search_query}')
     #     return redirect(url_for('product.product_listing'))
-    return render_template('/product/product_search.html')
+    return render_template('/product/search.html')
 
 
 
  
 
 
-# product 
+# product category page
+@product.route('/category')
+def product_category():
+    return render_template('/product/category.html')
 
 
 
 
+# Tendy Products
+@product.route('/trendy_products')
+def trendy_products():
+    return render_template('/product/trendy_products.html')
 
 
