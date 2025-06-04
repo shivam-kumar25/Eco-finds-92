@@ -8,6 +8,7 @@ from flask_mail import Mail
 
 
 
+
 from flask import Blueprint, render_template, redirect, url_for, flash, request, session
 from __init__ import db
 from models.user import User
@@ -71,6 +72,8 @@ def product_search():
 @product.route('/category')
 def product_category():
     return render_template('/product/category.html')
+
+
 
 
 

@@ -28,19 +28,6 @@ def send_welcome_email(user_email, username):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
     if 'user_id' in session:
@@ -51,6 +38,7 @@ def register():
         email = request.form.get('email')
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
+
 
         # Form validation
         if not all([username, email, password, confirm_password]):
