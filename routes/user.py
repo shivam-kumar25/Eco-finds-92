@@ -16,6 +16,26 @@ from models.user import User
 
 user = Blueprint('user', __name__)
 
+
+
+
+
+
+@user.route('/home')
+def index():
+    user_name = session.get('user_name')
+    return render_template('home.html', title='Welcome to Eco-Finds 92', user_name=user_name)
+
+
+
+
+
+
+
+
+
+
+
 # Profile setup
 
 @user.route('/profile_setup')

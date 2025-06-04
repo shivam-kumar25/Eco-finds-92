@@ -1,5 +1,5 @@
-
 /* registration-styles.css */
+
 
 /*===========================
   Variables & Global Reset
@@ -15,6 +15,7 @@
   --transition: 0.4s ease;
 }
 
+
 *,
 *::before,
 *::after {
@@ -23,9 +24,11 @@
   padding: 0;
 }
 
+
 html {
   scroll-behavior: smooth;
 }
+
 
 body {
   font-family: var(--font-family);
@@ -38,6 +41,7 @@ body {
   position: relative;
 }
 
+
 /*===========================
   Animated Background Shapes
 ===========================*/
@@ -49,11 +53,13 @@ body {
   z-index: 1;
 }
 
+
 /* Circle Shapes */
 .shape-circle {
   border-radius: 50%;
   background: radial-gradient(circle at center, var(--primary-green), transparent);
 }
+
 
 .circle-a {
   width: 500px;
@@ -63,6 +69,7 @@ body {
   animation-duration: 30s;
 }
 
+
 .circle-b {
   width: 350px;
   height: 350px;
@@ -71,6 +78,7 @@ body {
   animation-duration: 35s;
   animation-direction: reverse;
 }
+
 
 /* Blob Shapes */
 .shape-blob {
@@ -87,6 +95,7 @@ body {
   );
 }
 
+
 .blob-a {
   width: 300px;
   height: 300px;
@@ -94,6 +103,7 @@ body {
   right: -100px;
   animation-duration: 28s;
 }
+
 
 .blob-b {
   width: 250px;
@@ -103,6 +113,7 @@ body {
   animation-duration: 32s;
   animation-direction: reverse;
 }
+
 
 @keyframes float {
   0% {
@@ -116,81 +127,6 @@ body {
   }
 }
 
-/*===========================
-  Header & Navigation
-===========================*/
-.header {
-  background-color: var(--white);
-  padding: 1rem 0;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.header-container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.logo a {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--primary-green);
-  text-decoration: none;
-}
-
-.main-nav .nav-list {
-  list-style: none;
-  display: flex;
-  gap: 2rem;
-}
-
-.main-nav .nav-list li a {
-  color: var(--gray-text);
-  font-size: 0.95rem;
-  font-weight: 500;
-  position: relative;
-  text-decoration: none;
-  transition: color var(--transition);
-}
-
-.main-nav .nav-list li a:hover,
-.main-nav .nav-list li a.active {
-  color: var(--primary-green);
-}
-
-.main-nav .nav-list li a.active::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  height: 2px;
-  width: 100%;
-  background-color: var(--primary-green);
-  border-radius: 2px;
-}
-
-/* Fade In Down Animation for Header */
-@keyframes fadeInDown {
-  0% {
-    opacity: 0;
-    transform: translateY(-30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-down {
-  opacity: 0;
-  animation: fadeInDown 0.6s ease-out forwards;
-}
 
 /*===========================
   Registration Container & Card
@@ -198,12 +134,15 @@ body {
 .registration-container {
   flex: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 2rem 1rem;
   position: relative;
   z-index: 5;
+  min-height: 100vh;
 }
+
 
 .registration-card {
   background-color: var(--white);
@@ -211,10 +150,12 @@ body {
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 450px;
-  padding: 2rem 1.5rem;
+  padding: 2.5rem;
   position: relative;
   overflow: hidden;
+  margin: 2rem auto;
 }
+
 
 /* Card Fade-In Animation */
 @keyframes cardFadeIn {
@@ -228,10 +169,12 @@ body {
   }
 }
 
+
 .animate-card-fade {
   opacity: 0;
   animation: cardFadeIn 0.6s ease-out forwards;
 }
+
 
 /*===========================
   Card Title & Headings
@@ -244,12 +187,14 @@ body {
   text-align: center;
 }
 
+
 .section-heading {
   font-size: 1rem;
   font-weight: 500;
   color: var(--gray-text);
   margin-bottom: 0.25rem;
 }
+
 
 /* Fade In Up Animation */
 @keyframes fadeInUp {
@@ -263,10 +208,12 @@ body {
   }
 }
 
+
 .animate-fade-in-up {
   opacity: 0;
   animation: fadeInUp 0.6s ease-out forwards;
 }
+
 
 /*===========================
   Form Styles
@@ -277,9 +224,11 @@ body {
   gap: 1.5rem;
 }
 
+
 .form-section {
   opacity: 0;
 }
+
 
 /* Slide In Animations */
 @keyframes slideInLeft {
@@ -293,6 +242,7 @@ body {
   }
 }
 
+
 @keyframes slideInRight {
   0% {
     opacity: 0;
@@ -304,24 +254,29 @@ body {
   }
 }
 
+
 .animate-slide-in-left {
   animation: slideInLeft 0.6s ease-out forwards;
 }
 
+
 .animate-slide-in-right {
   animation: slideInRight 0.6s ease-out forwards;
 }
+
 
 .form-group {
   display: flex;
   flex-direction: column;
 }
 
+
 .form-group label {
   font-size: 0.9rem;
   margin-bottom: 0.3rem;
   color: var(--gray-text);
 }
+
 
 .form-group input[type='text'],
 .form-group input[type='email'],
@@ -335,11 +290,13 @@ body {
   transition: border-color var(--transition), box-shadow var(--transition);
 }
 
+
 .form-group input:focus {
   outline: none;
   border-color: var(--secondary-green);
   box-shadow: 0 0 5px rgba(140, 188, 79, 0.3);
 }
+
 
 /* OTP Group (inline input + button) */
 .otp-group {
@@ -347,9 +304,11 @@ body {
   gap: 0.5rem;
 }
 
+
 .otp-group input {
   flex: 1;
 }
+
 
 .otp-btn {
   background-color: var(--primary-green);
@@ -363,10 +322,12 @@ body {
   opacity: 0;
 }
 
+
 .otp-btn:hover {
   background-color: var(--secondary-green);
   transform: translateY(-2px);
 }
+
 
 /*===========================
   Checkbox Group
@@ -376,6 +337,7 @@ body {
   gap: 1rem;
 }
 
+
 .checkbox-group label {
   display: flex;
   align-items: center;
@@ -384,11 +346,13 @@ body {
   color: var(--gray-text);
 }
 
+
 .checkbox-group input[type='checkbox'] {
   width: 16px;
   height: 16px;
   accent-color: var(--primary-green);
 }
+
 
 /*===========================
   Buttons & Animations
@@ -404,6 +368,7 @@ body {
   transition: background-color var(--transition), transform var(--transition);
 }
 
+
 .register-btn {
   background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
   color: var(--white);
@@ -413,10 +378,12 @@ body {
   margin-top: 0.5rem;
 }
 
+
 .register-btn:hover {
   background: linear-gradient(135deg, var(--secondary-green), #528c3b);
   transform: translateY(-2px);
 }
+
 
 /* Pulse Animation */
 @keyframes pulse {
@@ -431,11 +398,13 @@ body {
   }
 }
 
+
 .animate-pulse {
   opacity: 1;
   animation: pulse 2s infinite forwards;
   animation-delay: 1.3s;
 }
+
 
 /* Pop In Animation for OTP button */
 @keyframes popIn {
@@ -449,118 +418,160 @@ body {
   }
 }
 
+
 .animate-pop-in {
   opacity: 0;
   animation: popIn 0.6s ease-out forwards;
 }
 
+
 /*===========================
-  Footer Styles
+  Navigation Back Button
 ===========================*/
-.footer {
-  background-color: var(--white);
-  padding: 1rem 0;
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
-  position: relative;
-  z-index: 10;
+.nav-back {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 100;
 }
 
-.footer-container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-  text-align: center;
-}
 
-.footer-links {
-  list-style: none;
+.back-btn {
   display: flex;
-  gap: 1.5rem;
-  justify-content: center;
-}
-
-.footer-links li a {
-  color: var(--gray-text);
-  font-size: 0.9rem;
+  align-items: center;
+  gap: 0.5rem;
   text-decoration: none;
-  transition: color var(--transition);
+  color: var(--gray-text);
+  font-weight: 500;
+  padding: 0.75rem 1.25rem;
+  background: var(--white);
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all var(--transition);
 }
 
-.footer-links li a:hover {
+
+.back-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
   color: var(--primary-green);
 }
 
-/* Fade In Up Animation */
-@keyframes fadeInUpFooter {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+
+.back-arrow {
+  font-size: 1.2rem;
+  line-height: 1;
 }
 
+
+.back-text {
+  font-size: 0.95rem;
+}
+
+
+/* Remove footer styles entirely */
+.footer,
+.footer-container,
+.footer-links {
+  display: none;
+}
+
+
+/* Adjust registration container to account for removed footer */
+.registration-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  position: relative;
+  z-index: 5;
+  min-height: 100vh;
+}
+
+
+.registration-card {
+  background-color: var(--white);
+  border-radius: var(--border-radius);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 450px;
+  padding: 2.5rem;
+  position: relative;
+  overflow: hidden;
+  margin: 2rem auto;
+}
+
+
+/* Ensure all buttons are visible */
+.register-btn,
+.otp-btn {
+  opacity: 1 !important;
+  background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
+  color: var(--white);
+  font-weight: 600;
+  transition: all var(--transition);
+}
+
+
+/* Clean up animations */
+.animate-fade-in-up,
+.animate-slide-in-left,
+.animate-slide-in-right,
+.animate-pop-in {
+  animation-fill-mode: both;
+  opacity: 1;
+}
+
+
+/* Remove footer animation */
 .animate-fade-up {
-  opacity: 0;
-  animation: fadeInUpFooter 0.6s ease-out forwards;
+  display: none;
 }
 
-/*===========================
-  Responsive Adjustments
-===========================*/
-@media (max-width: 1024px) {
-  .registration-card {
-    max-width: 90%;
-    padding: 1.5rem 1rem;
-  }
-  .checkbox-group {
-    flex-wrap: wrap;
-  }
-}
 
+/* Fix responsive issues */
 @media (max-width: 768px) {
-  .header-container {
-    flex-wrap: wrap;
-    gap: 1rem;
+  .nav-back {
+    top: 1rem;
+    left: 1rem;
   }
-  .main-nav .nav-list {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
+ 
+  .back-btn {
+    padding: 0.6rem;
   }
+ 
+  .back-text {
+    display: none;
+  }
+ 
+  .registration-card {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+ 
+  .otp-group {
+    flex-direction: column;
+  }
+ 
   .otp-btn {
-    padding: 0.7rem 0.8rem;
+    width: 100%;
   }
-  .register-btn {
-    font-size: 0.95rem;
-    padding: 0.8rem 0;
+ 
+  .checkbox-group {
+    flex-direction: column;
+    gap: 0.75rem;
   }
 }
 
-@media (max-width: 480px) {
-  .card-title {
-    font-size: 1.5rem;
-  }
-  .section-heading {
-    font-size: 0.95rem;
-  }
-  .form-group input {
-    font-size: 0.95rem;
-    padding: 0.7rem 0.9rem;
-  }
-  .otp-btn {
-    font-size: 0.9rem;
-  }
-  .checkbox-group label {
-    font-size: 0.85rem;
-  }
-  .register-btn {
-    font-size: 0.9rem;
-  }
-  .footer-links {
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
+
+/* Remove redundant header styles */
+.header,
+.header-container,
+.main-nav {
+  display: none;
 }
+
+
+

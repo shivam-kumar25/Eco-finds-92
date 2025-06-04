@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,11 +18,15 @@
   <div class="bg-shape shape-blob blob-1"></div>
   <div class="bg-shape shape-blob blob-2"></div>
 
+
   <!-- Header / Navigation -->
   <header class="header animate-fade-down">
     <div class="container header-container">
       <div class="logo">
         <a href="#">EcoFinds</a>
+      </div>
+      <div class="nav-toggle">
+        <span>☰</span>
       </div>
       <nav class="main-nav">
         <ul class="nav-list">
@@ -42,6 +45,7 @@
     </div>
   </header>
 
+
   <!-- Hero Section -->
   <section class="hero-section">
     <div class="container hero-content">
@@ -55,6 +59,7 @@
       </a>
     </div>
   </section>
+
 
   <!-- Features Section -->
   <section class="features-section">
@@ -80,6 +85,7 @@
     </div>
   </section>
 
+
   <!-- Newsletter Section -->
   <section class="newsletter-section animate-fade-in-up" style="animation-delay: 1s;">
     <div class="container newsletter-content">
@@ -101,6 +107,7 @@
     </div>
   </section>
 
+
   <!-- Call-to-Action Banner -->
   <section class="cta-banner animate-fade-in-up" style="animation-delay: 1.5s;">
     <div class="container cta-banner-content">
@@ -111,6 +118,7 @@
       </a>
     </div>
   </section>
+
 
   <!-- Footer -->
   <footer class="footer animate-fade-up" style="animation-delay: 2s;">
@@ -130,8 +138,21 @@
       <p class="footer-contact">Email: support@ecofinds.com | Phone: +91 9834426523</p>
     </div>
   </footer>
+
+  <script>
+    document.querySelector('.nav-toggle').addEventListener('click', function() {
+      document.querySelector('.main-nav').classList.toggle('active');
+    });
+  </script>
 </body>
 </html>
+
+
+
+
+
+
+
 
 
 

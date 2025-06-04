@@ -1,5 +1,5 @@
-
 /* landing-styles.css */
+
 
 /*===========================
   VARIABLES & BASE RESET
@@ -15,6 +15,7 @@
   --transition: 0.4s ease;
 }
 
+
 *,
 *::before,
 *::after {
@@ -23,9 +24,11 @@
   padding: 0;
 }
 
+
 html {
   scroll-behavior: smooth;
 }
+
 
 body {
   font-family: var(--font-family);
@@ -35,6 +38,7 @@ body {
   overflow-x: hidden;
   position: relative;
 }
+
 
 /*===========================
   Animated Background Shapes
@@ -47,11 +51,13 @@ body {
   z-index: 1;
 }
 
+
 /* Circle Shapes */
 .shape-circle {
   border-radius: 50%;
   background: radial-gradient(circle at center, var(--primary-green), transparent);
 }
+
 
 .circle-1 {
   width: 500px;
@@ -61,6 +67,7 @@ body {
   animation-duration: 30s;
 }
 
+
 .circle-2 {
   width: 350px;
   height: 350px;
@@ -69,6 +76,7 @@ body {
   animation-duration: 35s;
   animation-direction: reverse;
 }
+
 
 /* Blob Shapes */
 .shape-blob {
@@ -85,6 +93,7 @@ body {
   );
 }
 
+
 .blob-1 {
   width: 300px;
   height: 300px;
@@ -92,6 +101,7 @@ body {
   right: -100px;
   animation-duration: 28s;
 }
+
 
 .blob-2 {
   width: 250px;
@@ -101,6 +111,7 @@ body {
   animation-duration: 32s;
   animation-direction: reverse;
 }
+
 
 @keyframes float {
   0% {
@@ -114,6 +125,7 @@ body {
   }
 }
 
+
 /*===========================
   Header & Navigation
 ===========================*/
@@ -126,6 +138,7 @@ body {
   z-index: 10;
 }
 
+
 .header-container {
   width: 90%;
   max-width: 1200px;
@@ -135,6 +148,7 @@ body {
   justify-content: space-between;
 }
 
+
 .logo a {
   font-size: 1.25rem;
   font-weight: 600;
@@ -142,11 +156,13 @@ body {
   text-decoration: none;
 }
 
+
 .main-nav .nav-list {
   list-style: none;
   display: flex;
   gap: 2rem;
 }
+
 
 .main-nav .nav-list li a {
   color: var(--gray-text);
@@ -157,10 +173,12 @@ body {
   transition: color var(--transition);
 }
 
+
 .main-nav .nav-list li a:hover,
 .main-nav .nav-list li a.active {
   color: var(--primary-green);
 }
+
 
 .main-nav .nav-list li a.active::after {
   content: '';
@@ -172,6 +190,7 @@ body {
   background-color: var(--primary-green);
   border-radius: 2px;
 }
+
 
 /* Header Actions */
 .header-actions .login-link {
@@ -185,10 +204,12 @@ body {
   opacity: 0;
 }
 
+
 .header-actions .login-link:hover {
   background-color: var(--secondary-green);
   transform: translateY(-2px);
 }
+
 
 /* Fade In Down Animation for Header */
 @keyframes fadeInDown {
@@ -202,10 +223,12 @@ body {
   }
 }
 
+
 .animate-fade-down {
   opacity: 0;
   animation: fadeInDown 0.6s ease-out forwards;
 }
+
 
 /* Pop In Animation */
 @keyframes popIn {
@@ -219,10 +242,12 @@ body {
   }
 }
 
+
 .animate-pop-in {
   opacity: 0;
   animation: popIn 0.6s ease-out forwards;
 }
+
 
 /*===========================
   Hero Section
@@ -234,6 +259,7 @@ body {
   z-index: 5;
 }
 
+
 .hero-title {
   font-size: 2.5rem;
   font-weight: 600;
@@ -243,12 +269,14 @@ body {
   opacity: 0;
 }
 
+
 .hero-subtitle {
   font-size: 1rem;
   color: var(--gray-text);
   margin-bottom: 2rem;
   opacity: 0;
 }
+
 
 .cta-btn {
   background: linear-gradient(135deg, var(--primary-green), var(--secondary-green));
@@ -261,10 +289,12 @@ body {
   opacity: 0;
 }
 
+
 .cta-btn:hover {
   background: linear-gradient(135deg, var(--secondary-green), #528c3b);
   transform: translateY(-2px);
 }
+
 
 /* Fade In Up Animation */
 @keyframes fadeInUp {
@@ -278,10 +308,12 @@ body {
   }
 }
 
+
 .animate-fade-in-up {
   opacity: 0;
   animation: fadeInUp 0.6s ease-out forwards;
 }
+
 
 /*===========================
   Features Section
@@ -292,6 +324,7 @@ body {
   z-index: 5;
 }
 
+
 .section-heading {
   font-size: 1.5rem;
   font-weight: 600;
@@ -301,11 +334,13 @@ body {
   opacity: 0;
 }
 
+
 .features-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1.5rem;
 }
+
 
 .feature-card {
   background-color: var(--white);
@@ -317,10 +352,12 @@ body {
   opacity: 0;
 }
 
+
 .feature-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
 }
+
 
 .feature-icon {
   font-size: 2rem;
@@ -328,17 +365,20 @@ body {
   color: var(--primary-green);
 }
 
+
 .feature-card h3 {
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
+
 .feature-card p {
   font-size: 0.9rem;
   color: var(--gray-text);
   line-height: 1.4;
 }
+
 
 /* Slide In Animations */
 @keyframes slideInLeft {
@@ -352,6 +392,7 @@ body {
   }
 }
 
+
 @keyframes slideInRight {
   0% {
     opacity: 0;
@@ -363,13 +404,16 @@ body {
   }
 }
 
+
 .animate-slide-in-left {
   animation: slideInLeft 0.6s ease-out forwards;
 }
 
+
 .animate-slide-in-right {
   animation: slideInRight 0.6s ease-out forwards;
 }
+
 
 /*===========================
   Newsletter Section
@@ -387,6 +431,7 @@ body {
   opacity: 0;
 }
 
+
 .newsletter-title {
   font-size: 1.5rem;
   font-weight: 600;
@@ -394,28 +439,34 @@ body {
   margin-bottom: 0.5rem;
 }
 
+
 .newsletter-subtitle {
   font-size: 0.95rem;
   color: var(--gray-text);
   margin-bottom: 1rem;
 }
 
+
 .newsletter-form {
   display: flex;
-  gap: 0.5rem;
-  justify-content: center;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
+
 .newsletter-form input[type='email'] {
-  flex: 1;
-  min-width: 200px;
-  padding: 0.75rem 1rem;
-  font-size: 1rem;
-  border: 1px solid #ddd;
-  border-radius: var(--border-radius);
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-size: 16px;
   transition: border-color var(--transition), box-shadow var(--transition);
 }
+
 
 .newsletter-form input:focus {
   outline: none;
@@ -423,40 +474,48 @@ body {
   box-shadow: 0 0 5px rgba(108, 188, 79, 0.3);
 }
 
+
 .subscribe-btn {
-  background-color: var(--primary-green);
+  background-color: var(--primary-green) !important;
   color: var(--white);
+  width: auto;
+  min-width: 120px;
+  margin-top: 1rem;
   padding: 0.75rem 1.5rem;
-  font-size: 0.95rem;
-  border-radius: var(--border-radius);
   border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
   cursor: pointer;
-  transition: background-color var(--transition), transform var(--transition);
-  opacity: 0;
+  transition: all var(--transition);
+  opacity: 1 !important;
 }
 
+
 .subscribe-btn:hover {
-  background-color: var(--secondary-green);
+  background-color: var(--secondary-green) !important;
   transform: translateY(-2px);
 }
 
-/* Pulse Animation */
+
+/* Animation for the button */
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(143, 220, 92, 0.7);
+    transform: scale(1);
   }
   50% {
-    box-shadow: 0 0 0 8px rgba(143, 220, 92, 0);
+    transform: scale(1.05);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(143, 220, 92, 0.7);
+    transform: scale(1);
   }
 }
 
+
 .animate-pulse {
-  animation: pulse 2s infinite forwards;
-  animation-delay: 1.2s;
+  animation: pulse 2s infinite;
+  opacity: 1 !important;
 }
+
 
 /*===========================
   CTA Banner
@@ -474,16 +533,19 @@ body {
   opacity: 0;
 }
 
+
 .cta-banner-content h2 {
   font-size: 1.75rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
 
+
 .cta-banner-content p {
   font-size: 0.95rem;
   margin-bottom: 1rem;
 }
+
 
 .browse-btn {
   background-color: var(--white);
@@ -496,10 +558,12 @@ body {
   opacity: 0;
 }
 
+
 .browse-btn:hover {
   background-color: #f0fdf2;
   transform: translateY(-2px);
 }
+
 
 /* Fade In Up Footer CTA */
 @keyframes fadeInUpFooter {
@@ -513,6 +577,7 @@ body {
   }
 }
 
+
 /*===========================
   Footer
 ===========================*/
@@ -525,12 +590,14 @@ body {
   opacity: 0;
 }
 
+
 .footer-container {
   width: 90%;
   max-width: 1200px;
   margin: 0 auto;
   text-align: center;
 }
+
 
 .footer-links {
   list-style: none;
@@ -541,6 +608,7 @@ body {
   margin-bottom: 1rem;
 }
 
+
 .footer-links li a {
   color: var(--gray-text);
   font-size: 0.9rem;
@@ -548,9 +616,11 @@ body {
   transition: color var(--transition);
 }
 
+
 .footer-links li a:hover {
   color: var(--primary-green);
 }
+
 
 .social-icons {
   display: flex;
@@ -559,16 +629,19 @@ body {
   margin-bottom: 1rem;
 }
 
+
 .social-icons a {
   font-size: 1.25rem;
   color: var(--gray-text);
   transition: color var(--transition), transform var(--transition);
 }
 
+
 .social-icons a:hover {
   color: var(--primary-green);
   transform: scale(1.1);
 }
+
 
 .footer-copy,
 .footer-contact {
@@ -577,11 +650,13 @@ body {
   margin-bottom: 0.5rem;
 }
 
+
 /* Fade In Up Animation */
 .animate-fade-up {
   opacity: 0;
   animation: fadeInUpFooter 0.6s ease-out forwards;
 }
+
 
 /*===========================
   Responsive Adjustments
@@ -598,6 +673,7 @@ body {
     padding: 2rem 1rem;
   }
 }
+
 
 @media (max-width: 768px) {
   .header-container {
@@ -619,7 +695,38 @@ body {
   .features-grid {
     gap: 1rem;
   }
+
+  /* Mobile navigation styles */
+  .nav-toggle {
+    display: none;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+
+  .main-nav {
+    width: 100%;
+    display: none;
+  }
+
+  .main-nav.active {
+    display: block;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    padding: 1rem 0;
+  }
+
+  .nav-list li {
+    width: 100%;
+    text-align: center;
+  }
+
+  .header-container {
+    flex-wrap: wrap;
+  }
 }
+
 
 @media (max-width: 480px) {
   .hero-title {
@@ -667,5 +774,26 @@ body {
     font-size: 0.8rem;
   }
 }
+
+
+/* Button Base Styles */
+button.btn,
+a.btn {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: var(--border-radius);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition);
+  opacity: 1 !important; /* Force opacity */
+}
+
+
+
+
+
 
 

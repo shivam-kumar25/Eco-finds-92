@@ -1,7 +1,7 @@
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from __init__ import db
- 
+
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -17,6 +17,8 @@ class User(db.Model):
     address = db.Column(db.String(256), nullable=True)  # New field for address
     communication_preferences = db.Column(db.String(256), nullable=True)  # New field for communication preferences
     preferred_language = db.Column(db.String(64), nullable=True)  # New field for preferred language
+    category_preferences = db.Column(db.String(256), nullable=True)  # New field for category preferences
+    
 
 
     # # Relationships
