@@ -1,0 +1,167 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoFinds | Listings</title>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/static/CSS/product_listing.css" />
+</head>
+<body>
+  <!-- Animated Background Shapes -->
+  <div class="bg-shape shape-circle circle-1"></div>
+  <div class="bg-shape shape-circle circle-2"></div>
+  <div class="bg-shape shape-blob blob-1"></div>
+  <div class="bg-shape shape-blob blob-2"></div>
+
+  <!-- Header / Navigation -->
+  <header class="header animate-fade-down">
+    <div class="container header-container">
+      <div class="logo">
+        <a href="#">EcoFinds</a>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/listings" class="active">Browse Listings</a></li>
+          <li><a href="/list">My Listings</a></li>
+          <li><a href="/profile">Profile</a></li>
+          <li><a href="/settings">Settings</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <span class="user-greeting animate-fade-in-up" style="animation-delay: 0.4s;">
+          Hello, <strong>Jane Doe</strong>
+        </span>
+        <a href="/logout" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
+          Log Out
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Listing Page Main Content -->
+  <main class="listing-main">
+    <div class="container">
+      <!-- Page Title & Search Bar -->
+      <section class="listing-header animate-fade-in-up" style="animation-delay: 0.8s;">
+        <h1 class="listing-title">Browse Sustainable Listings</h1>
+        <div class="search-bar">
+          <input
+            type="text"
+            placeholder="Search by keyword, category, or location"
+            aria-label="Search Listings"
+          />
+          <button class="btn search-btn animate-pop-in" style="animation-delay: 1s;">Search</button>
+        </div>
+      </section>
+
+      <!-- Filter Tags -->
+      <section class="filter-tags animate-fade-in-up" style="animation-delay: 1.2s;">
+        <button class="tag-btn active">All</button>
+        <button class="tag-btn">Furniture</button>
+        <button class="tag-btn">Electronics</button>
+        <button class="tag-btn">Home Decor</button>
+        <button class="tag-btn">Books</button>
+        <button class="tag-btn">Clothing</button>
+      </section>
+
+      <!-- Listings Grid -->
+      <section class="listings-grid animate-fade-in-up" style="animation-delay: 1.4s;">
+        <!-- Listing Card 1 -->
+        <div class="listing-card animate-pop-in" style="animation-delay: 1.6s;">
+          <img src="https://via.placeholder.com/300x180?text=Vintage+Chair" alt="Vintage Chair" />
+          <div class="card-content">
+            <h3 class="card-title">Vintage Wooden Chair</h3>
+            <p class="card-price">$75.00</p>
+            <p class="card-location">Anytown, USA</p>
+            <a href="/listing/1" class="btn view-btn">View Details</a>
+          </div>
+        </div>
+
+        <!-- Listing Card 2 -->
+        <div class="listing-card animate-pop-in" style="animation-delay: 1.8s;">
+          <img src="https://via.placeholder.com/300x180?text=Antique+Table" alt="Antique Table" />
+          <div class="card-content">
+            <h3 class="card-title">Antique Oak Table</h3>
+            <p class="card-price">$120.00</p>
+            <p class="card-location">Greenville, USA</p>
+            <a href="/listing/2" class="btn view-btn">View Details</a>
+          </div>
+        </div>
+
+        <!-- Listing Card 3 -->
+        <div class="listing-card animate-pop-in" style="animation-delay: 2s;">
+          <img src="https://via.placeholder.com/300x180?text=Wooden+Stool" alt="Wooden Stool" />
+          <div class="card-content">
+            <h3 class="card-title">Handcrafted Wooden Stool</h3>
+            <p class="card-price">$40.00</p>
+            <p class="card-location">Lakeside, USA</p>
+            <a href="/listing/3" class="btn view-btn">View Details</a>
+          </div>
+        </div>
+
+        <!-- Listing Card 4 -->
+        <div class="listing-card animate-pop-in" style="animation-delay: 2.2s;">
+          <img src="https://via.placeholder.com/300x180?text=Vintage+Cabinet" alt="Vintage Cabinet" />
+          <div class="card-content">
+            <h3 class="card-title">Vintage Cabinet</h3>
+            <p class="card-price">$200.00</p>
+            <p class="card-location">Riverside, USA</p>
+            <a href="/listing/4" class="btn view-btn">View Details</a>
+          </div>
+        </div>
+
+        <!-- Listing Card 5 -->
+        <div class="listing-card animate-pop-in" style="animation-delay: 2.4s;">
+          <img src="https://via.placeholder.com/300x180?text=Retro+Lamp" alt="Retro Lamp" />
+          <div class="card-content">
+            <h3 class="card-title">Retro Desk Lamp</h3>
+            <p class="card-price">$30.00</p>
+            <p class="card-location">Springfield, USA</p>
+            <a href="/listing/5" class="btn view-btn">View Details</a>
+          </div>
+        </div>
+
+        <!-- Listing Card 6 -->
+        <div class="listing-card animate-pop-in" style="animation-delay: 2.6s;">
+          <img src="https://via.placeholder.com/300x180?text=Vintage+Records" alt="Vintage Records" />
+          <div class="card-content">
+            <h3 class="card-title">Vintage Vinyl Records</h3>
+            <p class="card-price">$15.00</p>
+            <p class="card-location">Oakwood, USA</p>
+            <a href="/listing/6" class="btn view-btn">View Details</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer animate-fade-up" style="animation-delay: 3s;">
+    <div class="container footer-container">
+      <ul class="footer-links">
+        <li><a href="/help">Help Center</a></li>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms of Service</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+      <div class="social-icons">
+        <a href="#" aria-label="Twitter">🐦</a>
+        <a href="#" aria-label="Facebook">📘</a>
+        <a href="#" aria-label="Instagram">📷</a>
+      </div>
+      <p class="footer-copy">© 2023 EcoFinds. All rights reserved.</p>
+      <p class="footer-contact">support@ecofinds.com | +1 (800) 123-4567</p>
+    </div>
+  </footer>
+</body>
+</html>
+
+
