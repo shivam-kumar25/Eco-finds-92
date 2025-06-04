@@ -1,3 +1,4 @@
+
 import os
 
 class Config:
@@ -11,3 +12,4 @@ class Config:
     # Debug configuration
     DEBUG = True
     TESTING = False
+
