@@ -1,0 +1,231 @@
+
+
+ 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoFinds | Live Auction</title>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="live-auction-styles.css" />
+</head>
+<body>
+  <!-- Decorative Animated Background Shapes -->
+  <div class="bg-shape shape-circle circle-1"></div>
+  <div class="bg-shape shape-circle circle-2"></div>
+  <div class="bg-shape shape-blob blob-1"></div>
+  <div class="bg-shape shape-blob blob-2"></div>
+
+  <!-- Header / Navigation -->
+  <header class="header animate-fade-down">
+    <div class="container header-container">
+      <div class="logo">
+        <a href="/">EcoFinds</a>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/listings">Browse Listings</a></li>
+          <li><a href="/search">Search</a></li>
+          <li><a href="/categories">Categories</a></li>
+          <li><a href="/cart">Cart</a></li>
+          <li><a href="/auctions" class="active">Auctions</a></li>
+          <li><a href="/profile">Profile</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <span class="user-greeting animate-pop-in" style="animation-delay: 0.4s;">
+          Hello, <strong>Jane Doe</strong>
+        </span>
+        <a href="/logout" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
+          Log Out
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Live Auction Hero Section -->
+  <section class="auction-hero animate-fade-in-up" style="animation-delay: 0.8s;">
+    <div class="container hero-container">
+      <h1 class="hero-title">🔨 Live Auction: Retro Turntable</h1>
+      <p class="hero-subtitle">Bidding ends in <span id="countdown">02:15:30</span></p>
+      <button class="btn watch-btn animate-pop-in" style="animation-delay: 1s;">
+        Watch Auction
+      </button>
+    </div>
+  </section>
+
+  <!-- Auction Main Content -->
+  <main class="auction-main">
+    <div class="container auction-container">
+      <!-- Left Column: Image & Details -->
+      <section class="auction-details animate-slide-in-left" style="animation-delay: 1.2s;">
+        <!-- Image Gallery -->
+        <div class="image-gallery">
+          <img
+            src="https://via.placeholder.com/600x400?text=Retro+Turntable+Main"
+            alt="Retro Turntable Main"
+            class="main-img"
+          />
+          <div class="thumbnails">
+            <img
+              src="https://via.placeholder.com/120x80?text=View+1"
+              alt="Thumbnail 1"
+              class="thumb active"
+            />
+            <img
+              src="https://via.placeholder.com/120x80?text=View+2"
+              alt="Thumbnail 2"
+              class="thumb"
+            />
+            <img
+              src="https://via.placeholder.com/120x80?text=View+3"
+              alt="Thumbnail 3"
+              class="thumb"
+            />
+          </div>
+        </div>
+
+        <!-- Auction Info -->
+        <div class="item-info">
+          <h2 class="item-title">Retro Turntable</h2>
+          <p class="item-condition">Condition: Excellent</p>
+          <p class="item-location">Location: Chicago, IL</p>
+          <p class="item-description">
+            Classic vintage turntable, fully restored. Perfect working condition with original
+            wooden finish and modern cartridge upgrade.
+          </p>
+        </div>
+      </section>
+
+      <!-- Right Column: Bidding & History -->
+      <aside class="auction-bidding animate-slide-in-right" style="animation-delay: 1.2s;">
+        <!-- Current Bid -->
+        <div class="current-bid-section">
+          <h3 class="section-title">Current Highest Bid</h3>
+          <div class="current-bid-amount">
+            <span>$110</span>
+          </div>
+          <p class="bid-leader">Leading Bidder: <strong>User123</strong></p>
+        </div>
+
+        <!-- Place a Bid -->
+        <div class="place-bid-section">
+          <h3 class="section-title">Place Your Bid</h3>
+          <form class="bid-form" action="/submit_bid" method="POST">
+            <div class="form-group">
+              <label for="bidAmount">Your Bid (USD)</label>
+              <input
+                type="number"
+                id="bidAmount"
+                name="bidAmount"
+                placeholder="Enter amount"
+                min="111"
+                required
+              />
+            </div>
+            <button type="submit" class="btn bid-btn">Bid Now</button>
+          </form>
+        </div>
+
+        <!-- Bid History -->
+        <div class="bid-history-section animate-fade-in-up" style="animation-delay: 1.6s;">
+          <h3 class="section-title">Bid History</h3>
+          <ul class="bid-history-list">
+            <li>
+              <span class="history-time">02:10 PM</span>
+              <span class="history-bid">$110</span>
+              <span class="history-user">User123</span>
+            </li>
+            <li>
+              <span class="history-time">02:05 PM</span>
+              <span class="history-bid">$105</span>
+              <span class="history-user">JaneDoe</span>
+            </li>
+            <li>
+              <span class="history-time">02:00 PM</span>
+              <span class="history-bid">$100</span>
+              <span class="history-user">VintageFan</span>
+            </li>
+            <!-- More history items... -->
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer animate-fade-up" style="animation-delay: 2s;">
+    <div class="container footer-container">
+      <ul class="footer-links">
+        <li><a href="/help">Help Center</a></li>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms of Service</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+      <div class="social-icons">
+        <a href="#" aria-label="Twitter">🐦</a>
+        <a href="#" aria-label="Facebook">📘</a>
+        <a href="#" aria-label="Instagram">📷</a>
+      </div>
+      <p class="footer-copy">© 2023 EcoFinds. All rights reserved.</p>
+      <p class="footer-contact">support@ecofinds.com | +1 (800) 123-4567</p>
+    </div>
+  </footer>
+
+  <!-- Optional JS to switch gallery images and countdown timer -->
+  <script>
+    // Thumbnail click swaps main image
+    document.querySelectorAll('.thumb').forEach((thumb) => {
+      thumb.addEventListener('click', () => {
+        document.querySelectorAll('.thumb').forEach((t) => t.classList.remove('active'));
+        thumb.classList.add('active');
+        document.querySelector('.main-img').src = thumb.src.replace('120x80', '600x400');
+      });
+    });
+
+    // Simple countdown (set to 2h 15m 30s for demo)
+    function startCountdown(duration, display) {
+      let timer = duration;
+      const interval = setInterval(() => {
+        let hours = Math.floor(timer / 3600);
+        let minutes = Math.floor((timer % 3600) / 60);
+        let seconds = timer % 60;
+        hours = hours < 10 ? '0' + hours : hours;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        display.textContent = hours + ':' + minutes + ':' + seconds;
+        if (--timer < 0) {
+          clearInterval(interval);
+          display.textContent = '00:00:00';
+        }
+      }, 1000);
+    }
+
+    window.addEventListener('load', () => {
+      const countdownDisplay = document.getElementById('countdown');
+      startCountdown(2 * 3600 + 15 * 60 + 30, countdownDisplay);
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

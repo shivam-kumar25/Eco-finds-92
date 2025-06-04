@@ -1,0 +1,911 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoFinds | Complete Your Purchase</title>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="bid-checkout-styles.css" />
+</head>
+<body>
+  <!-- Decorative Animated Background Shapes -->
+  <div class="bg-shape shape-circle circle-1"></div>
+  <div class="bg-shape shape-circle circle-2"></div>
+  <div class="bg-shape shape-blob blob-1"></div>
+  <div class="bg-shape shape-blob blob-2"></div>
+
+  <!-- Header / Navigation -->
+  <header class="header animate-fade-down">
+    <div class="container header-container">
+      <div class="logo">
+        <a href="/">EcoFinds</a>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/listings">Browse Listings</a></li>
+          <li><a href="/auctions">Auctions</a></li>
+          <li><a href="/cart">Cart</a></li>
+          <li><a href="/profile">Profile</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <span class="user-greeting animate-pop-in" style="animation-delay: 0.4s;">
+          Hello, <strong>Jane Doe</strong>
+        </span>
+        <a href="/logout" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
+          Log Out
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Checkout Hero Section -->
+  <section class="checkout-hero animate-fade-in-up" style="animation-delay: 0.8s;">
+    <div class="container hero-container">
+      <h1 class="hero-title">🎉 You Won the Auction!</h1>
+      <p class="hero-subtitle">
+        Congratulations on winning the <em>Retro Turntable</em> auction. Complete your purchase below.
+      </p>
+    </div>
+  </section>
+
+  <!-- Checkout Main Content -->
+  <main class="checkout-main">
+    <div class="container checkout-container">
+      <!-- Order Summary -->
+      <aside class="order-summary animate-slide-in-left" style="animation-delay: 1s;">
+        <h2 class="section-title">Order Summary</h2>
+        <div class="summary-item">
+          <img
+            src="https://via.placeholder.com/100x100?text=Retro+Turntable"
+            alt="Retro Turntable"
+          />
+          <div class="item-details">
+            <h3 class="item-name">Retro Turntable</h3>
+            <p class="item-condition">Condition: Excellent</p>
+            <p class="item-location">Seller: RetroElectronics</p>
+          </div>
+          <div class="item-amount">
+            <span class="amount">$110.00</span>
+          </div>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-total">
+          <span>Total:</span>
+          <span class="total-amount">$110.00</span>
+        </div>
+      </aside>
+
+      <!-- Billing & Payment Form -->
+      <section class="payment-form-section animate-slide-in-right" style="animation-delay: 1s;">
+        <h2 class="section-title">Billing & Payment</h2>
+        <form class="payment-form" action="/confirm_purchase" method="POST">
+          <!-- Shipping Address -->
+          <div class="form-group">
+            <label for="shippingName">Full Name</label>
+            <input
+              type="text"
+              id="shippingName"
+              name="shippingName"
+              placeholder="Jane Doe"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="shippingAddress">Address</label>
+            <input
+              type="text"
+              id="shippingAddress"
+              name="shippingAddress"
+              placeholder="123 Elm Street, Apt 4B"
+              required
+            />
+          </div>
+          <div class="form-row">
+            <div class="half-group">
+              <label for="city">City</label>
+              <input type="text" id="city" name="city" placeholder="Brooklyn" required />
+            </div>
+            <div class="half-group">
+              <label for="state">State/Region</label>
+              <input type="text" id="state" name="state" placeholder="NY" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="half-group">
+              <label for="zip">ZIP Code</label>
+              <input type="text" id="zip" name="zip" placeholder="11215" required />
+            </div>
+            <div class="half-group">
+              <label for="country">Country</label>
+              <input type="text" id="country" name="country" placeholder="USA" required />
+            </div>
+          </div>
+          <!-- Payment Details -->
+          <div class="form-group">
+            <label for="cardNumber">Card Number</label>
+            <input
+              type="text"
+              id="cardNumber"
+              name="cardNumber"
+              placeholder="1234 5678 9012 3456"
+              maxlength="19"
+              required
+            />
+          </div>
+          <div class="form-row">
+            <div class="half-group">
+              <label for="expDate">Expiry Date</label>
+              <input type="text" id="expDate" name="expDate" placeholder="MM/YY" maxlength="5" required />
+            </div>
+            <div class="half-group">
+              <label for="cvv">CVV</label>
+              <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="3" required />
+            </div>
+          </div>
+          <!-- Confirm Button -->
+          <div class="form-group btn-group animate-pop-in" style="animation-delay: 1.6s;">
+            <button type="submit" class="btn confirm-btn">Confirm & Pay $110.00</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer animate-fade-up" style="animation-delay: 2s;">
+    <div class="container footer-container">
+      <ul class="footer-links">
+        <li><a href="/help">Help Center</a></li>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms of Service</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+      <div class="social-icons">
+        <a href="#" aria-label="Twitter">🐦</a>
+        <a href="#" aria-label="Facebook">📘</a>
+        <a href="#" aria-label="Instagram">📷</a>
+      </div>
+      <p class="footer-copy">© 2023 EcoFinds. All rights reserved.</p>
+      <p class="footer-contact">support@ecofinds.com | +1 (800) 123-4567</p>
+    </div>
+  </footer>
+</body>
+</html>
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoFinds | Complete Your Purchase</title>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="bid-checkout-styles.css" />
+</head>
+<body>
+  <!-- Decorative Animated Background Shapes -->
+  <div class="bg-shape shape-circle circle-1"></div>
+  <div class="bg-shape shape-circle circle-2"></div>
+  <div class="bg-shape shape-blob blob-1"></div>
+  <div class="bg-shape shape-blob blob-2"></div>
+
+  <!-- Header / Navigation -->
+  <header class="header animate-fade-down">
+    <div class="container header-container">
+      <div class="logo">
+        <a href="/">EcoFinds</a>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/listings">Browse Listings</a></li>
+          <li><a href="/auctions">Auctions</a></li>
+          <li><a href="/cart">Cart</a></li>
+          <li><a href="/profile">Profile</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <span class="user-greeting animate-pop-in" style="animation-delay: 0.4s;">
+          Hello, <strong>Jane Doe</strong>
+        </span>
+        <a href="/logout" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
+          Log Out
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Checkout Hero Section -->
+  <section class="checkout-hero animate-fade-in-up" style="animation-delay: 0.8s;">
+    <div class="container hero-container">
+      <h1 class="hero-title">🎉 You Won the Auction!</h1>
+      <p class="hero-subtitle">
+        Congratulations on winning the <em>Retro Turntable</em> auction. Complete your purchase below.
+      </p>
+    </div>
+  </section>
+
+  <!-- Checkout Main Content -->
+  <main class="checkout-main">
+    <div class="container checkout-container">
+      <!-- Order Summary -->
+      <aside class="order-summary animate-slide-in-left" style="animation-delay: 1s;">
+        <h2 class="section-title">Order Summary</h2>
+        <div class="summary-item">
+          <img
+            src="https://via.placeholder.com/100x100?text=Retro+Turntable"
+            alt="Retro Turntable"
+          />
+          <div class="item-details">
+            <h3 class="item-name">Retro Turntable</h3>
+            <p class="item-condition">Condition: Excellent</p>
+            <p class="item-location">Seller: RetroElectronics</p>
+          </div>
+          <div class="item-amount">
+            <span class="amount">$110.00</span>
+          </div>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-total">
+          <span>Total:</span>
+          <span class="total-amount">$110.00</span>
+        </div>
+      </aside>
+
+      <!-- Billing & Payment Form -->
+      <section class="payment-form-section animate-slide-in-right" style="animation-delay: 1s;">
+        <h2 class="section-title">Billing & Payment</h2>
+        <form class="payment-form" action="/confirm_purchase" method="POST">
+          <!-- Shipping Address -->
+          <div class="form-group">
+            <label for="shippingName">Full Name</label>
+            <input
+              type="text"
+              id="shippingName"
+              name="shippingName"
+              placeholder="Jane Doe"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="shippingAddress">Address</label>
+            <input
+              type="text"
+              id="shippingAddress"
+              name="shippingAddress"
+              placeholder="123 Elm Street, Apt 4B"
+              required
+            />
+          </div>
+          <div class="form-row">
+            <div class="half-group">
+              <label for="city">City</label>
+              <input type="text" id="city" name="city" placeholder="Brooklyn" required />
+            </div>
+            <div class="half-group">
+              <label for="state">State/Region</label>
+              <input type="text" id="state" name="state" placeholder="NY" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="half-group">
+              <label for="zip">ZIP Code</label>
+              <input type="text" id="zip" name="zip" placeholder="11215" required />
+            </div>
+            <div class="half-group">
+              <label for="country">Country</label>
+              <input type="text" id="country" name="country" placeholder="USA" required />
+            </div>
+          </div>
+          <!-- Payment Details -->
+          <div class="form-group">
+            <label for="cardNumber">Card Number</label>
+            <input
+              type="text"
+              id="cardNumber"
+              name="cardNumber"
+              placeholder="1234 5678 9012 3456"
+              maxlength="19"
+              required
+            />
+          </div>
+          <div class="form-row">
+            <div class="half-group">
+              <label for="expDate">Expiry Date</label>
+              <input type="text" id="expDate" name="expDate" placeholder="MM/YY" maxlength="5" required />
+            </div>
+            <div class="half-group">
+              <label for="cvv">CVV</label>
+              <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="3" required />
+            </div>
+          </div>
+          <!-- Confirm Button -->
+          <div class="form-group btn-group animate-pop-in" style="animation-delay: 1.6s;">
+            <button type="submit" class="btn confirm-btn">Confirm & Pay $110.00</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer animate-fade-up" style="animation-delay: 2s;">
+    <div class="container footer-container">
+      <ul class="footer-links">
+        <li><a href="/help">Help Center</a></li>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms of Service</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+      <div class="social-icons">
+        <a href="#" aria-label="Twitter">🐦</a>
+        <a href="#" aria-label="Facebook">📘</a>
+        <a href="#" aria-label="Instagram">📷</a>
+      </div>
+      <p class="footer-copy">© 2023 EcoFinds. All rights reserved.</p>
+      <p class="footer-contact">support@ecofinds.com | +1 (800) 123-4567</p>
+    </div>
+  </footer>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoFinds | Complete Your Purchase</title>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="bid-checkout-styles.css" />
+</head>
+<body>
+  <!-- Decorative Animated Background Shapes -->
+  <div class="bg-shape shape-circle circle-1"></div>
+  <div class="bg-shape shape-circle circle-2"></div>
+  <div class="bg-shape shape-blob blob-1"></div>
+  <div class="bg-shape shape-blob blob-2"></div>
+
+  <!-- Header / Navigation -->
+  <header class="header animate-fade-down">
+    <div class="container header-container">
+      <div class="logo">
+        <a href="/">EcoFinds</a>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/listings">Browse Listings</a></li>
+          <li><a href="/auctions">Auctions</a></li>
+          <li><a href="/cart">Cart</a></li>
+          <li><a href="/profile">Profile</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <span class="user-greeting animate-pop-in" style="animation-delay: 0.4s;">
+          Hello, <strong>Jane Doe</strong>
+        </span>
+        <a href="/logout" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
+          Log Out
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Checkout Hero Section -->
+  <section class="checkout-hero animate-fade-in-up" style="animation-delay: 0.8s;">
+    <div class="container hero-container">
+      <h1 class="hero-title">🎉 You Won the Auction!</h1>
+      <p class="hero-subtitle">
+        Congratulations on winning the <em>Retro Turntable</em> auction. Complete your purchase below.
+      </p>
+    </div>
+  </section>
+
+  <!-- Checkout Main Content -->
+  <main class="checkout-main">
+    <div class="container checkout-container">
+      <!-- Order Summary -->
+      <aside class="order-summary animate-slide-in-left" style="animation-delay: 1s;">
+        <h2 class="section-title">Order Summary</h2>
+        <div class="summary-item">
+          <img
+            src="https://via.placeholder.com/100x100?text=Retro+Turntable"
+            alt="Retro Turntable"
+          />
+          <div class="item-details">
+            <h3 class="item-name">Retro Turntable</h3>
+            <p class="item-condition">Condition: Excellent</p>
+            <p class="item-location">Seller: RetroElectronics</p>
+          </div>
+          <div class="item-amount">
+            <span class="amount">$110.00</span>
+          </div>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-total">
+          <span>Total:</span>
+          <span class="total-amount">$110.00</span>
+        </div>
+      </aside>
+
+      <!-- Billing & Payment Form -->
+      <section class="payment-form-section animate-slide-in-right" style="animation-delay: 1s;">
+        <h2 class="section-title">Billing & Payment</h2>
+        <form class="payment-form" action="/confirm_purchase" method="POST">
+          <!-- Shipping Address -->
+          <div class="form-group">
+            <label for="shippingName">Full Name</label>
+            <input
+              type="text"
+              id="shippingName"
+              name="shippingName"
+              placeholder="Jane Doe"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="shippingAddress">Address</label>
+            <input
+              type="text"
+              id="shippingAddress"
+              name="shippingAddress"
+              placeholder="123 Elm Street, Apt 4B"
+              required
+            />
+          </div>
+          <div class="form-row">
+            <div class="half-group">
+              <label for="city">City</label>
+              <input type="text" id="city" name="city" placeholder="Brooklyn" required />
+            </div>
+            <div class="half-group">
+              <label for="state">State/Region</label>
+              <input type="text" id="state" name="state" placeholder="NY" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="half-group">
+              <label for="zip">ZIP Code</label>
+              <input type="text" id="zip" name="zip" placeholder="11215" required />
+            </div>
+            <div class="half-group">
+              <label for="country">Country</label>
+              <input type="text" id="country" name="country" placeholder="USA" required />
+            </div>
+          </div>
+          <!-- Payment Details -->
+          <div class="form-group">
+            <label for="cardNumber">Card Number</label>
+            <input
+              type="text"
+              id="cardNumber"
+              name="cardNumber"
+              placeholder="1234 5678 9012 3456"
+              maxlength="19"
+              required
+            />
+          </div>
+          <div class="form-row">
+            <div class="half-group">
+              <label for="expDate">Expiry Date</label>
+              <input type="text" id="expDate" name="expDate" placeholder="MM/YY" maxlength="5" required />
+            </div>
+            <div class="half-group">
+              <label for="cvv">CVV</label>
+              <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="3" required />
+            </div>
+          </div>
+          <!-- Confirm Button -->
+          <div class="form-group btn-group animate-pop-in" style="animation-delay: 1.6s;">
+            <button type="submit" class="btn confirm-btn">Confirm & Pay $110.00</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer animate-fade-up" style="animation-delay: 2s;">
+    <div class="container footer-container">
+      <ul class="footer-links">
+        <li><a href="/help">Help Center</a></li>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms of Service</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+      <div class="social-icons">
+        <a href="#" aria-label="Twitter">🐦</a>
+        <a href="#" aria-label="Facebook">📘</a>
+        <a href="#" aria-label="Instagram">📷</a>
+      </div>
+      <p class="footer-copy">© 2023 EcoFinds. All rights reserved.</p>
+      <p class="footer-contact">support@ecofinds.com | +1 (800) 123-4567</p>
+    </div>
+  </footer>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoFinds | Complete Your Purchase</title>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="bid-checkout-styles.css" />
+</head>
+<body>
+  <!-- Decorative Animated Background Shapes -->
+  <div class="bg-shape shape-circle circle-1"></div>
+  <div class="bg-shape shape-circle circle-2"></div>
+  <div class="bg-shape shape-blob blob-1"></div>
+  <div class="bg-shape shape-blob blob-2"></div>
+
+  <!-- Header / Navigation -->
+  <header class="header animate-fade-down">
+    <div class="container header-container">
+      <div class="logo">
+        <a href="/">EcoFinds</a>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/listings">Browse Listings</a></li>
+          <li><a href="/auctions">Auctions</a></li>
+          <li><a href="/cart">Cart</a></li>
+          <li><a href="/profile">Profile</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <span class="user-greeting animate-pop-in" style="animation-delay: 0.4s;">
+          Hello, <strong>Jane Doe</strong>
+        </span>
+        <a href="/logout" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
+          Log Out
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Checkout Hero Section -->
+  <section class="checkout-hero animate-fade-in-up" style="animation-delay: 0.8s;">
+    <div class="container hero-container">
+      <h1 class="hero-title">🎉 You Won the Auction!</h1>
+      <p class="hero-subtitle">
+        Congratulations on winning the <em>Retro Turntable</em> auction. Complete your purchase below.
+      </p>
+    </div>
+  </section>
+
+  <!-- Checkout Main Content -->
+  <main class="checkout-main">
+    <div class="container checkout-container">
+      <!-- Order Summary -->
+      <aside class="order-summary animate-slide-in-left" style="animation-delay: 1s;">
+        <h2 class="section-title">Order Summary</h2>
+        <div class="summary-item">
+          <img
+            src="https://via.placeholder.com/100x100?text=Retro+Turntable"
+            alt="Retro Turntable"
+          />
+          <div class="item-details">
+            <h3 class="item-name">Retro Turntable</h3>
+            <p class="item-condition">Condition: Excellent</p>
+            <p class="item-location">Seller: RetroElectronics</p>
+          </div>
+          <div class="item-amount">
+            <span class="amount">$110.00</span>
+          </div>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-total">
+          <span>Total:</span>
+          <span class="total-amount">$110.00</span>
+        </div>
+      </aside>
+
+      <!-- Billing & Payment Form -->
+      <section class="payment-form-section animate-slide-in-right" style="animation-delay: 1s;">
+        <h2 class="section-title">Billing & Payment</h2>
+        <form class="payment-form" action="/confirm_purchase" method="POST">
+          <!-- Shipping Address -->
+          <div class="form-group">
+            <label for="shippingName">Full Name</label>
+            <input
+              type="text"
+              id="shippingName"
+              name="shippingName"
+              placeholder="Jane Doe"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="shippingAddress">Address</label>
+            <input
+              type="text"
+              id="shippingAddress"
+              name="shippingAddress"
+              placeholder="123 Elm Street, Apt 4B"
+              required
+            />
+          </div>
+          <div class="form-row">
+            <div class="half-group">
+              <label for="city">City</label>
+              <input type="text" id="city" name="city" placeholder="Brooklyn" required />
+            </div>
+            <div class="half-group">
+              <label for="state">State/Region</label>
+              <input type="text" id="state" name="state" placeholder="NY" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="half-group">
+              <label for="zip">ZIP Code</label>
+              <input type="text" id="zip" name="zip" placeholder="11215" required />
+            </div>
+            <div class="half-group">
+              <label for="country">Country</label>
+              <input type="text" id="country" name="country" placeholder="USA" required />
+            </div>
+          </div>
+          <!-- Payment Details -->
+          <div class="form-group">
+            <label for="cardNumber">Card Number</label>
+            <input
+              type="text"
+              id="cardNumber"
+              name="cardNumber"
+              placeholder="1234 5678 9012 3456"
+              maxlength="19"
+              required
+            />
+          </div>
+          <div class="form-row">
+            <div class="half-group">
+              <label for="expDate">Expiry Date</label>
+              <input type="text" id="expDate" name="expDate" placeholder="MM/YY" maxlength="5" required />
+            </div>
+            <div class="half-group">
+              <label for="cvv">CVV</label>
+              <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="3" required />
+            </div>
+          </div>
+          <!-- Confirm Button -->
+          <div class="form-group btn-group animate-pop-in" style="animation-delay: 1.6s;">
+            <button type="submit" class="btn confirm-btn">Confirm & Pay $110.00</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer animate-fade-up" style="animation-delay: 2s;">
+    <div class="container footer-container">
+      <ul class="footer-links">
+        <li><a href="/help">Help Center</a></li>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms of Service</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+      <div class="social-icons">
+        <a href="#" aria-label="Twitter">🐦</a>
+        <a href="#" aria-label="Facebook">📘</a>
+        <a href="#" aria-label="Instagram">📷</a>
+      </div>
+      <p class="footer-copy">© 2023 EcoFinds. All rights reserved.</p>
+      <p class="footer-contact">support@ecofinds.com | +1 (800) 123-4567</p>
+    </div>
+  </footer>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoFinds | Complete Your Purchase</title>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="bid-checkout-styles.css" />
+</head>
+<body>
+  <!-- Decorative Animated Background Shapes -->
+  <div class="bg-shape shape-circle circle-1"></div>
+  <div class="bg-shape shape-circle circle-2"></div>
+  <div class="bg-shape shape-blob blob-1"></div>
+  <div class="bg-shape shape-blob blob-2"></div>
+
+  <!-- Header / Navigation -->
+  <header class="header animate-fade-down">
+    <div class="container header-container">
+      <div class="logo">
+        <a href="/">EcoFinds</a>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/listings">Browse Listings</a></li>
+          <li><a href="/auctions">Auctions</a></li>
+          <li><a href="/cart">Cart</a></li>
+          <li><a href="/profile">Profile</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <span class="user-greeting animate-pop-in" style="animation-delay: 0.4s;">
+          Hello, <strong>Jane Doe</strong>
+        </span>
+        <a href="/logout" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
+          Log Out
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Checkout Hero Section -->
+  <section class="checkout-hero animate-fade-in-up" style="animation-delay: 0.8s;">
+    <div class="container hero-container">
+      <h1 class="hero-title">🎉 You Won the Auction!</h1>
+      <p class="hero-subtitle">
+        Congratulations on winning the <em>Retro Turntable</em> auction. Complete your purchase below.
+      </p>
+    </div>
+  </section>
+
+  <!-- Checkout Main Content -->
+  <main class="checkout-main">
+    <div class="container checkout-container">
+      <!-- Order Summary -->
+      <aside class="order-summary animate-slide-in-left" style="animation-delay: 1s;">
+        <h2 class="section-title">Order Summary</h2>
+        <div class="summary-item">
+          <img
+            src="https://via.placeholder.com/100x100?text=Retro+Turntable"
+            alt="Retro Turntable"
+          />
+          <div class="item-details">
+            <h3 class="item-name">Retro Turntable</h3>
+            <p class="item-condition">Condition: Excellent</p>
+            <p class="item-location">Seller: RetroElectronics</p>
+          </div>
+          <div class="item-amount">
+            <span class="amount">$110.00</span>
+          </div>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-total">
+          <span>Total:</span>
+          <span class="total-amount">$110.00</span>
+        </div>
+      </aside>
+
+      <!-- Billing & Payment Form -->
+      <section class="payment-form-section animate-slide-in-right" style="animation-delay: 1s;">
+        <h2 class="section-title">Billing & Payment</h2>
+        <form class="payment-form" action="/confirm_purchase" method="POST">
+          <!-- Shipping Address -->
+          <div class="form-group">
+            <label for="shippingName">Full Name</label>
+            <input
+              type="text"
+              id="shippingName"
+              name="shippingName"
+              placeholder="Jane Doe"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="shippingAddress">Address</label>
+            <input
+              type="text"
+              id="shippingAddress"
+              name="shippingAddress"
+              placeholder="123 Elm Street, Apt 4B"
+              required
+            />
+          </div>
+          <div class="form-row">
+            <div class="half-group">
+              <label for="city">City</label>
+              <input type="text" id="city" name="city" placeholder="Brooklyn" required />
+            </div>
+            <div class="half-group">
+              <label for="state">State/Region</label>
+              <input type="text" id="state" name="state" placeholder="NY" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="half-group">
+              <label for="zip">ZIP Code</label>
+              <input type="text" id="zip" name="zip" placeholder="11215" required />
+            </div>
+            <div class="half-group">
+              <label for="country">Country</label>
+              <input type="text" id="country" name="country" placeholder="USA" required />
+            </div>
+          </div>
+          <!-- Payment Details -->
+          <div class="form-group">
+            <label for="cardNumber">Card Number</label>
+            <input
+              type="text"
+              id="cardNumber"
+              name="cardNumber"
+              placeholder="1234 5678 9012 3456"
+              maxlength="19"
+              required
+            />
+          </div>
+          <div class="form-row">
+            <div class="half-group">
+              <label for="expDate">Expiry Date</label>
+              <input type="text" id="expDate" name="expDate" placeholder="MM/YY" maxlength="5" required />
+            </div>
+            <div class="half-group">
+              <label for="cvv">CVV</label>
+              <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="3" required />
+            </div>
+          </div>
+          <!-- Confirm Button -->
+          <div class="form-group btn-group animate-pop-in" style="animation-delay: 1.6s;">
+            <button type="submit" class="btn confirm-btn">Confirm & Pay $110.00</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer animate-fade-up" style="animation-delay: 2s;">
+    <div class="container footer-container">
+      <ul class="footer-links">
+        <li><a href="/help">Help Center</a></li>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms of Service</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+      <div class="social-icons">
+        <a href="#" aria-label="Twitter">🐦</a>
+        <a href="#" aria-label="Facebook">📘</a>
+        <a href="#" aria-label="Instagram">📷</a>
+      </div>
+      <p class="footer-copy">© 2023 EcoFinds. All rights reserved.</p>
+      <p class="footer-contact">support@ecofinds.com | +1 (800) 123-4567</p>
+    </div>
+  </footer>
+</body>
+</html>

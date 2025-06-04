@@ -1,0 +1,191 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoFinds | Auction Registration</title>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="auction-registration-styles.css" />
+</head>
+<body>
+  <!-- Decorative Animated Background Shapes -->
+  <div class="bg-shape shape-circle circle-1"></div>
+  <div class="bg-shape shape-circle circle-2"></div>
+  <div class="bg-shape shape-blob blob-1"></div>
+  <div class="bg-shape shape-blob blob-2"></div>
+
+  <!-- Header / Navigation -->
+  <header class="header animate-fade-down">
+    <div class="container header-container">
+      <div class="logo">
+        <a href="/">EcoFinds</a>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/auctions" class="active">Auctions</a></li>
+          <li><a href="/search">Search</a></li>
+          <li><a href="/categories">Categories</a></li>
+          <li><a href="/profile">Profile</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <span class="user-greeting animate-pop-in" style="animation-delay: 0.4s;">
+          Hello, <strong>Jane Doe</strong>
+        </span>
+        <a href="/logout" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
+          Log Out
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Registration Hero Section -->
+  <section class="registration-hero animate-fade-in-up" style="animation-delay: 0.8s;">
+    <div class="container hero-container">
+      <h1 class="hero-title">Register for Auction: Retro Turntable</h1>
+      <p class="hero-subtitle">
+        Secure your spot—pay entry fee, set reminders, and get ready to bid.
+      </p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="registration-main">
+    <div class="container registration-container">
+      <!-- Left: Product & Auction Info -->
+      <section class="product-info animate-slide-in-left" style="animation-delay: 1s;">
+        <h2 class="section-title">Product Details</h2>
+        <div class="info-item">
+          <img
+            src="https://via.placeholder.com/300x200?text=Retro+Turntable"
+            alt="Retro Turntable"
+          />
+          <div class="details-text">
+            <p><strong>Category:</strong> Electronics</p>
+            <p><strong>Condition:</strong> Excellent</p>
+            <p><strong>Description:</strong> Fully restored vintage turntable with wooden finish and modern cartridge upgrade.</p>
+          </div>
+        </div>
+
+        <h2 class="section-title">Auction Information</h2>
+        <div class="info-text">
+          <p><strong>Start:</strong> June 10, 2025 10:00 AM EDT</p>
+          <p><strong>End:</strong> June 17, 2025 10:00 AM EDT</p>
+          <p><strong>Minimum Bid:</strong> $100</p>
+          <p><strong>Reserve Price:</strong> $150</p>
+          <p><strong>Registration Deadline:</strong> June 9, 2025 11:59 PM EDT</p>
+          <p><strong>Entry Fee:</strong> $10 (non-refundable)</p>
+        </div>
+      </section>
+
+      <!-- Right: Registration Form -->
+      <aside class="registration-form-section animate-slide-in-right" style="animation-delay: 1s;">
+        <h2 class="section-title">Complete Registration</h2>
+        <form class="registration-form" action="/submit_registration" method="POST">
+          <div class="form-group">
+            <label for="regName">Full Name</label>
+            <input
+              type="text"
+              id="regName"
+              name="regName"
+              placeholder="Jane Doe"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="regEmail">Email Address</label>
+            <input
+              type="email"
+              id="regEmail"
+              name="regEmail"
+              placeholder="jane@example.com"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="regPhone">Phone Number</label>
+            <input
+              type="tel"
+              id="regPhone"
+              name="regPhone"
+              placeholder="(123) 456-7890"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="entryFee">Entry Fee Payment</label>
+            <div class="entry-fee-info">
+              <span>$10.00</span>
+            </div>
+            <button type="button" class="btn pay-fee-btn">Pay $10 Now</button>
+          </div>
+          <div class="form-group">
+            <label for="reminder">Reminder Options</label>
+            <div class="checkbox-group">
+              <label>
+                <input type="checkbox" id="reminder24h" name="reminder24h" />
+                Remind me 24 hours before auction start
+              </label>
+              <label>
+                <input type="checkbox" id="reminder1h" name="reminder1h" />
+                Remind me 1 hour before auction start
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="agreeTerms">
+              <input type="checkbox" id="agreeTerms" name="agreeTerms" required />
+              I agree to the <a href="/auction-rules">auction rules</a> and understand the entry fee is non-refundable.
+            </label>
+          </div>
+          <div class="form-group btn-group animate-pop-in" style="animation-delay: 1.6s;">
+            <button type="submit" class="btn register-btn">Submit Registration</button>
+          </div>
+        </form>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer animate-fade-up" style="animation-delay: 2.2s;">
+    <div class="container footer-container">
+      <ul class="footer-links">
+        <li><a href="/help">Help Center</a></li>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms of Service</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+      <div class="social-icons">
+        <a href="#" aria-label="Twitter">🐦</a>
+        <a href="#" aria-label="Facebook">📘</a>
+        <a href="#" aria-label="Instagram">📷</a>
+      </div>
+      <p class="footer-copy">© 2025 EcoFinds. All rights reserved.</p>
+      <p class="footer-contact">support@ecofinds.com | +1 (800) 123-4567</p>
+    </div>
+  </footer>
+
+  <!-- Optional JS for animations/toasts -->
+  <script>
+    document.querySelector('.pay-fee-btn').addEventListener('click', () => {
+      alert('Redirecting to payment gateway to pay $10 entry fee.');
+      // Actual payment integration code would go here
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+  
+
+

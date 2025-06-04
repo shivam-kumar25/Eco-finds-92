@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -55,7 +54,7 @@
           <h2>Profile Picture</h2>
           <div class="avatar-upload">
             <div class="avatar-preview">
-              <img src="https://via.placeholder.com/120" alt="Current Avatar" id="avatarPreview" />
+              <img src="{{ user.profile_picture or 'https://via.placeholder.com/120' }}" alt="Current Avatar" id="avatarPreview" />
             </div>
             <input type="file" name="avatar" id="avatarInput" accept="image/*" />
           </div>
@@ -66,28 +65,36 @@
           <h2>Personal Information</h2>
           <div class="form-group">
             <label for="fullName">Full Name</label>
-            <input type="text" id="fullName" name="full_name" placeholder="Jane Doe" required />
+            <input type="text" id="fullName" name="full_name" placeholder="Jane Doe" value="{{ user.full_name or '' }}" required />
+          </div>
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" placeholder="janedoe" value="{{ user.username or '' }}" required />
           </div>
           <div class="form-group">
             <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="jane.doe@example.com" required />
+            <input type="email" id="email" name="email" placeholder="jane.doe@example.com" value="{{ user.email or '' }}" required />
           </div>
           <div class="form-group">
             <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567" />
+            <input type="tel" id="phone" name="phone_number" placeholder="+1 (555) 123-4567" value="{{ user.phone_number or '' }}" />
           </div>
         </div>
 
-        <!-- Bio & Interests -->
+        <!-- Bio & Preferences -->
         <div class="form-section animate-slide-in-left" style="animation-delay: 0.7s;">
-          <h2>Bio & Interests</h2>
+          <h2>Bio & Preferences</h2>
           <div class="form-group">
             <label for="bio">Bio</label>
-            <textarea id="bio" name="bio" rows="4" placeholder="Tell us a bit about yourself…"></textarea>
+            <textarea id="bio" name="bio" rows="4" placeholder="Tell us a bit about yourself…">{{ user.bio or '' }}</textarea>
           </div>
           <div class="form-group">
-            <label for="interests">Interests</label>
-            <input type="text" id="interests" name="interests" placeholder="e.g., Vintage furniture, Vinyl records" />
+            <label for="communication_preferences">Communication Preferences</label>
+            <input type="text" id="communication_preferences" name="communication_preferences" placeholder="e.g., Email, SMS" value="{{ user.communication_preferences or '' }}" />
+          </div>
+          <div class="form-group">
+            <label for="preferred_language">Preferred Language</label>
+            <input type="text" id="preferred_language" name="preferred_language" placeholder="e.g., English" value="{{ user.preferred_language or '' }}" />
           </div>
         </div>
 
@@ -95,11 +102,8 @@
         <div class="form-section animate-slide-in-right" style="animation-delay: 0.9s;">
           <h2>Address</h2>
           <div class="form-group">
-            <label for="address"></label>
-            <input type="text" id="address" name="address" placeholder="123 Greenway Lane, City, State" />
-          </div>
-          
-            
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" placeholder="123 Greenway Lane, City, State" value="{{ user.address or '' }}" />
           </div>
         </div>
  

@@ -31,6 +31,7 @@ def create_app(config_class=Config):
     from routes.home import home
     from routes.user import user
     from routes.product import product
+    from routes.payment import payment
     
     
     
@@ -47,7 +48,7 @@ def create_app(config_class=Config):
     app.register_blueprint(home)
     app.register_blueprint(user, url_prefix='/user')
     app.register_blueprint(product, url_prefix='/product')
-    
+    app.register_blueprint(payment)
     
     
     return app

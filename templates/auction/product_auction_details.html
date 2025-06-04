@@ -1,0 +1,207 @@
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoFinds | Product Details & Auction Registration</title>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="product-auction-details-styles.css" />
+</head>
+<body>
+  <!-- Decorative Animated Background Shapes -->
+  <div class="bg-shape shape-circle circle-1"></div>
+  <div class="bg-shape shape-circle circle-2"></div>
+  <div class="bg-shape shape-blob blob-1"></div>
+  <div class="bg-shape shape-blob blob-2"></div>
+
+  <!-- Header / Navigation -->
+  <header class="header animate-fade-down">
+    <div class="container header-container">
+      <div class="logo">
+        <a href="/">EcoFinds</a>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/listings">Browse Listings</a></li>
+          <li><a href="/search">Search</a></li>
+          <li><a href="/categories">Categories</a></li>
+          <li><a href="/auctions" class="active">Auctions</a></li>
+          <li><a href="/profile">Profile</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <span class="user-greeting animate-pop-in" style="animation-delay: 0.4s;">
+          Hello, <strong>Jane Doe</strong>
+        </span>
+        <a href="/logout" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
+          Log Out
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Product Details Hero -->
+  <section class="product-hero animate-fade-in-up" style="animation-delay: 0.8s;">
+    <div class="container hero-container">
+      <h1 class="hero-title">Vintage Turntable</h1>
+      <p class="hero-subtitle">Classic 1970s turntable fully restored—ready for auction registration.</p>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="product-main">
+    <div class="container product-container">
+      <!-- Left: Image Gallery -->
+      <section class="product-images animate-slide-in-left" style="animation-delay: 1s;">
+        <img
+          src="https://via.placeholder.com/600x400?text=Main+Image"
+          alt="Vintage Turntable Main"
+          class="main-img"
+        />
+        <div class="thumbnails">
+          <img
+            src="https://via.placeholder.com/120x80?text=View+1"
+            alt="Thumbnail 1"
+            class="thumb active"
+          />
+          <img
+            src="https://via.placeholder.com/120x80?text=View+2"
+            alt="Thumbnail 2"
+            class="thumb"
+          />
+          <img
+            src="https://via.placeholder.com/120x80?text=View+3"
+            alt="Thumbnail 3"
+            class="thumb"
+          />
+        </div>
+      </section>
+
+      <!-- Right: Details & Registration -->
+      <aside class="product-details animate-slide-in-right" style="animation-delay: 1s;">
+        <!-- Basic Info -->
+        <div class="info-section">
+          <h2 class="section-title">Item Details</h2>
+          <p><strong>Category:</strong> Electronics</p>
+          <p><strong>Condition:</strong> Excellent, minor wear on edges</p>
+          <p><strong>Location:</strong> Chicago, IL</p>
+          <p class="description">
+            Fully restored vintage turntable from the 1970s with upgraded cartridge. Perfect working
+            condition, wooden finish, and built-in amplifier.
+          </p>
+        </div>
+
+        <!-- Auction Info -->
+        <div class="auction-info animate-fade-in-up" style="animation-delay: 1.4s;">
+          <h2 class="section-title">Auction Information</h2>
+          <p><strong>Start Date:</strong> June 10, 2025, 10:00 AM EDT</p>
+          <p><strong>End Date:</strong> June 17, 2025, 10:00 AM EDT</p>
+          <p><strong>Minimum Bid:</strong> $100</p>
+          <p><strong>Reserve Price:</strong> $150</p>
+          <p><strong>Registration Deadline:</strong> June 9, 2025, 11:59 PM EDT</p>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="registration-section animate-pop-in" style="animation-delay: 1.8s;">
+          <h2 class="section-title">Register to Bid</h2>
+          <form class="registration-form" action="/register_auction" method="POST">
+            <div class="form-group">
+              <label for="regName">Full Name</label>
+              <input
+                type="text"
+                id="regName"
+                name="regName"
+                placeholder="Jane Doe"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="regEmail">Email Address</label>
+              <input
+                type="email"
+                id="regEmail"
+                name="regEmail"
+                placeholder="jane@example.com"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="regPhone">Phone Number</label>
+              <input
+                type="tel"
+                id="regPhone"
+                name="regPhone"
+                placeholder="(123) 456-7890"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="agreeTerms">
+                <input type="checkbox" id="agreeTerms" name="agreeTerms" required />
+                I agree to the <a href="/auction-rules">auction rules</a>.
+              </label>
+            </div>
+            <div class="form-group btn-group">
+              <button type="submit" class="btn register-btn">
+                Register Now
+              </button>
+            </div>
+          </form>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer animate-fade-up" style="animation-delay: 2.2s;">
+    <div class="container footer-container">
+      <ul class="footer-links">
+        <li><a href="/help">Help Center</a></li>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms of Service</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+      <div class="social-icons">
+        <a href="#" aria-label="Twitter">🐦</a>
+        <a href="#" aria-label="Facebook">📘</a>
+        <a href="#" aria-label="Instagram">📷</a>
+      </div>
+      <p class="footer-copy">© 2025 EcoFinds. All rights reserved.</p>
+      <p class="footer-contact">support@ecofinds.com | +1 (800) 123-4567</p>
+    </div>
+  </footer>
+
+  <!-- Optional JS for gallery thumbnails -->
+  <script>
+    document.querySelectorAll('.thumb').forEach((thumb) => {
+      thumb.addEventListener('click', () => {
+        document.querySelectorAll('.thumb').forEach((t) => t.classList.remove('active'));
+        thumb.classList.add('active');
+        document.querySelector('.main-img').src = thumb.src.replace('120x80', '600x400');
+      });
+    });
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

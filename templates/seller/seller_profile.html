@@ -1,0 +1,173 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoFinds | Seller Profile</title>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="seller-profile-styles.css" />
+</head>
+<body>
+  <!-- Decorative Animated Background Shapes -->
+  <div class="bg-shape shape-circle circle-1"></div>
+  <div class="bg-shape shape-circle circle-2"></div>
+  <div class="bg-shape shape-blob blob-1"></div>
+  <div class="bg-shape shape-blob blob-2"></div>
+
+  <!-- Header / Navigation -->
+  <header class="header animate-fade-down">
+    <div class="container header-container">
+      <div class="logo">
+        <a href="/">EcoFinds</a>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/listings">Browse Listings</a></li>
+          <li><a href="/search">Search</a></li>
+          <li><a href="/categories">Categories</a></li>
+          <li><a href="/cart">Cart</a></li>
+          <li><a href="/profile">Profile</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <span class="user-greeting animate-pop-in" style="animation-delay: 0.4s;">
+          Hello, <strong>Jane Doe</strong>
+        </span>
+        <a href="/logout" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
+          Log Out
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Seller Profile Hero Section -->
+  <section class="seller-hero animate-fade-in-up" style="animation-delay: 0.8s;">
+    <div class="container hero-container">
+      <div class="seller-info">
+        <div class="seller-avatar animate-pop-in" style="animation-delay: 1s;">
+          <img src="https://via.placeholder.com/120?text=Avatar" alt="Seller Avatar" />
+        </div>
+        <div class="seller-details animate-fade-in-up" style="animation-delay: 1.2s;">
+          <h1 class="seller-name">RetroElectronics</h1>
+          <p class="seller-location">Brooklyn, NY</p>
+          <div class="seller-rating">
+            ★★★★☆ <span>(4.8)</span>
+          </div>
+          <a href="/chat/RetroElectronics" class="btn chat-btn animate-pop-in" style="animation-delay: 1.4s;">
+            Chat with Seller
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Seller’s Active Listings -->
+  <main class="seller-listings-main">
+    <div class="container listings-container">
+      <h2 class="section-title animate-fade-in-up" style="animation-delay: 1.6s;">
+        Active Listings by RetroElectronics
+      </h2>
+      <div class="listings-grid">
+        <!-- Listing Card 1 -->
+        <div class="listing-card animate-slide-in-left" style="animation-delay: 1.8s;">
+          <div class="listing-image">
+            <img src="https://via.placeholder.com/300x200?text=Vintage+Radio" alt="Vintage Radio" />
+          </div>
+          <div class="listing-info">
+            <h3 class="listing-name">Vintage Tube Radio</h3>
+            <p class="listing-price">$95</p>
+            <a href="/listing/21" class="btn view-btn">View Details</a>
+          </div>
+        </div>
+
+        <!-- Listing Card 2 -->
+        <div class="listing-card animate-fade-in-up" style="animation-delay: 2s;">
+          <div class="listing-image">
+            <img src="https://via.placeholder.com/300x200?text=Analog+Turntable" alt="Analog Turntable" />
+          </div>
+          <div class="listing-info">
+            <h3 class="listing-name">Analog Turntable</h3>
+            <p class="listing-price">$150</p>
+            <a href="/listing/22" class="btn view-btn">View Details</a>
+          </div>
+        </div>
+
+        <!-- Listing Card 3 -->
+        <div class="listing-card animate-slide-in-right" style="animation-delay: 2.2s;">
+          <div class="listing-image">
+            <img src="https://via.placeholder.com/300x200?text=Retro+Amplifier" alt="Retro Amplifier" />
+          </div>
+          <div class="listing-info">
+            <h3 class="listing-name">Retro Amplifier</h3>
+            <p class="listing-price">$200</p>
+            <a href="/listing/23" class="btn view-btn">View Details</a>
+          </div>
+        </div>
+
+        <!-- Listing Card 4 -->
+        <div class="listing-card animate-slide-in-left" style="animation-delay: 2.4s;">
+          <div class="listing-image">
+            <img src="https://via.placeholder.com/300x200?text=Vintage+Cassette+Player" alt="Vintage Cassette Player" />
+          </div>
+          <div class="listing-info">
+            <h3 class="listing-name">Cassette Tape Deck</h3>
+            <p class="listing-price">$80</p>
+            <a href="/listing/24" class="btn view-btn">View Details</a>
+          </div>
+        </div>
+
+        <!-- Listing Card 5 -->
+        <div class="listing-card animate-fade-in-up" style="animation-delay: 2.6s;">
+          <div class="listing-image">
+            <img src="https://via.placeholder.com/300x200?text=Tube+Amplifier" alt="Tube Amplifier" />
+          </div>
+          <div class="listing-info">
+            <h3 class="listing-name">Tube Amplifier</h3>
+            <p class="listing-price">$175</p>
+            <a href="/listing/25" class="btn view-btn">View Details</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer animate-fade-up" style="animation-delay: 3s;">
+    <div class="container footer-container">
+      <ul class="footer-links">
+        <li><a href="/help">Help Center</a></li>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms of Service</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+      <div class="social-icons">
+        <a href="#" aria-label="Twitter">🐦</a>
+        <a href="#" aria-label="Facebook">📘</a>
+        <a href="#" aria-label="Instagram">📷</a>
+      </div>
+      <p class="footer-copy">© 2023 EcoFinds. All rights reserved.</p>
+      <p class="footer-contact">support@ecofinds.com | +1 (800) 123-4567</p>
+    </div>
+  </footer>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+

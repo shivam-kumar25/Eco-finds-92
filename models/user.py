@@ -1,7 +1,7 @@
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from __init__ import db
-
+ 
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)

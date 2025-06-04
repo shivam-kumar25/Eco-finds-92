@@ -1,0 +1,169 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoFinds | My Purchases</title>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="past-purchases-styles.css" />
+</head>
+<body>
+  <!-- Decorative Animated Background Shapes -->
+  <div class="bg-shape shape-circle circle-1"></div>
+  <div class="bg-shape shape-circle circle-2"></div>
+  <div class="bg-shape shape-blob blob-1"></div>
+  <div class="bg-shape shape-blob blob-2"></div>
+
+  <!-- Header / Navigation -->
+  <header class="header animate-fade-down">
+    <div class="container header-container">
+      <div class="logo">
+        <a href="/">EcoFinds</a>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/listings">Browse Listings</a></li>
+          <li><a href="/search">Search</a></li>
+          <li><a href="/categories">Categories</a></li>
+          <li><a href="/cart">Cart</a></li>
+          <li><a href="/purchases" class="active">My Purchases</a></li>
+          <li><a href="/profile">Profile</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <span class="user-greeting animate-pop-in" style="animation-delay: 0.4s;">
+          Hello, <strong>Jane Doe</strong>
+        </span>
+        <a href="/logout" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
+          Log Out
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Purchases Hero Section -->
+  <section class="purchases-hero animate-fade-in-up" style="animation-delay: 0.8s;">
+    <div class="container hero-container">
+      <h1 class="hero-title">🎁 My Previous Purchases</h1>
+      <p class="hero-subtitle">Review and manage items you’ve bought on EcoFinds.</p>
+    </div>
+  </section>
+
+  <!-- Purchases Main Content -->
+  <main class="purchases-main">
+    <div class="container purchases-container">
+      <!-- Purchase Card 1 -->
+      <div class="purchase-card animate-slide-in-left" style="animation-delay: 1s;">
+        <div class="purchase-image">
+          <img src="https://via.placeholder.com/120x120?text=Vintage+Record+Player" alt="Vintage Record Player" />
+        </div>
+        <div class="purchase-details">
+          <h3 class="purchase-name">Vintage Record Player</h3>
+          <p class="purchase-seller">Seller: RetroElectronics</p>
+          <div class="purchase-meta">
+            <span class="purchase-price">$120</span>
+            <span class="purchase-date">Purchased: May 10, 2025</span>
+          </div>
+          <button class="btn review-btn">Leave Review</button>
+        </div>
+      </div>
+
+      <!-- Purchase Card 2 -->
+      <div class="purchase-card animate-fade-in-up" style="animation-delay: 1.2s;">
+        <div class="purchase-image">
+          <img src="https://via.placeholder.com/120x120?text=Eco+Leather+Backpack" alt="Eco Leather Backpack" />
+        </div>
+        <div class="purchase-details">
+          <h3 class="purchase-name">Eco Leather Backpack</h3>
+          <p class="purchase-seller">Seller: GreenGear</p>
+          <div class="purchase-meta">
+            <span class="purchase-price">$120</span>
+            <span class="purchase-date">Purchased: April 28, 2025</span>
+          </div>
+          <button class="btn review-btn">Already Reviewed</button>
+        </div>
+      </div>
+
+      <!-- Purchase Card 3 -->
+      <div class="purchase-card animate-slide-in-right" style="animation-delay: 1.4s;">
+        <div class="purchase-image">
+          <img src="https://via.placeholder.com/120x120?text=Handwoven+Rug" alt="Artisan Handwoven Rug" />
+        </div>
+        <div class="purchase-details">
+          <h3 class="purchase-name">Artisan Handwoven Rug</h3>
+          <p class="purchase-seller">Seller: HomeCrafts</p>
+          <div class="purchase-meta">
+            <span class="purchase-price">$75</span>
+            <span class="purchase-date">Purchased: April 15, 2025</span>
+          </div>
+          <button class="btn review-btn">Leave Review</button>
+        </div>
+      </div>
+
+      <!-- Purchase Card 4 -->
+      <div class="purchase-card animate-slide-in-left" style="animation-delay: 1.6s;">
+        <div class="purchase-image">
+          <img src="https://via.placeholder.com/120x120?text=Espresso+Machine" alt="Refurbished Espresso Machine" />
+        </div>
+        <div class="purchase-details">
+          <h3 class="purchase-name">Refurbished Espresso Machine</h3>
+          <p class="purchase-seller">Seller: CoffeeLovers</p>
+          <div class="purchase-meta">
+            <span class="purchase-price">$85</span>
+            <span class="purchase-date">Purchased: March 22, 2025</span>
+          </div>
+          <button class="btn review-btn">Already Reviewed</button>
+        </div>
+      </div>
+
+      <!-- Purchase Card 5 -->
+      <div class="purchase-card animate-fade-in-up" style="animation-delay: 1.8s;">
+        <div class="purchase-image">
+          <img src="https://via.placeholder.com/120x120?text=Midcentury+Table+Lamp" alt="Midcentury Table Lamp" />
+        </div>
+        <div class="purchase-details">
+          <h3 class="purchase-name">Midcentury Table Lamp</h3>
+          <p class="purchase-seller">Seller: VintageLights</p>
+          <div class="purchase-meta">
+            <span class="purchase-price">$45</span>
+            <span class="purchase-date">Purchased: March 10, 2025</span>
+          </div>
+          <button class="btn review-btn">Leave Review</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer animate-fade-up" style="animation-delay: 2.2s;">
+    <div class="container footer-container">
+      <ul class="footer-links">
+        <li><a href="/help">Help Center</a></li>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms of Service</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+      <div class="social-icons">
+        <a href="#" aria-label="Twitter">🐦</a>
+        <a href="#" aria-label="Facebook">📘</a>
+        <a href="#" aria-label="Instagram">📷</a>
+      </div>
+      <p class="footer-copy">© 2023 EcoFinds. All rights reserved.</p>
+      <p class="footer-contact">support@ecofinds.com | +1 (800) 123-4567</p>
+    </div>
+  </footer>
+</body>
+</html>
+
+
+
+
+
