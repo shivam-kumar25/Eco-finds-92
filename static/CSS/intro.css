@@ -1,4 +1,3 @@
-
 /* landing-styles.css */
 
 /*===========================
@@ -34,6 +33,7 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   position: relative;
+  padding-top: 70px; /* Should match header height */
 }
 
 /*===========================
@@ -121,9 +121,14 @@ body {
   background-color: var(--white);
   padding: 1rem 0;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-  position: sticky;
+  position: fixed;
+  width: 100%;
   top: 0;
-  z-index: 10;
+  left: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  /* Prevent content shift */
+  height: 70px; /* Adjust based on your navbar height */
 }
 
 .header-container {
