@@ -61,3 +61,5 @@ def checkout():
         return redirect(url_for('orders.order_detail', order_id=order.id))
     
     return render_template('orders/checkout.html', title='Checkout', cart_items=cart_items, total=total_amount)
+
+
