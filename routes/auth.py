@@ -7,6 +7,7 @@ from flask_mail import Message
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import re
 
 
 
@@ -35,29 +36,61 @@ def generate_otp():
     return str(random.randint(100000, 999999))
 
 
-@auth.route('/send_otp', methods=['POST' , "GET"])
+@auth.route('/send_otp', methods=['POST', 'GET'])
 def send_otp():
     try:
+        # Get email from request
         email = request.json.get('email')
         if not email:
-            return "Email is required", 400
+            return jsonify({
+                'success': False,
+                'message': 'Email is required'
+            }), 400
 
+        # Validate email format
+        if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+            return jsonify({
+                'success': False,
+                'message': 'Invalid email format'
+            }), 400
 
+        # Generate OTP
         otp = generate_otp()
+        
         # Store OTP and timestamp in session
         session['otp'] = otp
         session['otp_time'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         session['email'] = email
 
-
-        message = Message(
-            subject="Your OTP for Verification",
-            recipients=[email],
-            body=f"Your OTP is: {otp}\nThis OTP is valid for 5 minutes."
+        # Create HTML email template
+        html_content = render_template(
+            'email/otp_email.html',
+            otp=otp
         )
-       
+
+        # Create message
+        message = Message(
+            subject="Your EcoFinds Verification Code",
+            recipients=[email],
+            html=html_content
+        )
+
+        # Send email
         mail.send(message)
-        return "OTP sent successfully!", 200
+
+        return jsonify({
+            'success': True,
+            'message': 'OTP sent successfully'
+        }), 200
+
+    except Exception as e:
+        # Log the error for debugging
+        current_app.logger.error(f"Error sending OTP: {str(e)}")
+        
+        return jsonify({
+            'success': False,
+            'message': 'Failed to send OTP. Please try again.'
+        }), 500
    
     except Exception as e:
         print(f"Error sending OTP: {str(e)}")
@@ -142,7 +175,7 @@ def register():
             return render_template('/auth/register.html', title='Register')
 
 
-
+        
 
 
 
