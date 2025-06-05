@@ -1,73 +1,104 @@
 from datetime import datetime
+from typing import Optional, List
 from werkzeug.security import generate_password_hash, check_password_hash
+from sqlalchemy.orm import relationship
 from __init__ import db
 
 
-class User(db.Model):
+class TimestampMixin:
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+class SoftDeleteMixin:
+    deleted_at = db.Column(db.DateTime, nullable=True)
+    is_deleted = db.Column(db.Boolean, default=False)
+
+class User(db.Model, TimestampMixin):
     __tablename__ = 'users'
     
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(64), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    full_name = db.Column(db.String(128), nullable=True)
-    bio = db.Column(db.Text, nullable=True)
-    password_hash = db.Column(db.String(128))
+    username = db.Column(db.String(64), unique=True, nullable=False, index=True)
+    email = db.Column(db.String(120), unique=True, nullable=False, index=True)
+    full_name = db.Column(db.String(128))
+    bio = db.Column(db.Text)
+    password_hash = db.Column(db.String(128), nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
-    registered_on = db.Column(db.DateTime, default=datetime.utcnow)
-    profile_picture = db.Column(db.String(256), nullable=True)  # New field for profile picture path or URL
-    phone_number = db.Column(db.String(20), nullable=True)  # New field for phone number
-    address = db.Column(db.String(256), nullable=True)  # New field for address
-    communication_preferences = db.Column(db.String(256), nullable=True)  # New field for communication preferences
-    preferred_language = db.Column(db.String(64), nullable=True)  # New field for preferred language
-    category_preferences = db.Column(db.String(256), nullable=True)  # New field for category preferences
-    
+    is_active = db.Column(db.Boolean, default=True)
+    profile_picture = db.Column(db.String(256))
+    phone_number = db.Column(db.String(20))
+    address = db.Column(db.String(256))
+    communication_preferences = db.Column(db.JSON, default={})
+    preferred_language = db.Column(db.String(64), default='en')
+    category_preferences = db.Column(db.JSON, default=[])
 
+    # Relationships with cascade delete
+    products = relationship('Product', backref='seller', lazy='dynamic', 
+                          cascade='all, delete-orphan')
+    orders = relationship('Order', backref='user', lazy='dynamic',
+                         cascade='all, delete-orphan')
+    cart_items = relationship('CartItem', backref='user', lazy='dynamic',
+                            cascade='all, delete-orphan')
+    bids = relationship('Bid', back_populates='bidder', lazy='dynamic',
+                       cascade='all, delete-orphan')
+    notifications = relationship('Notification', backref='user', lazy='dynamic',
+                               cascade='all, delete-orphan')
+    auctions_created = relationship('Auction', backref='seller', lazy='dynamic',
+                                  cascade='all, delete-orphan')
+    auctions_registered = relationship('AuctionRegistration', back_populates='bidder',
+                                     lazy='dynamic', cascade='all, delete-orphan')
 
-    # Relationships
-    products = db.relationship('Product', backref='seller', lazy='dynamic')
-    cart_items = db.relationship('CartItem', backref='user', lazy='dynamic')
-    orders = db.relationship('Order', backref='user', lazy='dynamic')
-    bids = db.relationship('Bid', back_populates='bidder', lazy='dynamic')
-    auctions_registered = db.relationship('AuctionRegistration', back_populates='bidder', lazy='dynamic')
-    notifications = db.relationship('Notification', backref='user', lazy='dynamic')
-    auctions_created = db.relationship('Auction', backref='seller', lazy='dynamic')
+    @property
+    def password(self):
+        raise AttributeError('password is not a readable attribute')
 
-    def set_password(self, password):
+    @password.setter
+    def password(self, password):
         self.password_hash = generate_password_hash(password)
-    
-    def check_password(self, password):
+
+    def verify_password(self, password) -> bool:
         return check_password_hash(self.password_hash, password)
-    
-    def __repr__(self):
-        return f'<User {self.username}>'
+
+    def to_dict(self) -> dict:
+        return {
+            'id': self.id,
+            'username': self.username,
+            'email': self.email,
+            'full_name': self.full_name,
+            'profile_picture': self.profile_picture,
+            'is_admin': self.is_admin
+        }
 
 
 
 
-class Product(db.Model):
+class Product(db.Model, TimestampMixin, SoftDeleteMixin):
     __tablename__ = 'products'
     
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
+    name = db.Column(db.String(100), nullable=False, index=True)
     description = db.Column(db.Text, nullable=False)
-    price = db.Column(db.Float, nullable=False)
+    price = db.Column(db.Numeric(10, 2), nullable=False)
     image_filename = db.Column(db.String(200))
-    condition = db.Column(db.String(50), default='Used - Good')
+    condition = db.Column(db.Enum('New', 'Like New', 'Very Good', 'Good', 'Fair', 
+                                name='product_condition'), 
+                         default='Good')
     original_packaging = db.Column(db.Boolean, default=False)
-    eco_impact_score = db.Column(db.Integer, default=3)  # Scale 1-5
-    estimated_co2_saved = db.Column(db.Float, default=0.0)  # in kg
-    created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
-    
-    # Foreign keys
-    seller_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)
+    eco_impact_score = db.Column(db.Integer, default=3)
+    estimated_co2_saved = db.Column(db.Float, default=0.0)
+    status = db.Column(db.Enum('draft', 'active', 'sold', 'archived',
+                              name='product_status'),
+                      default='draft')
+
+    # Foreign keys with indexes
+    seller_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False, index=True)
 
     # Relationships
-    cart_items = db.relationship('CartItem', backref='product', lazy='dynamic')
-    order_items = db.relationship('OrderItem', backref='product', lazy='dynamic')
-    # Fix: Remove backref from Product side, let Auction handle the relationship
-    auction = db.relationship('Auction', uselist=False, back_populates='product')
+    cart_items = relationship('CartItem', backref='product', lazy='dynamic',
+                            cascade='all, delete-orphan')
+    order_items = relationship('OrderItem', backref='product', lazy='dynamic')
+    auction = relationship('Auction', back_populates='product', uselist=False,
+                         cascade='all, delete-orphan')
 
     def __repr__(self):
         return f'<Product {self.name}>'
@@ -255,6 +286,46 @@ class Notification(db.Model):
     
     def __repr__(self):
         return f'<Notification {self.id} Type={self.type}>'
+
+class Review(db.Model, TimestampMixin):
+    __tablename__ = 'reviews'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    reviewer_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
+    seller_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False, index=True)
+    order_id = db.Column(db.Integer, db.ForeignKey('orders.id'), nullable=False, unique=True)
+    product_id = db.Column(db.Integer, db.ForeignKey('products.id'), nullable=False)
+    rating = db.Column(db.Integer, nullable=False)
+    text = db.Column(db.Text, nullable=False)
+    helpful_votes = db.Column(db.Integer, default=0)
+    
+    # Relationships
+    reviewer = db.relationship('User', foreign_keys=[reviewer_id],
+                             backref=db.backref('reviews_given', lazy='dynamic'))
+    seller = db.relationship('User', foreign_keys=[seller_id],
+                           backref=db.backref('reviews_received', lazy='dynamic'))
+    order = db.relationship('Order', backref=db.backref('review', uselist=False))
+    product = db.relationship('Product', backref=db.backref('reviews', lazy='dynamic'))
+
+    __table_args__ = (
+        # Ensure one review per order
+        db.UniqueConstraint('order_id', name='uq_review_per_order'),
+        # Ensure rating is between 1 and 5
+        db.CheckConstraint('rating >= 1 AND rating <= 5', name='check_rating_range'),
+    )
+
+    def __repr__(self):
+        return f'<Review {self.id} Rating={self.rating}>'
+
+    def to_dict(self) -> dict:
+        return {
+            'id': self.id,
+            'reviewer': self.reviewer.username,
+            'rating': self.rating,
+            'text': self.text,
+            'created_at': self.created_at.isoformat(),
+            'helpful_votes': self.helpful_votes
+        }
 
 
 

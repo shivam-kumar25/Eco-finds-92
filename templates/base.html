@@ -1,9 +1,71 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}EcoFinds{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Base CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='CSS/base.css') }}">
+    
+    <!-- Additional CSS per template -->
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <header class="header">
+        <div class="container header-container">
+            <div class="logo">
+                <a href="{{ url_for('main.index') }}">EcoFinds</a>
+            </div>
+            <nav class="main-nav">
+                <ul class="nav-list">
+                    {% if current_user.is_authenticated %}
+                        <li><a href="{{ url_for('user.home') }}" {% if request.endpoint == 'user.dashboard' %}class="active"{% endif %}>Dashboard</a></li>
+                        <li><a href="{{ url_for('product.product_listings') }}" {% if request.endpoint == 'product.product_listings' %}class="active"{% endif %}>My Listings</a></li>
+                        <li><a href="{{ url_for('product.search') }}" {% if request.endpoint == 'product.search' %}class="active"{% endif %}>Search</a></li>
+                        <li><a href="{{ url_for('auction.live') }}" {% if request.endpoint == 'auction.index' %}class="active"{% endif %}>Auction</a></li>
+                        <li><a href="{{ url_for('user.profile') }}" {% if request.endpoint == 'user.profile' %}class="active"{% endif %}>Profile</a></li>
+                    {% else %}
+                        <li><a href="{{ url_for('main.index') }}" {% if request.endpoint == 'main.index' %}class="active"{% endif %}>Home</a></li>
+                        <li><a href="{{ url_for('main.about') }}" {% if request.endpoint == 'main.about' %}class="active"{% endif %}>About</a></li>
+                        <li><a href="{{ url_for('product.browse') }}" {% if request.endpoint == 'product.browse' %}class="active"{% endif %}>Browse</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+            <div class="header-actions">
+                {% if current_user.is_authenticated %}
+                    <span class="user-greeting">Hello, {{ current_user.username }}</span>
+                    <a href="{{ url_for('auth.logout') }}" class="btn logout-btn">Logout</a>
+                {% else %}
+                    <a href="{{ url_for('auth.login') }}" class="btn login-btn">Login</a>
+                    <a href="{{ url_for('auth.register') }}" class="btn register-btn">Register</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
 
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
 
+    <!-- Main Content -->
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
 
-
-
-
-
-
-
+    <!-- Additional JavaScript per template -->
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

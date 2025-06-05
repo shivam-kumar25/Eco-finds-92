@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +9,7 @@
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
     rel="stylesheet"
   />
-  <link rel="stylesheet" href="/static/CSS/profile.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='CSS/profile.css') }}" />
 </head>
 <body>
   <!-- Animated Background Shapes -->
@@ -28,17 +26,15 @@
       </div>
       <nav class="main-nav">
         <ul class="nav-list">
-          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/dashboard" class="active">Home</a></li>
           <li><a href="/listings">My Listings</a></li>
           <li><a href="/search">Search Items</a></li>
-          <li><a href="/profile" class="active">Profile</a></li>
-          <li><a href="/settings">Settings</a></li>
+          <li><a href="/profile">Profile</a></li>
+          <li><a href="/auction">Auction</a></li>
         </ul>
       </nav>
       <div class="header-actions">
-        <span class="user-greeting animate-fade-in-up" style="animation-delay: 0.4s;">
-          Hello, <strong>Jane Doe</strong>
-        </span>
+        <span class="user-greeting animate-fade-in-up" style="animation-delay: 0.4s;">Hello, <strong>Jane Doe</strong></span>
         <a href="/logout" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
           Log Out
         </a>
@@ -52,20 +48,18 @@
       <!-- Profile Header -->
       <section class="profile-header animate-fade-in-up" style="animation-delay: 0.8s;">
         <div class="profile-avatar">
-          <img src="https://via.placeholder.com/140" alt="Jane Doe" />
+          <img src="{{ current_user.profile_picture or 'https://via.placeholder.com/140' }}" alt="{{ current_user.username }}" />
         </div>
         <div class="profile-info">
-          <h1 class="profile-name">Jane Doe</h1>
-          <p class="profile-bio">
-            Passionate recycler and vintage collector. I love giving items a second life and connecting with the EcoFinds community.
-          </p>
+          <h1 class="profile-name">{{ current_user.full_name }}</h1>
+          <p class="profile-bio">{{ current_user.bio }}</p>
           <div class="profile-details">
-            <p><strong>Email:</strong> jane.doe@example.com</p>
-            <p><strong>Phone:</strong> +1 (555) 123-4567</p>
-            <p><strong>Location:</strong> Anytown, USA</p>
-            <p><strong>Interests:</strong> Vintage Furniture, Vinyl Records, Upcycling</p>
+            <p><strong>Email:</strong> {{ current_user.email }}</p>
+            <p><strong>Phone:</strong> {{ current_user.phone_number }}</p>
+            <p><strong>Location:</strong> {{ current_user.address }}</p>
+            <p><strong>Interests:</strong> {{ current_user.interests }}</p>
           </div>
-          <a href="/profile/edit" class="btn edit-btn animate-pop-in" style="animation-delay: 1s;">
+          <a href="{{ url_for('user.edit_profile') }}" class="btn edit-btn animate-pop-in" style="animation-delay: 1s;">
             Edit Profile
           </a>
         </div>
@@ -74,34 +68,15 @@
       <!-- Profile Statistics -->
       <section class="profile-stats-section">
         <div class="stats-grid">
-          <div class="stat-card animate-pop-in" style="animation-delay: 1.2s;">
-            <div class="stat-icon">📦</div>
+          {% for stat in stats %}
+          <div class="stat-card animate-pop-in" style="animation-delay: {{ 1.2 + loop.index0 * 0.2 }}s;">
+            <div class="stat-icon">{{ stat.icon }}</div>
             <div class="stat-info">
-              <h3>Active Listings</h3>
-              <p class="stat-value">12</p>
+              <h3>{{ stat.title }}</h3>
+              <p class="stat-value">{{ stat.value }}</p>
             </div>
           </div>
-          <div class="stat-card animate-pop-in" style="animation-delay: 1.4s;">
-            <div class="stat-icon">🛒</div>
-            <div class="stat-info">
-              <h3>Items Sold</h3>
-              <p class="stat-value">34</p>
-            </div>
-          </div>
-          <div class="stat-card animate-pop-in" style="animation-delay: 1.6s;">
-            <div class="stat-icon">💬</div>
-            <div class="stat-info">
-              <h3>Messages</h3>
-              <p class="stat-value">5</p>
-            </div>
-          </div>
-          <div class="stat-card animate-pop-in" style="animation-delay: 1.8s;">
-            <div class="stat-icon">⭐</div>
-            <div class="stat-info">
-              <h3>Reviews</h3>
-              <p class="stat-value">18</p>
-            </div>
-          </div>
+          {% endfor %}
         </div>
       </section>
 
@@ -109,32 +84,20 @@
       <section class="recent-listings-section animate-fade-in-up" style="animation-delay: 2s;">
         <h2 class="section-heading">My Recent Listings</h2>
         <div class="listings-grid">
-          <div class="listing-card animate-slide-in-left" style="animation-delay: 2.2s;">
-            <img src="https://via.placeholder.com/300x180?text=Vintage+Chair" alt="Vintage Chair" />
+          {% for listing in recent_listings %}
+          <div class="listing-card animate-slide-in-{{ loop.first ? 'left' : (loop.last ? 'right' : 'up') }}" 
+               style="animation-delay: {{ 2.2 + loop.index0 * 0.2 }}s;">
+            <img src="{{ listing.image_url or 'https://via.placeholder.com/300x180?text=' + listing.name|urlencode }}" 
+                 alt="{{ listing.name }}" />
             <div class="listing-info">
-              <h3>Vintage Wooden Chair</h3>
-              <p class="listing-status">Status: Active</p>
-              <a href="/listing/1" class="btn view-btn">View</a>
+              <h3>{{ listing.name }}</h3>
+              <p class="listing-status">Status: {{ listing.status }}</p>
+              <a href="{{ url_for('product.view', id=listing.id) }}" class="btn view-btn">View</a>
             </div>
           </div>
-          <div class="listing-card animate-fade-in-up" style="animation-delay: 2.4s;">
-            <img src="https://via.placeholder.com/300x180?text=Mountain+Bike" alt="Mountain Bike" />
-            <div class="listing-info">
-              <h3>Mountain Bike</h3>
-              <p class="listing-status">Status: Sold</p>
-              <a href="/listing/2" class="btn view-btn">View</a>
-            </div>
-          </div>
-          <div class="listing-card animate-slide-in-right" style="animation-delay: 2.6s;">
-            <img src="https://via.placeholder.com/300x180?text=Ceramic+Vase" alt="Ceramic Vase" />
-            <div class="listing-info">
-              <h3>Handmade Ceramic Vase</h3>
-              <p class="listing-status">Status: Active</p>
-              <a href="/listing/3" class="btn view-btn">View</a>
-            </div>
-          </div>
+          {% endfor %}
         </div>
-        <a href="/listings" class="btn all-listings-btn animate-pop-in" style="animation-delay: 2.8s;">
+        <a href="{{ url_for('product.my_listings') }}" class="btn all-listings-btn animate-pop-in" style="animation-delay: 2.8s;">
           View All My Listings →
         </a>
       </section>
@@ -143,20 +106,15 @@
       <section class="reviews-section animate-fade-in-up" style="animation-delay: 3s;">
         <h2 class="section-heading">My Recent Reviews</h2>
         <div class="reviews-grid">
-          <div class="review-card animate-slide-in-left" style="animation-delay: 3.2s;">
-            <div class="review-icon">⭐️⭐️⭐️⭐️⭐️</div>
-            <p>“Great buyer! Quick payment and left a positive review.” <strong>– Seller A</strong></p>
+          {% for review in recent_reviews %}
+          <div class="review-card animate-slide-in-{{ loop.first ? 'left' : (loop.last ? 'right' : 'up') }}" 
+               style="animation-delay: {{ 3.2 + loop.index0 * 0.2 }}s;">
+            <div class="review-icon">{{ "⭐️" * review.rating }}</div>
+            <p>"{{ review.text }}" <strong>– {{ review.author }}</strong></p>
           </div>
-          <div class="review-card animate-fade-in-up" style="animation-delay: 3.4s;">
-            <div class="review-icon">⭐️⭐️⭐️⭐️</div>
-            <p>“Item as described, smooth transaction.” <strong>– Seller B</strong></p>
-          </div>
-          <div class="review-card animate-slide-in-right" style="animation-delay: 3.6s;">
-            <div class="review-icon">⭐️⭐️⭐️⭐️⭐️</div>
-            <p>“Pleasant to deal with and prompt pickup.” <strong>– Seller C</strong></p>
-          </div>
+          {% endfor %}
         </div>
-        <a href="/reviews" class="btn all-reviews-btn animate-pop-in" style="animation-delay: 3.8s;">
+        <a href="{{ url_for('user.reviews') }}" class="btn all-reviews-btn animate-pop-in" style="animation-delay: 3.8s;">
           View All Reviews →
         </a>
       </section>
