@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,14 +30,19 @@
           <li><a href="/product/product_listing">My Listings</a></li>
           <li><a href="/product/search">Search Items</a></li>
           <li><a href="/user/profile">Profile</a></li>
-          <li><a href="/auction/live">Auction</a></li>
+          <!-- <li><a href="/auction/live">Auction</a></li> -->
         </ul>
       </nav>
       <div class="header-actions">
-        <span class="user-greeting animate-fade-in-up" style="animation-delay: 0.4s;">Hello, <strong>Jane Doe</strong></span>
-        <a href="/auth/logout" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
-          Log Out
-        </a>
+        {% if session.get('user_id') %}
+          <span class="user-greeting animate-fade-in-up" style="animation-delay: 0.4s;">Hello, <strong>{{ session.get('username') }}</strong></span>
+          <a href="{{ url_for('auth.logout') }}" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
+            Log Out
+          </a>
+        {% else %}
+          <a href="{{ url_for('auth.login') }}" class="btn login-btn animate-pop-in" style="animation-delay: 0.6s;">Login</a>
+          <a href="{{ url_for('auth.register') }}" class="btn register-btn animate-pop-in" style="animation-delay: 0.6s;">Register</a>
+        {% endif %}
       </div>
     </div>
   </header>
@@ -48,21 +51,22 @@
   <main class="search-main">
     <div class="container">
       <div class="search-hero">
-        <h1>Search Products</h1>
-        <form action="{{ url_for('product.product_search') }}" method="GET" class="search-form">
-          <div class="search-input-group">
-            <input 
-              type="text" 
-              name="query" 
-              placeholder="What are you looking for?" 
-              value="{{ search_query }}"
-              class="search-input"
-            >
-            <button type="submit" class="search-button">Search</button>
+        <h1>Find Sustainable Goods</h1>
+        <form action="{{ url_for('product.product_search') }}" method="GET" class="search-form beautiful-search-form">
+          <input type="text" name="query" placeholder="Search products..." value="{{ search_query }}" class="search-input" />
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <select name="category_id" class="search-select" style="flex:1; min-width: 140px;">
+              <option value="">All Categories</option>
+              {% for category in categories %}
+                <option value="{{ category.id }}" {% if selected_category_id == category.id %}selected{% endif %}>{{ category.name }}</option>
+              {% endfor %}
+            </select>
+            <input type="number" name="min_price" placeholder="Min Price" min="0" class="search-input price-input" value="{{ min_price if min_price is not none else '' }}" style="flex:1; min-width: 100px;" />
+            <input type="number" name="max_price" placeholder="Max Price" min="0" class="search-input price-input" value="{{ max_price if max_price is not none else '' }}" style="flex:1; min-width: 100px;" />
           </div>
+          <button type="submit" class="btn search-btn" style="margin-top: 0.5rem; max-width: 200px; align-self: flex-end;">Search</button>
         </form>
       </div>
-      
       {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
           {% for category, message in messages %}
@@ -70,11 +74,9 @@
           {% endfor %}
         {% endif %}
       {% endwith %}
-      
       <div class="search-results">
-        {% if search_query %}
-          <h2>Search Results for "{{ search_query }}"</h2>
-          
+        {% if search_query or selected_category_id or min_price or max_price %}
+          <h2>Search Results</h2>
           {% if products %}
             <div class="product-grid">
               {% for product in products %}
@@ -87,13 +89,9 @@
                   <div class="product-details">
                     <h3>{{ product.name }}</h3>
                     <p class="product-price">${{ "%.2f"|format(product.price) }}</p>
-                    <p class="product-condition">Condition: {{ product.condition }}</p>
+                    <p class="product-category">Category: {{ product.category.name }}</p>
                     <div class="product-actions">
                       <a href="{{ url_for('product.product_details', product_id=product.id) }}" class="btn view-btn">View Details</a>
-                      <form action="{{ url_for('payment.add_to_cart', product_id=product.id) }}" method="POST">
-                        <input type="hidden" name="quantity" value="1">
-                        <button type="submit" class="btn cart-btn">Add to Cart</button>
-                      </form>
                     </div>
                   </div>
                 </div>
@@ -101,15 +99,36 @@
             </div>
           {% else %}
             <div class="no-results">
-              <p>No products found matching your search criteria.</p>
+              <h3>No products found matching your search criteria.</h3>
               <p>Try using different keywords or browse our categories.</p>
               <a href="{{ url_for('product.product_category') }}" class="btn browse-btn">Browse Categories</a>
+              <div class="popular-searches">
+                <p>Popular searches:</p>
+                <div class="search-tags">
+                  <a href="{{ url_for('product.product_search', query='vintage') }}">Vintage</a>
+                  <a href="{{ url_for('product.product_search', query='furniture') }}">Furniture</a>
+                  <a href="{{ url_for('product.product_search', query='electronics') }}">Electronics</a>
+                  <a href="{{ url_for('product.product_search', query='clothing') }}">Clothing</a>
+                  <a href="{{ url_for('product.product_search', query='books') }}">Books</a>
+                </div>
+              </div>
             </div>
           {% endif %}
         {% else %}
           <div class="search-placeholder">
             <h2>Find Your Next Treasure</h2>
-            <p>Enter keywords above to search for sustainable second-hand items.</p>
+            <p>Enter keywords above to search for sustainable second-hand items or browse by category below.</p>
+            <div class="browse-categories">
+              <h3>Browse Categories</h3>
+              <div class="category-browse-grid">
+                {% for category in categories %}
+                  <a href="{{ url_for('product.product_search', category_id=category.id) }}" class="category-browse-card">
+                    <div class="category-browse-icon">🗂️</div>
+                    <div class="category-browse-name">{{ category.name }}</div>
+                  </a>
+                {% endfor %}
+              </div>
+            </div>
             <div class="popular-searches">
               <p>Popular searches:</p>
               <div class="search-tags">
@@ -123,98 +142,6 @@
           </div>
         {% endif %}
       </div>
-      <!-- Search Form Section -->
-      <section class="search-form-section animate-fade-in-up" style="animation-delay: 0.8s;">
-        <h1 class="section-title">Find Sustainable Goods</h1>
-        <form class="search-form" action="/search/results" method="GET">
-          <div class="form-row">
-            <input
-              type="text"
-              name="q"
-              placeholder="Keyword (e.g., chair, lamp…)"
-              aria-label="Keyword"
-            />
-            <select name="category" aria-label="Category">
-              <option value="">All Categories</option>
-              <option>Furniture</option>
-              <option>Electronics</option>
-              <option>Home Decor</option>
-              <option>Books</option>
-              <option>Clothing</option>
-            </select>
-            <input
-              type="text"
-              name="location"
-              placeholder="Location (city or zip)"
-              aria-label="Location"
-            />
-          </div>
-          <div class="form-row">
-            <input
-              type="number"
-              name="min_price"
-              placeholder="Min Price"
-              min="0"
-              aria-label="Min Price"
-            />
-            <input
-              type="number"
-              name="max_price"
-              placeholder="Max Price"
-              min="0"
-              aria-label="Max Price"
-            />
-            <button type="submit" class="btn search-btn animate-pop-in" style="animation-delay: 1.2s;">
-              Search
-            </button>
-          </div>
-        </form>
-      </section>
-
-      <!-- Search Results Grid -->
-      <section class="results-section animate-fade-in-up" style="animation-delay: 1.4s;">
-        <h2 class="section-heading">Search Results</h2>
-        <div class="results-grid">
-          <!-- Example Result Card -->
-          <div class="result-card animate-pop-in" style="animation-delay: 1.6s;">
-            <img src="https://via.placeholder.com/300x180?text=Vintage+Lamp" alt="Vintage Lamp" />
-            <div class="card-content">
-              <h3 class="card-title">Retro Desk Lamp</h3>
-              <p class="card-price">$30.00</p>
-              <p class="card-location">Springfield, USA</p>
-              <a href="/listing/5" class="btn view-btn">View Details</a>
-            </div>
-          </div>
-          <div class="result-card animate-pop-in" style="animation-delay: 1.8s;">
-            <img src="https://via.placeholder.com/300x180?text=Handmade+Stool" alt="Handmade Stool" />
-            <div class="card-content">
-              <h3 class="card-title">Handcrafted Wooden Stool</h3>
-              <p class="card-price">$40.00</p>
-              <p class="card-location">Lakeside, USA</p>
-              <a href="/listing/3" class="btn view-btn">View Details</a>
-            </div>
-          </div>
-          <div class="result-card animate-pop-in" style="animation-delay: 2s;">
-            <img src="https://via.placeholder.com/300x180?text=Vintage+Chair" alt="Vintage Chair" />
-            <div class="card-content">
-              <h3 class="card-title">Vintage Wooden Chair</h3>
-              <p class="card-price">$75.00</p>
-              <p class="card-location">Anytown, USA</p>
-              <a href="/listing/1" class="btn view-btn">View Details</a>
-            </div>
-          </div>
-          <div class="result-card animate-pop-in" style="animation-delay: 2.2s;">
-            <img src="https://via.placeholder.com/300x180?text=Vintage+Cabinet" alt="Vintage Cabinet" />
-            <div class="card-content">
-              <h3 class="card-title">Vintage Cabinet</h3>
-              <p class="card-price">$200.00</p>
-              <p class="card-location">Riverside, USA</p>
-              <a href="/listing/4" class="btn view-btn">View Details</a>
-            </div>
-          </div>
-          <!-- Additional result cards would populate here -->
-        </div>
-      </section>
     </div>
   </main>
 

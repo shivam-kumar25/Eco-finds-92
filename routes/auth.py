@@ -357,6 +357,7 @@ def register():
                 session['user_id'] = new_user.id
                 session['username'] = new_user.username
                 session['email'] = new_user.email
+                session['is_admin'] = new_user.is_admin
                 
                 flash('Registration successful! Welcome to EcoFinds!', 'success')
                 return redirect(url_for('user.profile'))
@@ -410,6 +411,7 @@ def login():
             session['user_id'] = user.id
             session['username'] = user.username
             session['email'] = user.email
+            session['is_admin'] = user.is_admin
             flash('Logged in successfully.', 'success')
             next_page = request.args.get('next')
             return redirect(next_page or url_for('user.profile'))

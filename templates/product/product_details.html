@@ -36,10 +36,13 @@
         </ul>
       </nav>
       <div class="header-actions">
-        <span class="user-greeting animate-fade-in-up" style="animation-delay: 0.4s;">Hello, <strong>Jane Doe</strong></span>
-        <a href="/logout" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
-          Log Out
-        </a>
+        {% if session.get('user_id') %}
+          <span class="user-greeting animate-fade-in-up" style="animation-delay: 0.4s;">Hello, <strong>{{ session.get('username') }}</strong></span>
+          <a href="{{ url_for('auth.logout') }}" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">Log Out</a>
+        {% else %}
+          <a href="{{ url_for('auth.login') }}" class="btn login-link animate-pop-in" style="animation-delay: 0.6s;">Log In</a>
+          <a href="{{ url_for('auth.register') }}" class="btn register-link animate-pop-in" style="animation-delay: 0.6s;">Register</a>
+        {% endif %}
       </div>
     </div>
   </header>
@@ -71,7 +74,7 @@
             <div class="seller-details">
               <img src="https://via.placeholder.com/60" alt="Seller Avatar" class="seller-avatar" />
               <div class="seller-text">
-                <p class="seller-name">Jane Doe</p>
+                <p class="seller-name">{{ session.get('username') if session.get('user_id') else 'Seller' }}</p>
                 <p class="seller-rating">⭐ 4.8 (50 reviews)</p>
               </div>
             </div>

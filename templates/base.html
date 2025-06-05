@@ -29,6 +29,10 @@
                         <li><a href="{{ url_for('product.product_search') }}" {% if request.endpoint == 'product.product_search' %}class="active"{% endif %}>Search Items</a></li>
                         <li><a href="{{ url_for('auction.auction_page') }}" {% if request.endpoint == 'auction.auction_page' %}class="active"{% endif %}>Auction</a></li>
                         <li><a href="{{ url_for('user.profile') }}" {% if request.endpoint == 'user.profile' %}class="active"{% endif %}>Profile</a></li>
+                        {% if session.get('is_admin') %}
+                        <li><a href="{{ url_for('admin.dashboard') }}" {% if request.endpoint == 'admin.dashboard' %}class="active"{% endif %}>Admin Dashboard</a></li>
+                        <li><a href="{{ url_for('admin.complaints') }}" {% if request.endpoint == 'admin.complaints' %}class="active"{% endif %}>Complaints</a></li>
+                        {% endif %}
                     {% else %}                        <li><a href="{{ url_for('intro.index') }}" {% if request.endpoint == 'intro.index' %}class="active"{% endif %}>Home</a></li>
                         <li><a href="{{ url_for('intro.index') }}" {% if request.endpoint == 'intro.index' %}class="active"{% endif %}>About</a></li>
                         <li><a href="{{ url_for('product.browse') }}" {% if request.endpoint == 'product.browse' %}class="active"{% endif %}>Browse</a></li>

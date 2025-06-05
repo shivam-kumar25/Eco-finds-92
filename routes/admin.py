@@ -1,27 +1,11 @@
+
 from models.models import User
 from flask import Blueprint, render_template, redirect, url_for, flash, request, session
 from __init__ import db
 from datetime import datetime
+from utils import admin_required
 
 admin = Blueprint('admin', __name__)
-
-# Admin authentication check
-def admin_required(f):
-    def decorated_function(*args, **kwargs):
-        user_id = session.get('user_id')
-        if not user_id:
-            flash('Please login first.', 'danger')
-            return redirect(url_for('auth.login'))
-            
-        user = User.query.get(user_id)
-        if not user or not user.is_admin:
-            flash('You do not have permission to access this page.', 'danger')
-            return redirect(url_for('user.profile'))
-            
-        return f(*args, **kwargs)
-    
-    decorated_function.__name__ = f.__name__
-    return decorated_function
 
 # Admin dashboard
 @admin.route('/dashboard')

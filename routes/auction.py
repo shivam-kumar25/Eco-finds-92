@@ -17,7 +17,7 @@ def auction_page():
     active_auctions = Auction.query.filter_by(
         status='active'
     ).order_by(
-        Auction.end_date.asc()  # Show auctions ending soon first
+        Auction.end_time.asc()  # Show auctions ending soon first
     ).all()
     
     # Prepare auction data with additional information
@@ -38,8 +38,8 @@ def auction_page():
         ).distinct().count()
         
         # Get time remaining in minutes
-        if auction_item.end_date > datetime.utcnow():
-            time_remaining = auction_item.end_date - datetime.utcnow()
+        if auction_item.end_time > datetime.utcnow():
+            time_remaining = auction_item.end_time - datetime.utcnow()
             time_remaining_minutes = int(time_remaining.total_seconds() / 60)
         else:
             time_remaining_minutes = 0

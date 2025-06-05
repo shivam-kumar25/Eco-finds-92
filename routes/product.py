@@ -1,3 +1,32 @@
+from flask import Blueprint, render_template, redirect, url_for, flash, request, session
+from __init__ import db
+
+product = Blueprint('product', __name__)
+
+# Category browse by name (for category cards)
+@product.route('/categories/<category_name>')
+def browse_category(category_name):
+    from models.models import Product, Category
+    # Find the category by name (case-insensitive)
+    category = Category.query.filter(Category.name.ilike(category_name)).first()
+    if not category:
+        flash('Category not found.', 'warning')
+        return redirect(url_for('product.product_category'))
+    # Get all categories for the filter dropdown
+    categories = Category.query.all()
+    # Get products in this category
+    products = Product.query.filter(
+        (Product.category_id == category.id) &
+        (Product.status == 'active') &
+        (Product.is_deleted == False)
+    ).all()
+    return render_template('/product/search.html',
+                          products=products,
+                          categories=categories,
+                          selected_category_id=category.id,
+                          search_query='',
+                          min_price=None,
+                          max_price=None)
 from models.models import User
 from flask_mail import Message
 from flask_mail import Mail
@@ -16,27 +45,24 @@ product = Blueprint('product', __name__)
 # Product listing
 @product.route('/product_listing')
 def product_listing():
+    if 'user_id' not in session:
+        flash('Please login to view your listings.', 'warning')
+        return redirect(url_for('auth.login'))
     from models.models import Product, Category
-    
     # Get all categories for the filter
     categories = Category.query.all()
-    
     # Get selected category filter
     category_id = request.args.get('category_id', type=int)
-    
     # Base query for active, non-deleted products
     query = Product.query.filter(
         (Product.status == 'active') &
         (Product.is_deleted == False)
     )
-    
     # Apply category filter if selected
     if category_id:
         query = query.filter(Product.category_id == category_id)
-    
     # Execute query and get products
     products = query.all()
-    
     return render_template('/product/product_listing.html', 
                           products=products,
                           categories=categories,
@@ -71,6 +97,9 @@ def product_details(product_id):
 # product addition
 @product.route('/add_product', methods=['GET', 'POST'])
 def add_product():
+    if 'user_id' not in session:
+        flash('Please login to add a product.', 'warning')
+        return redirect(url_for('auth.login'))
     # if request.method == 'POST':
     #     # Handle product addition logic here
     #     flash('Product added successfully!')
@@ -90,23 +119,37 @@ def add_product():
 # product search
 @product.route('/search', methods=['GET', 'POST'])
 def product_search():
-    from models.models import Product
-    
+    from models.models import Product, Category
     products = []
     search_query = request.args.get('query', '')
-    
+    category_id = request.args.get('category_id', type=int)
+    min_price = request.args.get('min_price', type=float)
+    max_price = request.args.get('max_price', type=float)
+    categories = Category.query.all()
+
+    query = Product.query.filter(
+        (Product.status == 'active') &
+        (Product.is_deleted == False)
+    )
     if search_query:
-        # Search in product titles and descriptions
-        products = Product.query.filter(
-            (Product.name.ilike(f'%{search_query}%') | 
-             Product.description.ilike(f'%{search_query}%')) &
-            (Product.status == 'active') &
-            (Product.is_deleted == False)
-        ).all()
-    
+        query = query.filter(
+            (Product.name.ilike(f'%{search_query}%')) |
+            (Product.description.ilike(f'%{search_query}%'))
+        )
+    if category_id:
+        query = query.filter(Product.category_id == category_id)
+    if min_price is not None:
+        query = query.filter(Product.price >= min_price)
+    if max_price is not None:
+        query = query.filter(Product.price <= max_price)
+    products = query.all()
     return render_template('/product/search.html', 
                           products=products, 
-                          search_query=search_query)
+                          search_query=search_query,
+                          categories=categories,
+                          selected_category_id=category_id,
+                          min_price=min_price,
+                          max_price=max_price)
 
 
 
