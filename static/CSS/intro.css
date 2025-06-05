@@ -849,6 +849,62 @@ a.btn {
   padding: 0 0 0 10px;
 }
 
+/* Google Translate Styles */
+#google_translate_element {
+  padding: 5px 10px;
+}
+
+.goog-te-gadget {
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 14px !important;
+}
+
+.goog-te-gadget-simple {
+  background-color: transparent !important;
+  border: 1px solid var(--primary-color) !important;
+  padding: 5px !important;
+  border-radius: 4px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.goog-te-gadget-icon {
+  display: none !important;
+}
+
+.goog-te-menu-value {
+  color: var(--text-color) !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 5px;
+}
+
+.goog-te-menu-value span {
+  color: var(--text-color) !important;
+  font-family: 'Poppins', sans-serif !important;
+}
+
+/* Remove Google Translate top banner */
+.goog-te-banner-frame {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  #google_translate_element {
+    margin: 10px 0;
+  }
+  
+  .goog-te-gadget {
+    width: 100%;
+    text-align: center;
+  }
+}
+
 
 
 
