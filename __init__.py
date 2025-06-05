@@ -47,7 +47,7 @@ def create_app(config_class=Config):
     from routes.user import user
     from routes.product import product
     from routes.payment import payment
-    from routes.auction import auction
+    # from routes.auction import auction
     from routes.admin import admin
     
     # Register all blueprints
@@ -56,7 +56,7 @@ def create_app(config_class=Config):
     app.register_blueprint(user, url_prefix='/user')
     app.register_blueprint(product, url_prefix='/product')
     app.register_blueprint(payment)
-    app.register_blueprint(auction, url_prefix='/auction')
+    # app.register_blueprint(auction, url_prefix='/auction')
     app.register_blueprint(admin, url_prefix='/admin')
     
     

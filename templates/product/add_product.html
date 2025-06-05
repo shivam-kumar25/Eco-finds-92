@@ -49,32 +49,30 @@
   <main class="add-main">
     <div class="container">
       <section class="add-header animate-fade-in-up" style="animation-delay: 0.8s;">
-        <h1 class="section-title">Create a New Listing</h1>
+        <h1 class="section-title">{{ 'Edit Listing' if edit else 'Create a New Listing' }}</h1>
         <p class="section-subtitle">Help others find your sustainable treasure</p>
       </section>
 
-      <form class="add-form animate-fade-in-up" style="animation-delay: 1s;" action="/add/submit" method="POST" enctype="multipart/form-data">
+      <form class="add-form animate-fade-in-up" style="animation-delay: 1s;" action="{{ url_for('product.edit_product', product_id=product.id) if edit else url_for('product.add_product') }}" method="POST" enctype="multipart/form-data">
         <!-- Basic Info -->
         <div class="form-section animate-slide-in-left" style="animation-delay: 1.2s;">
           <h2>Basic Information</h2>
           <div class="form-group">
             <label for="title">Title</label>
-            <input type="text" id="title" name="title" placeholder="Vintage Wooden Chair" required />
+            <input type="text" id="title" name="title" placeholder="Vintage Wooden Chair" required value="{{ product.name if edit and product else '' }}" />
           </div>
           <div class="form-group">
             <label for="category">Category</label>
             <select id="category" name="category" required>
               <option value="">Select Category</option>
-              <option>Furniture</option>
-              <option>Electronics</option>
-              <option>Home Decor</option>
-              <option>Books</option>
-              <option>Clothing</option>
+              {% for cat in categories %}
+                <option value="{{ cat.name }}" {% if edit and product and product.category_id == cat.id %}selected{% endif %}>{{ cat.name }}</option>
+              {% endfor %}
             </select>
           </div>
           <div class="form-group">
             <label for="description">Description</label>
-            <textarea id="description" name="description" rows="4" placeholder="Describe your item…" required></textarea>
+            <textarea id="description" name="description" rows="4" placeholder="Describe your item…" required>{{ product.description if edit and product else '' }}</textarea>
           </div>
         </div>
 
@@ -83,7 +81,7 @@
           <h2>Pricing & Location</h2>
           <div class="form-group">
             <label for="price">Price ($)</label>
-            <input type="number" id="price" name="price" min="0" placeholder="75.00" required />
+            <input type="number" id="price" name="price" min="0" placeholder="75.00" required value="{{ product.price if edit and product else '' }}" />
           </div>
           <div class="form-group">
             <label for="location">Location (City or ZIP)</label>
@@ -97,13 +95,11 @@
           <div class="form-row">
             <div class="half-group">
               <label for="condition">Condition</label>
-              <select id="condition" name="condition" required>
+            <select id="condition" name="condition" required>
                 <option value="">Select Condition</option>
-                <option>New</option>
-                <option>Like New</option>
-                <option>Good</option>
-                <option>Fair</option>
-                <option>Vintage</option>
+                {% for cond in ['New', 'Like New', 'Good', 'Fair', 'Vintage'] %}
+                  <option value="{{ cond }}" {% if edit and product and product.condition == cond %}selected{% endif %}>{{ cond }}</option>
+                {% endfor %}
               </select>
             </div>
             <div class="half-group">

@@ -410,7 +410,9 @@ textarea {
   border-radius: var(--border-radius);
   cursor: pointer;
   transition: background-color var(--transition), transform var(--transition);
-  opacity: 0;
+  opacity: 1 !important;
+  display: block;
+  margin: 0 auto;
 }
 
 .submit-btn:hover {
