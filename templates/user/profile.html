@@ -30,7 +30,6 @@
           <li><a href="{{ url_for('product.product_listing') }}" {% if request.endpoint == 'product.product_listing' %}class="active"{% endif %}>My Listings</a></li>
           <li><a href="{{ url_for('product.product_search') }}" {% if request.endpoint == 'product.product_search' %}class="active"{% endif %}>Search</a></li>
           <li><a href="{{ url_for('user.profile') }}" class="active">Profile</a></li>
-          <li><a href="{{ url_for('auction.auction_page') }}" {% if request.endpoint == 'auction.live' %}class="active"{% endif %}>Auction</a></li>
         </ul>
       </nav>
       <div class="header-actions">
