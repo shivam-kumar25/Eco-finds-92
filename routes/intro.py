@@ -17,7 +17,7 @@ intro = Blueprint('intro', __name__)
 @intro.route('/')
 def index():
     if 'user_id' in session:
-        return redirect(url_for('main.index'))
+        return redirect(url_for('user.index'))
     
     return render_template('intro.html', title='Welcome to Eco-Finds 92')
 

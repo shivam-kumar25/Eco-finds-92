@@ -45,97 +45,91 @@
       </div>
     </div>
   </header>
-
   <!-- Cart Hero Section -->
-  <section class="cart-hero animate-fade-in-up" style="animation-delay: 0.8s;">
-    <div class="container hero-container">
+  <section class="cart-hero animate-fade-in-up" style="animation-delay: 0.8s;">    <div class="container hero-container">
       <h1 class="hero-title">🛒 Your Shopping Cart</h1>
       <p class="hero-subtitle">Review items in your cart and proceed to checkout.</p>
+      
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
     </div>
   </section>
 
   <!-- Cart Main Content -->
   <main class="cart-main">
     <div class="container cart-container">
-      <!-- Cart Items Section -->
-      <section class="cart-items-section animate-slide-in-left" style="animation-delay: 1s;">
-        <h2 class="section-title">Items in Your Cart</h2>
-        <div class="cart-item-card">
-          <div class="item-image">
-            <img src="https://via.placeholder.com/120x120?text=Vintage+Record+Player" alt="Vintage Record Player" />
-          </div>
-          <div class="item-details">
-            <h3 class="item-name">Vintage Record Player</h3>
-            <p class="item-location">Brooklyn, NY</p>
-            <div class="item-meta">
-              <span class="item-price">$120</span>
-              <div class="quantity-selector">
-                <label for="qty1">Qty:</label>
-                <input type="number" id="qty1" name="qty1" min="1" value="1" />
+      {% if cart_items %}
+        <!-- Cart Items Section -->
+        <section class="cart-items-section">
+          <h2 class="section-title">Items in Your Cart</h2>
+          
+          <form action="{{ url_for('payment.update_cart') }}" method="POST">
+            {% for item in cart_items %}
+              <div class="cart-item-card">
+                <div class="item-image">
+                  {% if item.product.image_filename %}
+                    <img src="{{ url_for('static', filename='uploads/products/' + item.product.image_filename) }}" 
+                         alt="{{ item.product.name }}" />
+                  {% else %}
+                    <img src="https://via.placeholder.com/120x120?text=Product+Image" 
+                         alt="{{ item.product.name }}" />
+                  {% endif %}
+                </div>
+                <div class="item-details">
+                  <h3 class="item-name">{{ item.product.name }}</h3>
+                  <p class="item-info">Condition: {{ item.product.condition }}</p>
+                  <div class="item-meta">
+                    <span class="item-price">${{ "%.2f"|format(item.product.price) }}</span>
+                    <div class="quantity-selector">
+                      <label for="quantity_{{ item.id }}">Qty:</label>
+                      <input type="number" id="quantity_{{ item.id }}" name="quantity_{{ item.id }}" 
+                             min="1" value="{{ item.quantity }}" />
+                    </div>
+                  </div>
+                  <div class="item-actions">
+                    <button type="button" class="btn update-btn" onclick="this.form.submit()">Update</button>
+                    <form action="{{ url_for('payment.remove_from_cart', item_id=item.id) }}" method="POST" class="remove-form">
+                      <button type="submit" class="btn remove-btn">Remove</button>
+                    </form>
+                  </div>                </div>
               </div>
-            </div>
-            <button class="btn remove-btn">Remove</button>
-          </div>
-        </div>
+            {% endfor %}
+          </form>
+        </section>
 
-        <div class="cart-item-card">
-          <div class="item-image">
-            <img src="https://via.placeholder.com/120x120?text=Eco+Leather+Backpack" alt="Eco Leather Backpack" />
-          </div>
-          <div class="item-details">
-            <h3 class="item-name">Eco Leather Backpack</h3>
-            <p class="item-location">Portland, OR</p>
-            <div class="item-meta">
-              <span class="item-price">$60</span>
-              <div class="quantity-selector">
-                <label for="qty2">Qty:</label>
-                <input type="number" id="qty2" name="qty2" min="1" value="2" />
+        <!-- Order Summary Section -->
+        <aside class="order-summary-section">
+          <h2 class="section-title">Order Summary</h2>
+          <div class="summary-details">
+            {% for item in cart_items %}
+              <div class="summary-row">
+                <span>{{ item.product.name }} x{{ item.quantity }}</span>
+                <span>${{ "%.2f"|format(item.product.price * item.quantity) }}</span>
               </div>
+            {% endfor %}
+            <div class="summary-divider"></div>
+            <div class="summary-row total-row">
+              <span>Total</span>
+              <span class="total-amount">${{ "%.2f"|format(total) }}</span>
             </div>
-            <button class="btn remove-btn">Remove</button>
           </div>
+          
+          <a href="{{ url_for('payment.checkout') }}" class="btn checkout-btn">Proceed to Checkout</a>
+          <a href="{{ url_for('product.product_listing') }}" class="btn continue-shopping-btn">Continue Shopping</a>
+        </aside>
+      {% else %}
+        <!-- Empty Cart Message -->
+        <div class="empty-cart">
+          <h2>Your cart is empty</h2>
+          <p>Start adding items to your cart to see them here.</p>
+          <a href="{{ url_for('product.product_listing') }}" class="btn shop-now-btn">Shop Now</a>
         </div>
-
-        <div class="cart-item-card">
-          <div class="item-image">
-            <img src="https://via.placeholder.com/120x120?text=Handwoven+Rug" alt="Artisan Handwoven Rug" />
-          </div>
-          <div class="item-details">
-            <h3 class="item-name">Artisan Handwoven Rug</h3>
-            <p class="item-location">Austin, TX</p>
-            <div class="item-meta">
-              <span class="item-price">$75</span>
-              <div class="quantity-selector">
-                <label for="qty3">Qty:</label>
-                <input type="number" id="qty3" name="qty3" min="1" value="1" />
-              </div>
-            </div>
-            <button class="btn remove-btn">Remove</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- Order Summary Section -->
-      <aside class="order-summary-section animate-slide-in-right" style="animation-delay: 1s;">
-        <h2 class="section-title">Order Summary</h2>
-        <div class="summary-details">
-          <div class="summary-row">
-            <span>Vintage Record Player x1</span>
-            <span>$120</span>
-          </div>
-          <div class="summary-row">
-            <span>Eco Leather Backpack x2</span>
-            <span>$120</span>
-          </div>
-          <div class="summary-row">
-            <span>Artisan Handwoven Rug x1</span>
-            <span>$75</span>
-          </div>
-          <div class="summary-divider"></div>
-          <div class="summary-row total-row">
-            <span>Total</span>
-            <span class="total-amount">$315</span>
-          </div>
+      {% endif %}
         </div>
         <a href="/checkout" class="btn checkout-btn animate-pop-in" style="animation-delay: 1.4s;">
           Proceed to Checkout

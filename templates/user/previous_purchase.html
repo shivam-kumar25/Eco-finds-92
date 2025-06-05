@@ -35,54 +35,78 @@
       </nav>
       <div class="header-actions">
         <span class="user-greeting animate-fade-in-up" style="animation-delay: 0.4s;">Hello, <strong>Jane Doe</strong></span>
-        <a href="/logout" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
+        <a href="{{ url_for('auth.logout') }}" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
           Log Out
         </a>
       </div>
     </div>
   </header>
-
   <!-- Purchases Hero Section -->
   <section class="purchases-hero animate-fade-in-up" style="animation-delay: 0.8s;">
     <div class="container hero-container">
       <h1 class="hero-title">🎁 My Previous Purchases</h1>
       <p class="hero-subtitle">Review and manage items you've bought on EcoFinds.</p>
+      
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
     </div>
   </section>
-
   <!-- Purchases Main Content -->
   <main class="purchases-main">
     <div class="container purchases-container">
-      {% for purchase in purchases %}
-      <div class="purchase-card animate-slide-in-left" style="animation-delay: {{ loop.index * 0.2 + 0.8 }}s;">
-        <div class="purchase-image">
-          <img src="{{ purchase.product.image_url|default('https://via.placeholder.com/120x120?text=' + purchase.product.name|urlencode) }}" 
-               alt="{{ purchase.product.name }}" />
-        </div>
-        <div class="purchase-details">
-          <h3 class="purchase-name">{{ purchase.product.name }}</h3>
-          <p class="purchase-seller">Seller: {{ purchase.seller.username }}</p>
-          <div class="purchase-meta">
-            <span class="purchase-price">${{ "%.2f"|format(purchase.price) }}</span>
-            <span class="purchase-date">Purchased: {{ purchase.purchase_date.strftime('%B %d, %Y') }}</span>
+      {% if dummy_purchases %}
+        {% for purchase in dummy_purchases %}
+        <div class="purchase-card">
+          <div class="purchase-image">
+            <img src="https://via.placeholder.com/120x120?text=Product+Image" 
+                alt="{{ purchase.product_name }}" />
           </div>
-          {% if purchase.is_reviewed %}
-              <button class="btn review-btn" disabled>Already Reviewed</button>
-          {% else %}
-              <button class="btn review-btn" 
-                      onclick="window.location.href='{{ url_for('review.create', purchase_id=purchase.id) }}'">
-                  Leave Review
-              </button>
-          {% endif %}
+          <div class="purchase-details">
+            <h3 class="purchase-name">{{ purchase.product_name }}</h3>
+            <p class="purchase-seller">Seller: {{ purchase.seller }}</p>
+            <div class="purchase-meta">
+              <span class="purchase-price">${{ "%.2f"|format(purchase.price) }}</span>
+              <span class="purchase-date">Purchased: {{ purchase.purchase_date.strftime('%B %d, %Y') }}</span>
+            </div>
+            <button class="btn review-btn">Leave Review</button>
+          </div>
         </div>
-      </div>
-      {% endfor %}
-
-      {% if not purchases %}
-      <div class="no-purchases-message animate-fade-in-up">
+        {% endfor %}
+      {% elif orders %}
+        {% for order in orders %}
+          {% for item in order.items %}
+          <div class="purchase-card">
+            <div class="purchase-image">
+              {% if item.product.image_filename %}
+                <img src="{{ url_for('static', filename='uploads/products/' + item.product.image_filename) }}" 
+                    alt="{{ item.product.name }}" />
+              {% else %}
+                <img src="https://via.placeholder.com/120x120?text=Product+Image" 
+                    alt="{{ item.product.name }}" />
+              {% endif %}
+            </div>
+            <div class="purchase-details">
+              <h3 class="purchase-name">{{ item.product.name }}</h3>
+              <p class="purchase-seller">Order #{{ order.id }}</p>
+              <div class="purchase-meta">
+                <span class="purchase-price">${{ "%.2f"|format(item.price) }}</span>
+                <span class="purchase-date">Purchased: {{ order.order_date.strftime('%B %d, %Y') }}</span>
+              </div>
+              <button class="btn review-btn">Leave Review</button>
+            </div>
+          </div>
+          {% endfor %}
+        {% endfor %}
+      {% else %}
+      <div class="no-purchases-message">
         <h2>No purchases yet</h2>
         <p>Start exploring our marketplace to find unique, sustainable items!</p>
-        <a href="{{ url_for('product.browse') }}" class="btn browse-btn">Browse Items</a>
+        <a href="{{ url_for('product.product_listing') }}" class="btn browse-btn">Browse Items</a>
       </div>
       {% endif %}
     </div>

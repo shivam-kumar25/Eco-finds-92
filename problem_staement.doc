@@ -1,0 +1,104 @@
+EcoFinds: A Sustainable Second-Hand Marketplace
+
+**Overall Vision:**
+EcoFinds aims to be a trusted platform that transforms how people buy and sell pre-owned goods. It seeks to promote sustainability by extending product lifecycles, reducing waste, and offering a convenient alternative to new purchases. [cite_start]The vision is for EcoFinds to become the preferred destination for a community focused on conscious consumption and unique finds[cite: 1, 2, 3].
+
+**Mission:**
+The hackathon team's mission is to develop a user-friendly and engaging desktop or mobile application for buying and selling second-hand items. EcoFinds should have an intuitive design and essential features to efficiently connect buyers and sellers, fostering a circular economy and simplifying sustainable choices. [cite_start]This involves building a functional platform that inspires trust and community[cite: 4, 5, 6, 7].
+
+**Problem Statement:**
+The goal is to develop a comprehensive version of EcoFinds, moving beyond basic elements to create a robust and interactive second-hand marketplace. Teams must deliver a functional prototype for both mobile and desktop interfaces. This prototype needs to include user authentication, basic product listings, and advanced features vital for a thriving community. These advanced features include enhanced user verification (via OTP), sophisticated search and personalized recommendation systems, direct in-app communication, and dynamic selling mechanisms like auctions. [cite_start]Additionally, the platform must incorporate strong trust and safety features such as user ratings, a dispute resolution system, and an administrative tool for managing complaints, all while ensuring efficient data structures and a stable, responsive user experience[cite: 8, 9, 10, 11].
+
+**Features:**
+[cite_start]The EcoFinds application will include the following features for a rich user experience across desktop and mobile platforms[cite: 12]:
+
+**I. User Accounts & Profile Management**
+1.  **User Authentication & Verification:**
+    * **Description:** A secure system for user registration and login. [cite_start]User profiles will be verified using a One-Time Password (OTP) sent to their registered phone number and an email confirmation link[cite: 13].
+    * [cite_start]**Purpose:** To establish legitimate accounts, reduce spam and fraud, and ensure users have access to their registered contact methods[cite: 14].
+    * [cite_start]**Key Functionality:** OTP to mobile, email confirmation link, clear verification status[cite: 15].
+2.  **Profile Creation & Management (User Dashboard):**
+    * **Description:** Users can create and manage their personal profiles through a central User Dashboard. [cite_start]This dashboard will display and allow editing of personal details, listings, purchases, saved items, messages, and reviews[cite: 16, 17, 18].
+    * [cite_start]**Purpose:** To enable users to personalize their experience, maintain accurate contact information, and easily navigate their activities[cite: 19].
+
+**II. Product Listing & Management**
+3.  **Product Listing Creation:**
+    * [cite_start]**Description:** Users can create new product listings with a title, brief description, predefined category, price, and at least one image placeholder[cite: 20].
+    * [cite_start]**Purpose:** To allow sellers to easily list items for sale[cite: 21].
+4.  **Product Listing Management (CRUD - Basic):**
+    * [cite_start]**Description:** Users can view, edit, and delete their own product listings[cite: 22].
+    * [cite_start]**Purpose:** To provide sellers control over their active and inactive listings[cite: 23].
+5.  **Auction Feature:**
+    * **Description:** Sellers can list products for auction, where buyers bid, and the highest bidder wins at the end of a set period. [cite_start]This feature is available if the product meets a certain price point (user or system-defined)[cite: 24, 25].
+    * [cite_start]**Purpose:** Offers an alternative selling method for unique, high-demand, or high-value items, potentially leading to higher prices and creating buyer excitement[cite: 26, 27].
+    * [cite_start]**Key Functionality:** Option to select "Auction," setting minimum bid/reserve price, defining duration, real-time bidding interface, automatic notifications, seller confirmation mechanism, clear rules[cite: 27].
+
+**III. Product Discovery & Personalization**
+6.  **Product Browse:**
+    * [cite_start]**Description:** A view displaying a list of available product listings with basic information (title, price, and placeholder image)[cite: 28].
+    * [cite_start]**Purpose:** To allow buyers to explore available items[cite: 29].
+7.  **Product Detail View:**
+    * **Description:** A screen/page showing full details of a selected product, including title, description, price, category, and image placeholder. [cite_start]It will also have a "Chat with Seller" button[cite: 30, 31].
+    * [cite_start]**Purpose:** To provide comprehensive product information and facilitate direct interaction with sellers[cite: 32].
+8.  **Search & Filtering (Basic & Advanced):**
+    * **Description:** Combines keyword search with advanced filtering. [cite_start]Users can search by keywords in the title and apply granular filters[cite: 33, 34].
+    * [cite_start]**Purpose:** To help users quickly find desired items, saving time and reducing frustration[cite: 35].
+    * [cite_start]**Key Functionality:** Keyword search bar, category filtering, category-specific filters (e.g., brand, model, material), condition filters, seller-based filters, location-based filters, price range sliders, and various sorting options[cite: 36].
+9.  **Personalized Recommendations:**
+    * [cite_start]**Description:** An intelligent system that suggests relevant items based on user behavior and preferences[cite: 37].
+    * [cite_start]**Purpose:** To increase discovery of interesting items, leading to higher engagement, more purchases, and repeat visits[cite: 38].
+    * **Key Functionality:** Algorithm to analyze Browse history, saved items, purchases, and search queries; [cite_start]"You might also like" sections; personalized feeds; email/push notification digests[cite: 39, 40].
+10. **"Saved Searches" & Price Alerts:**
+    * [cite_start]**Description:** Users can save specific search queries and receive notifications when new matching items are listed or when the price of a tracked item drops[cite: 41].
+    * [cite_start]**Purpose:** To ensure buyers don't miss desired items and secure better deals without constant manual checking, encouraging repeat visits[cite: 42, 43].
+    * [cite_start]**Key Functionality:** Option to "Save Search," management section for saved searches, notification settings (email, in-app, push), option to "Watch" specific items for price drops[cite: 43].
+
+**IV. Transaction & Communication Flow**
+11. **Cart:**
+    * [cite_start]**Description:** A screen displaying products added to the cart, shown as cards with basic product information[cite: 44, 45].
+    * [cite_start]**Purpose:** To allow buyers to collect multiple items before purchasing[cite: 46].
+12. **Previous Purchase View:**
+    * [cite_start]**Description:** A screen/page displaying products previously purchased by the current user[cite: 47].
+    * [cite_start]**Purpose:** To allow users to review their past transactions[cite: 48].
+13. **Direct Chat with Seller:**
+    * [cite_start]**Description:** Enables buyers to communicate directly with sellers via an in-app chat interface, accessible from the product listing page or seller's profile[cite: 48].
+    * [cite_start]**Purpose:** To facilitate quick queries, negotiation, and coordination; keeps communication within the platform for monitoring[cite: 49].
+    * [cite_start]**Key Functionality:** Chat icon/button on product listings and seller profiles, real-time messaging, chat history, notifications for new messages[cite: 50].
+
+**V. Trust, Safety & Administration**
+14. **User Ratings & Reviews System:**
+    * [cite_start]**Description:** A mechanism for users to provide feedback on their transaction partners (buyers rating sellers, sellers rating buyers) after a completed transaction[cite: 51].
+    * [cite_start]**Purpose:** To build social proof, help users make informed decisions, build seller reputation, and foster a self-regulating community[cite: 52].
+    * [cite_start]**Key Functionality:** Star-based rating, textual review comments, specific rating attributes, public display on profiles, ability to report inappropriate reviews, system to ensure reviews are only left after confirmed transactions[cite: 53].
+15. **Dispute Resolution Mechanism:**
+    * [cite_start]**Description:** A formalized, in-platform process for users to report and resolve transaction issues (e.g., item not as described, non-delivery, payment discrepancies)[cite: 54].
+    * [cite_start]**Purpose:** To provide a clear path to address problems, reduce frustration, and centralize issue management[cite: 55].
+    * [cite_start]**Key Functionality:** Ticketing/case management system, clear guidelines, ability to submit evidence, platform-mediated communication, option for platform intervention, tracking dispute history[cite: 56].
+16. **Admin Feature to Manage Complaints:**
+    * [cite_start]**Description:** A dedicated backend interface and tools for platform administrators to efficiently manage, track, and resolve user-reported complaints and disputes[cite: 57].
+    * [cite_start]**Purpose:** To enable effective oversight of user issues, ensure timely resolution, and maintain a fair and safe marketplace[cite: 58].
+    * [cite_start]**Key Functionality:** Centralized dashboard for complaints, filtering/sorting, detailed complaint information, tools for communication with parties, functionality to update status, option to assign complaints, reporting/analytics[cite: 59].
+
+**VI. Platform Enhancements**
+17. **Multi-Language Support (Starting with Hindi/Gujarati):**
+    * [cite_start]**Description:** Allows users to switch the platform's UI language, making it more accessible to non-English speakers[cite: 60].
+    * [cite_start]**Purpose:** To improve usability and comfort for a wider demographic in India, increasing user adoption and market penetration[cite: 61].
+    * [cite_start]**Key Functionality:** Language selection option in settings/header, translation of static UI elements, common categories, and system messages[cite: 62].
+
+**Wireframes:**
+[cite_start]The EcoFinds application is designed for ease of use and quick access to core buying and selling functionalities[cite: 63].
+
+* [cite_start]**Login/Sign Up Screen:** App logo, email input, password input, login button, sign-up link/button[cite: 64].
+* [cite_start]**Product Listing Feed Screen:** Header with app title/logo, search bar, category filter options, list of product items (image, title, price), a prominent "+" button to add a new product listing[cite: 65].
+* **Add New Product Screen:** Back button, screen title, input fields for Product Title, Category (dropdown), Description (text area), Price (number input), "+ Add Image Placeholder" button, and "Submit Listing" button. [cite_start]For auctionable items, it will also include fields for Minimum Bid Price, Reserve Price (Optional), and Auction Duration[cite: 66, 67].
+* **My Listings Screen:** Header with app title/logo, "+" button to add a new product, list of user's listed products (image, title, price, "Edit" and "Delete" buttons). [cite_start]This list will differentiate between standard and active/past auction listings, showing current bid and time remaining for auctions[cite: 68, 69].
+* **Product Detail Screen:** Back button, larger product image placeholder, product title, price, category, description, and a prominent "Chat with Seller" button. [cite_start]For auction items, it will display "Current Bid," "Time Remaining," and a "Place Bid" button, along with the seller's rating[cite: 70, 71, 72].
+* **User Dashboard:** Header with app title/logo, user image, display of all user-related fields with editing capability. Contains links/tabs for "My Listings," "My Purchases," "Saved Items," "Messages" (for chat history), "Reviews/Ratings," and "Account Settings." [cite_start]It will also include a section for "My Disputes" or "Complaint History"[cite: 73, 74, 75].
+* [cite_start]**Cart:** Header with app title/logo, a page displaying all products in the cart, shown as cards with basic product information[cite: 76, 77].
+* [cite_start]**Previous Purchase:** A list view of products purchased by the user, including seller, price, and an option to leave a review[cite: 78].
+* [cite_start]**Chat Screen (Messages):** Header with chat partner's name/listing title, back button, message input field, send button, scrollable message history displaying sent and received messages[cite: 79].
+* [cite_start]**Auction Detail Screen:** Product image, title, detailed description, current highest bid, number of bids, time remaining, "Place Bid" input field and button, seller's information (name, rating), and an option to "Watch Auction"[cite: 80].
+* **Admin Dashboard - Complaints Management (Mockup):** Header with "Admin Panel" title, navigation for different admin sections (e.g., "Complaints," "Users," "Listings"), a table/list of complaints with columns for Complaint ID, User(s) Involved, Item, Status, Date Reported, and Action buttons (e.g., "View Details," "Resolve"). [cite_start]Includes filtering and sorting options for complaints, and a detailed view for each complaint showing submitted evidence and communication tools[cite: 81, 82].
+
+**Note:**
+The requirements and wireframes provide an overview of EcoFinds. [cite_start]Candidates can enhance the application's flow, a specific feature, or a particular part of the application, provided these enhancements align with the core purpose and vision of EcoFinds[cite: 83, 84, 85].

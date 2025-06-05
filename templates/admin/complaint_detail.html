@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+
+{% block title %}Complaint Details{% endblock %}
+
+{% block content %}
+<div class="complaint-detail">
+  <div class="complaint-header">
+    <div class="complaint-title">
+      <h1>Complaint #{{ complaint.id }}</h1>
+      <span class="status-badge status-{{ complaint.status|lower|replace(' ', '-') }}">
+        {{ complaint.status }}
+      </span>
+    </div>
+    <a href="{{ url_for('admin.complaints') }}" class="btn back-btn">Back to List</a>
+  </div>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <div class="detail-grid">
+    <div class="complaint-info">
+      <div class="info-card">
+        <h2>Complaint Information</h2>
+        <div class="info-row">
+          <span class="label">Subject:</span>
+          <span class="value">{{ complaint.subject }}</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Description:</span>
+          <span class="value">{{ complaint.description }}</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Date Reported:</span>
+          <span class="value">{{ complaint.date_reported.strftime('%Y-%m-%d %H:%M') }}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h2>User Information</h2>
+        <div class="info-row">
+          <span class="label">Username:</span>
+          <span class="value">{{ complaint.user_name }}</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Email:</span>
+          <span class="value">{{ complaint.user_email }}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h2>Item Information</h2>
+        <div class="info-row">
+          <span class="label">Item ID:</span>
+          <span class="value">{{ complaint.item_id }}</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Item Name:</span>
+          <span class="value">{{ complaint.item_name }}</span>
+        </div>
+      </div>
+
+      <div class="info-card">
+        <h2>Update Status</h2>
+        <form action="{{ url_for('admin.update_complaint', complaint_id=complaint.id) }}" method="POST" class="status-form">
+          <div class="form-group">
+            <label for="status">New Status:</label>
+            <select name="status" id="status">
+              <option value="Open" {% if complaint.status == 'Open' %}selected{% endif %}>Open</option>
+              <option value="In Progress" {% if complaint.status == 'In Progress' %}selected{% endif %}>In Progress</option>
+              <option value="Resolved" {% if complaint.status == 'Resolved' %}selected{% endif %}>Resolved</option>
+              <option value="Closed" {% if complaint.status == 'Closed' %}selected{% endif %}>Closed</option>
+            </select>
+          </div>
+          <button type="submit" class="btn update-btn">Update Status</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="complaint-messages">
+      <h2>Communication History</h2>
+      <div class="message-thread">
+        {% for message in complaint.messages %}
+        <div class="message {% if message.sender == 'Admin' %}admin-message{% else %}user-message{% endif %}">
+          <div class="message-header">
+            <span class="message-sender">{{ message.sender }}</span>
+            <span class="message-time">{{ message.timestamp.strftime('%Y-%m-%d %H:%M') }}</span>
+          </div>
+          <div class="message-body">
+            {{ message.message }}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      <form class="reply-form">
+        <textarea name="reply" placeholder="Type your reply..."></textarea>
+        <button type="submit" class="btn reply-btn">Send Reply</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  .complaint-detail {
+    padding: 2rem;
+  }
+  .complaint-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  .complaint-title {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+  }
+  .status-open {
+    background-color: #ffc107;
+    color: #212529;
+  }
+  .status-in-progress {
+    background-color: #17a2b8;
+    color: white;
+  }
+  .status-resolved {
+    background-color: #28a745;
+    color: white;
+  }
+  .status-closed {
+    background-color: #6c757d;
+    color: white;
+  }
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .info-card {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+  }
+  .info-row {
+    margin-bottom: 0.75rem;
+    display: flex;
+    flex-direction: column;
+  }
+  .info-row .label {
+    font-weight: bold;
+    margin-bottom: 0.25rem;
+  }
+  .info-row .value {
+    color: #495057;
+  }
+  .status-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .complaint-messages {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  .message-thread {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 1.5rem;
+  }
+  .message {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+  .user-message {
+    background-color: #e2e8f0;
+  }
+  .admin-message {
+    background-color: #d1ecf1;
+  }
+  .message-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+  }
+  .message-sender {
+    font-weight: bold;
+  }
+  .message-time {
+    color: #6c757d;
+  }
+  .message-body {
+    color: #212529;
+  }
+  .reply-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .reply-form textarea {
+    padding: 0.75rem;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    resize: vertical;
+    min-height: 100px;
+  }
+  .reply-btn {
+    align-self: flex-end;
+    padding: 0.5rem 1.5rem;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .back-btn {
+    padding: 0.5rem 1rem;
+    background-color: #6c757d;
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+  }
+  .update-btn {
+    padding: 0.5rem 1rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  @media (max-width: 992px) {
+    .detail-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+{% endblock %}

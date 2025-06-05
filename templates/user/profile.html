@@ -22,25 +22,36 @@
   <header class="header animate-fade-down">
     <div class="container header-container">
       <div class="logo">
-        <a href="#">EcoFinds</a>
+        <a href="{{ url_for('intro.index') }}">EcoFinds</a>
       </div>
       <nav class="main-nav">
         <ul class="nav-list">
-          <li><a href="/dashboard" class="active">Home</a></li>
-          <li><a href="/listings">My Listings</a></li>
-          <li><a href="/search">Search Items</a></li>
-          <li><a href="/profile">Profile</a></li>
-          <li><a href="/auction">Auction</a></li>
+          <li><a href="{{ url_for('user.index') }}" {% if request.endpoint == 'user.dashboard' %}class="active"{% endif %}>Dashboard</a></li>
+          <li><a href="{{ url_for('product.product_listing') }}" {% if request.endpoint == 'product.product_listing' %}class="active"{% endif %}>My Listings</a></li>
+          <li><a href="{{ url_for('product.product_search') }}" {% if request.endpoint == 'product.product_search' %}class="active"{% endif %}>Search</a></li>
+          <li><a href="{{ url_for('user.profile') }}" class="active">Profile</a></li>
+          <li><a href="{{ url_for('auction.auction_page') }}" {% if request.endpoint == 'auction.live' %}class="active"{% endif %}>Auction</a></li>
         </ul>
       </nav>
       <div class="header-actions">
-        <span class="user-greeting animate-fade-in-up" style="animation-delay: 0.4s;">Hello, <strong>Jane Doe</strong></span>
-        <a href="/logout" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
+        <span class="user-greeting animate-fade-in-up" style="animation-delay: 0.4s;">Hello, <strong>{{ user.username }}</strong></span>
+        <a href="{{ url_for('auth.logout') }}" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
           Log Out
         </a>
       </div>
     </div>
   </header>
+
+  <!-- Flash Messages -->
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <div class="flash-messages">
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  {% endwith %}
 
   <!-- Profile Main Content -->
   <main class="profile-main">
@@ -48,18 +59,16 @@
       <!-- Profile Header -->
       <section class="profile-header animate-fade-in-up" style="animation-delay: 0.8s;">
         <div class="profile-avatar">
-          <img src="{{ current_user.profile_picture or 'https://via.placeholder.com/140' }}" alt="{{ current_user.username }}" />
+          <img src="{{ user.profile_picture or 'https://via.placeholder.com/140' }}" alt="{{ user.username }}" />
         </div>
         <div class="profile-info">
-          <h1 class="profile-name">{{ current_user.full_name }}</h1>
-          <p class="profile-bio">{{ current_user.bio }}</p>
-          <div class="profile-details">
-            <p><strong>Email:</strong> {{ current_user.email }}</p>
-            <p><strong>Phone:</strong> {{ current_user.phone_number }}</p>
-            <p><strong>Location:</strong> {{ current_user.address }}</p>
-            <p><strong>Interests:</strong> {{ current_user.interests }}</p>
-          </div>
-          <a href="{{ url_for('user.edit_profile') }}" class="btn edit-btn animate-pop-in" style="animation-delay: 1s;">
+          <h1 class="profile-name">{{ user.full_name }}</h1>
+          <p class="profile-bio">{{ user.bio }}</p>
+          <p><strong>Email:</strong> {{ user.email }}</p>
+          <p><strong>Phone:</strong> {{ user.phone_number }}</p>
+          <p><strong>Location:</strong> {{ user.address }}</p>
+          <p><strong>Interests:</strong> {{ user.interests if user.interests else '' }}</p>
+          <a href="{{ url_for('user.profile_setup') }}" class="btn edit-btn animate-pop-in" style="animation-delay: 1s;">
             Edit Profile
           </a>
         </div>
@@ -85,19 +94,19 @@
         <h2 class="section-heading">My Recent Listings</h2>
         <div class="listings-grid">
           {% for listing in recent_listings %}
-          <div class="listing-card animate-slide-in-{{ loop.first ? 'left' : (loop.last ? 'right' : 'up') }}" 
+          <div class="listing-card animate-slide-in-{{ 'left' if loop.first else ('right' if loop.last else 'up') }}" 
                style="animation-delay: {{ 2.2 + loop.index0 * 0.2 }}s;">
             <img src="{{ listing.image_url or 'https://via.placeholder.com/300x180?text=' + listing.name|urlencode }}" 
                  alt="{{ listing.name }}" />
             <div class="listing-info">
               <h3>{{ listing.name }}</h3>
               <p class="listing-status">Status: {{ listing.status }}</p>
-              <a href="{{ url_for('product.view', id=listing.id) }}" class="btn view-btn">View</a>
+              <a href="{{ url_for('product.product_details', product_id=listing.id) }}" class="btn view-btn">View</a>
             </div>
           </div>
           {% endfor %}
         </div>
-        <a href="{{ url_for('product.my_listings') }}" class="btn all-listings-btn animate-pop-in" style="animation-delay: 2.8s;">
+        <a href="{{ url_for('product.product_listing') }}" class="btn all-listings-btn animate-pop-in" style="animation-delay: 2.8s;">
           View All My Listings →
         </a>
       </section>
@@ -107,14 +116,14 @@
         <h2 class="section-heading">My Recent Reviews</h2>
         <div class="reviews-grid">
           {% for review in recent_reviews %}
-          <div class="review-card animate-slide-in-{{ loop.first ? 'left' : (loop.last ? 'right' : 'up') }}" 
+          <div class="review-card animate-slide-in-{{ 'left' if loop.first else ('right' if loop.last else 'up') }}" 
                style="animation-delay: {{ 3.2 + loop.index0 * 0.2 }}s;">
             <div class="review-icon">{{ "⭐️" * review.rating }}</div>
             <p>"{{ review.text }}" <strong>– {{ review.author }}</strong></p>
           </div>
           {% endfor %}
         </div>
-        <a href="{{ url_for('user.reviews') }}" class="btn all-reviews-btn animate-pop-in" style="animation-delay: 3.8s;">
+        <a href="{{ url_for('user.profile') }}" class="btn all-reviews-btn animate-pop-in" style="animation-delay: 3.8s;">
           View All Reviews →
         </a>
       </section>

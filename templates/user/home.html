@@ -37,7 +37,7 @@
       </nav>
       <div class="header-actions">
         <span class="user-greeting animate-fade-in-up" style="animation-delay: 0.4s;">Hello, <strong>Jane Doe</strong></span>
-        <a href="/logout" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
+        <a href="{{ url_for('auth.logout') }}" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
           Log Out
         </a>
       </div>
@@ -74,7 +74,7 @@
             <h2 class="section-heading">Your Recent Listings</h2>
             <div class="listings-grid">
                 {% for listing in recent_listings %}
-                <div class="listing-card animate-slide-in-{{ loop.index0 == 0 ? 'left' : (loop.index0 == 2 ? 'right' : 'up') }}" 
+                <div class="listing-card animate-slide-in-{{ 'left' if loop.index0 == 0 else ('right' if loop.index0 == 2 else 'up') }}" 
                      style="animation-delay: {{ loop.index * 0.2 + 2 }}s;">
                     <img src="{{ listing.image_url or 'https://via.placeholder.com/300x180?text=' + listing.name|urlencode }}" 
                          alt="{{ listing.name }}" />
@@ -86,7 +86,7 @@
                 </div>
                 {% endfor %}
             </div>
-            <a href="{{ url_for('product.listings') }}" class="btn all-listings-btn animate-pop-in" style="animation-delay: 2.6s;">
+            <a href="{{ url_for('product.product_listing') }}" class="btn all-listings-btn animate-pop-in" style="animation-delay: 2.6s;">
                 View All My Listings →
             </a>
         </section>
@@ -96,7 +96,7 @@
             <h2 class="section-heading">Community Spotlight</h2>
             <div class="community-grid">
                 {% for spotlight in community_spotlights %}
-                <div class="community-card animate-slide-in-{{ loop.index0 == 0 ? 'left' : (loop.index0 == 2 ? 'right' : 'up') }}" 
+                <div class="community-card animate-slide-in-{{ 'left' if loop.index0 == 0 else ('right' if loop.index0 == 2 else 'up') }}" 
                      style="animation-delay: {{ loop.index * 0.2 + 3 }}s;">
                     <div class="community-icon">{{ spotlight.icon }}</div>
                     <p>"{{ spotlight.message }}" <strong>– {{ spotlight.author }}</strong></p>

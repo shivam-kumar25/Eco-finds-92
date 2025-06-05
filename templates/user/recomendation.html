@@ -37,7 +37,7 @@
       </nav>
       <div class="header-actions">
         <span class="user-greeting animate-fade-in-up" style="animation-delay: 0.4s;">Hello, <strong>Jane Doe</strong></span>
-        <a href="/logout" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
+        <a href="{{ url_for('auth.logout') }}" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
           Log Out
         </a>
       </div>
@@ -53,31 +53,41 @@
       </p>
     </div>
   </section>
-
   <!-- Recommendations Grid -->
   <main class="recommend-main">
     <div class="container recommend-grid">
-      {% for item in recommended_items %}
-      <div class="recommend-card animate-slide-in-{{ loop.index % 3 == 1 ? 'left' : (loop.index % 3 == 0 ? 'right' : 'up') }}" 
+      {% for product in recommended_products %}
+      <div class="recommend-card animate-slide-in-left" 
            style="animation-delay: {{ loop.index * 0.2 + 0.8 }}s;">
         <div class="recommend-image">
-          <img src="{{ item.image_url or 'https://via.placeholder.com/300x200?text=' + item.name|urlencode }}" 
-               alt="{{ item.name }}" />
+          {% if product.image_filename %}
+            <img src="{{ url_for('static', filename='uploads/products/' + product.image_filename) }}" 
+                 alt="{{ product.name }}" />
+          {% else %}
+            <img src="https://via.placeholder.com/300x200?text=Product+Image" 
+                 alt="{{ product.name }}" />
+          {% endif %}
         </div>
         <div class="recommend-info">
-          <h2 class="item-name">{{ item.name }}</h2>
-          <p class="item-price">${{ "%.2f"|format(item.price) }}</p>
-          <p class="item-location">{{ item.location }}</p>
-          <a href="{{ url_for('product.view', id=item.id) }}" class="btn view-btn">View Details</a>
+          <h2 class="item-name">{{ product.name }}</h2>
+          <p class="item-price">${{ "%.2f"|format(product.price) }}</p>
+          <p class="item-condition">Condition: {{ product.condition }}</p>
+          <div class="recommend-actions">
+            <a href="{{ url_for('product.product_details', product_id=product.id) }}" class="btn view-btn">View Details</a>
+            <form action="{{ url_for('payment.add_to_cart', product_id=product.id) }}" method="POST" class="cart-form">
+              <input type="hidden" name="quantity" value="1">
+              <button type="submit" class="btn cart-btn">Add to Cart</button>
+            </form>
+          </div>
         </div>
       </div>
       {% endfor %}
 
-      {% if not recommended_items %}
+      {% if not recommended_products %}
       <div class="no-recommendations">
         <h2>No recommendations yet</h2>
         <p>Browse more items to get personalized recommendations!</p>
-        <a href="{{ url_for('product.browse') }}" class="btn browse-btn">Browse Items</a>
+        <a href="{{ url_for('product.product_listing') }}" class="btn browse-btn">Browse Items</a>
       </div>
       {% endif %}
     </div>

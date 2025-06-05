@@ -37,7 +37,7 @@
       </nav>
       <div class="header-actions">
         <span class="user-greeting animate-fade-in-up" style="animation-delay: 0.4s;">Hello, <strong>Jane Doe</strong></span>
-        <a href="/logout" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
+        <a href="{{ url_for('auth.logout') }}" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
           Log Out
         </a>
       </div>

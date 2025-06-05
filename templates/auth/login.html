@@ -17,7 +17,6 @@
   <div class="bg-shape shape-circle circle-2"></div>
   <div class="bg-shape shape-polygon polygon-1"></div>
   <div class="bg-shape shape-polygon polygon-2"></div>
-
   <!-- Login Container -->
   <div class="login-container">
     <div class="login-card animate-card-fade">
@@ -25,6 +24,15 @@
       <p class="login-subtitle animate-fade-in-up" style="animation-delay: 0.3s;">
         Please enter your credentials to continue
       </p>
+      
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      
       <form action="/auth/login" method="POST" class="login-form">
         <div class="form-group animate-slide-in-left" style="animation-delay: 0.5s;">
           <label for="email">Email Address</label>
@@ -46,6 +54,13 @@
             required
           />
         </div>
+        <div class="login-options animate-fade-in-up" style="animation-delay: 0.8s;">
+          <div class="option">
+            <input type="checkbox" id="remember" name="remember" value="1">
+            <label for="remember">Remember me</label>
+          </div>
+        </div>
+        
         <button
           type="submit"
           class="btn login-btn animate-pulse"

@@ -28,46 +28,92 @@
       </div>
       <nav class="main-nav">
         <ul class="nav-list">
-          <li><a href="/dashboard" class="active">Home</a></li>
-          <li><a href="/listings">My Listings</a></li>
-          <li><a href="/search">Search Items</a></li>
-          <li><a href="/profile">Profile</a></li>
-          <li><a href="/auction">Auction</a></li>
+          <li><a href="{{ url_for('user.index') }}" class="active">Home</a></li>
+          <li><a href="{{ url_for('product.product_listing') }}">My Listings</a></li>
+          <li><a href="{{ url_for('product.product_search') }}">Search Items</a></li>
+          <li><a href="{{ url_for('user.profile') }}">Profile</a></li>
+          <li><a href="{{ url_for('auction.auction_page') }}">Auction</a></li>
         </ul>
       </nav>
       <div class="header-actions">
-        <span class="user-greeting animate-fade-in-up" style="animation-delay: 0.4s;">Hello, <strong>Jane Doe</strong></span>
-        <a href="/logout" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
-          Log Out
-        </a>
+        {% if session.get('user_id') %}
+          <span class="user-greeting animate-fade-in-up" style="animation-delay: 0.4s;">Hello, <strong>{{ session.get('username') }}</strong></span>
+          <a href="{{ url_for('auth.logout') }}" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
+            Log Out
+          </a>
+        {% else %}
+          <a href="{{ url_for('auth.login') }}" class="btn login-btn animate-pop-in" style="animation-delay: 0.6s;">Login</a>
+          <a href="{{ url_for('auth.register') }}" class="btn register-btn animate-pop-in" style="animation-delay: 0.6s;">Register</a>
+        {% endif %}
       </div>
     </div>
   </header>
-
   <!-- Listing Page Main Content -->
   <main class="listing-main">
     <div class="container">
       <!-- Page Title & Search Bar -->
-      <section class="listing-header animate-fade-in-up" style="animation-delay: 0.8s;">
-        <h1 class="listing-title">Browse Sustainable Listings</h1>
-        <div class="search-bar">
-          <input
-            type="text"
-            placeholder="Search by keyword, category, or location"
-            aria-label="Search Listings"
-          />
-          <button class="btn search-btn animate-pop-in" style="animation-delay: 1s;">Search</button>
+      <div class="listing-header">
+        <h1>Product Listings</h1>
+        
+        <form action="{{ url_for('product.product_search') }}" method="GET" class="search-form">
+          <input type="text" name="query" placeholder="Search products..." class="search-input">
+          <button type="submit" class="search-button">Search</button>
+        </form>
+      </div>
+      
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      
+      <!-- Category Filters -->
+      <div class="category-filters">
+        <h2>Categories</h2>
+        <div class="filter-buttons">
+          <a href="{{ url_for('product.product_listing') }}" class="filter-btn {% if not selected_category_id %}active{% endif %}">All</a>
+          {% for category in categories %}
+            <a href="{{ url_for('product.product_listing', category_id=category.id) }}" 
+               class="filter-btn {% if selected_category_id == category.id %}active{% endif %}">
+              {{ category.name }}
+            </a>
+          {% endfor %}
         </div>
-      </section>
-
-      <!-- Filter Tags -->
-      <section class="filter-tags animate-fade-in-up" style="animation-delay: 1.2s;">
-        <button class="tag-btn active">All</button>
-        <button class="tag-btn">Furniture</button>
-        <button class="tag-btn">Electronics</button>
-        <button class="tag-btn">Home Decor</button>
-        <button class="tag-btn">Books</button>
-        <button class="tag-btn">Clothing</button>
+      </div>      <!-- Product Grid -->
+      <section class="product-grid">
+        {% if products %}
+          {% for product in products %}
+            <div class="product-card">
+              {% if product.image_filename %}
+                <img src="{{ url_for('static', filename='uploads/products/' + product.image_filename) }}" 
+                     alt="{{ product.name }}" class="product-image">
+              {% else %}
+                <img src="https://via.placeholder.com/300x200?text=Product+Image" 
+                     alt="{{ product.name }}" class="product-image">
+              {% endif %}
+              <div class="product-details">
+                <h3>{{ product.name }}</h3>
+                <p class="product-price">${{ "%.2f"|format(product.price) }}</p>
+                <p class="product-condition">Condition: {{ product.condition }}</p>
+                <div class="product-actions">
+                  <a href="{{ url_for('product.product_details', product_id=product.id) }}" class="btn view-btn">View Details</a>
+                  <form action="{{ url_for('payment.add_to_cart', product_id=product.id) }}" method="POST">
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit" class="btn cart-btn">Add to Cart</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="no-results">
+            <p>No products found in this category.</p>
+            <p>Try selecting a different category or check back later!</p>
+            <a href="{{ url_for('product.add_product') }}" class="btn add-product-btn">Add a Product</a>
+          </div>
+        {% endif %}
       </section>
 
       <!-- Listings Grid -->

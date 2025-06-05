@@ -18,28 +18,26 @@
 <body>
     <!-- Navigation -->
     <header class="header">
-        <div class="container header-container">
-            <div class="logo">
-                <a href="{{ url_for('main.index') }}">EcoFinds</a>
+        <div class="container header-container">            <div class="logo">
+                <a href="{{ url_for('intro.index') }}">EcoFinds</a>
             </div>
             <nav class="main-nav">
                 <ul class="nav-list">
-                    {% if current_user.is_authenticated %}
-                        <li><a href="{{ url_for('user.home') }}" {% if request.endpoint == 'user.dashboard' %}class="active"{% endif %}>Dashboard</a></li>
-                        <li><a href="{{ url_for('product.product_listings') }}" {% if request.endpoint == 'product.product_listings' %}class="active"{% endif %}>My Listings</a></li>
-                        <li><a href="{{ url_for('product.search') }}" {% if request.endpoint == 'product.search' %}class="active"{% endif %}>Search</a></li>
-                        <li><a href="{{ url_for('auction.live') }}" {% if request.endpoint == 'auction.index' %}class="active"{% endif %}>Auction</a></li>
+                    {% if session.get('user_id') %}
+                        <li><a href="{{ url_for('user.index') }}" {% if request.endpoint == 'user.index' %}class="active"{% endif %}>Home</a></li>
+                        <li><a href="{{ url_for('product.product_listing') }}" {% if request.endpoint == 'product.product_listing' %}class="active"{% endif %}>My Listings</a></li>
+                        <li><a href="{{ url_for('product.product_search') }}" {% if request.endpoint == 'product.product_search' %}class="active"{% endif %}>Search Items</a></li>
+                        <li><a href="{{ url_for('auction.auction_page') }}" {% if request.endpoint == 'auction.auction_page' %}class="active"{% endif %}>Auction</a></li>
                         <li><a href="{{ url_for('user.profile') }}" {% if request.endpoint == 'user.profile' %}class="active"{% endif %}>Profile</a></li>
-                    {% else %}
-                        <li><a href="{{ url_for('main.index') }}" {% if request.endpoint == 'main.index' %}class="active"{% endif %}>Home</a></li>
-                        <li><a href="{{ url_for('main.about') }}" {% if request.endpoint == 'main.about' %}class="active"{% endif %}>About</a></li>
+                    {% else %}                        <li><a href="{{ url_for('intro.index') }}" {% if request.endpoint == 'intro.index' %}class="active"{% endif %}>Home</a></li>
+                        <li><a href="{{ url_for('intro.index') }}" {% if request.endpoint == 'intro.index' %}class="active"{% endif %}>About</a></li>
                         <li><a href="{{ url_for('product.browse') }}" {% if request.endpoint == 'product.browse' %}class="active"{% endif %}>Browse</a></li>
                     {% endif %}
                 </ul>
             </nav>
             <div class="header-actions">
-                {% if current_user.is_authenticated %}
-                    <span class="user-greeting">Hello, {{ current_user.username }}</span>
+                {% if session.get('user_id') %}
+                    <span class="user-greeting">Hello, {{ session.get('username') }}</span>
                     <a href="{{ url_for('auth.logout') }}" class="btn logout-btn">Logout</a>
                 {% else %}
                     <a href="{{ url_for('auth.login') }}" class="btn login-btn">Login</a>
@@ -63,8 +61,109 @@
     <!-- Main Content -->
     <main class="content">
         {% block content %}{% endblock %}
-    </main>
+    </main>    <!-- Generic Popup for Notifications -->
+    <div id="generic-popup" class="popup-container" style="display:none;">
+        <div class="popup-content">
+            <span class="popup-close">&times;</span>
+            <h3 id="popup-title">Notification</h3>
+            <div id="popup-message"></div>
+            <div id="popup-debug-info" style="display:none;"></div>
+        </div>
+    </div>
 
+    <style>
+        /* Popup Styling */
+        .popup-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .popup-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+            min-width: 300px;
+            max-width: 500px;
+            position: relative;
+        }
+        .popup-close {
+            position: absolute;
+            right: 15px;
+            top: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+        }
+        #popup-debug-info {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        .popup-success { border-left: 5px solid #28a745; }
+        .popup-error { border-left: 5px solid #dc3545; }
+        .popup-info { border-left: 5px solid #17a2b8; }
+        .popup-warning { border-left: 5px solid #ffc107; }
+    </style>
+
+    <script>
+        // Popup functions
+        function showPopup(title, message, type = 'info', debugInfo = null) {
+            const popup = document.getElementById('generic-popup');
+            const popupContent = popup.querySelector('.popup-content');
+            const popupTitle = document.getElementById('popup-title');
+            const popupMessage = document.getElementById('popup-message');
+            const popupDebug = document.getElementById('popup-debug-info');
+            
+            // Remove existing classes and add the type class
+            popupContent.classList.remove('popup-success', 'popup-error', 'popup-info', 'popup-warning');
+            popupContent.classList.add('popup-' + type);
+            
+            popupTitle.textContent = title;
+            popupMessage.innerHTML = message;
+            
+            // Handle debug info if provided
+            if (debugInfo && typeof debugInfo === 'object') {
+                popupDebug.style.display = 'block';
+                popupDebug.innerHTML = '<strong>Debug Information:</strong><br>' + 
+                                       JSON.stringify(debugInfo, null, 2).replace(/\\n/g, '<br>').replace(/\"/g, '');
+            } else {
+                popupDebug.style.display = 'none';
+            }
+            
+            popup.style.display = 'flex';
+            
+            // Add close handler
+            document.querySelector('.popup-close').addEventListener('click', function() {
+                closePopup();
+            });
+        }
+        
+        function closePopup() {
+            document.getElementById('generic-popup').style.display = 'none';
+        }
+        
+        // Function to show OTP details (for testing)
+        function showOtp(otp, email) {
+            showPopup(
+                'OTP Information', 
+                `<p>Your verification code is: <strong>${otp}</strong></p><p>This has been sent to: ${email}</p>`, 
+                'info',
+                { 'otp': otp, 'email': email, 'time': new Date().toLocaleString() }
+            );
+        }
+    </script>
+    
     <!-- Additional JavaScript per template -->
     {% block extra_js %}{% endblock %}
 </body>

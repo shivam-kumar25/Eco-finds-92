@@ -40,9 +40,17 @@ def index():
         return redirect(url_for('auth.login'))
 
     # Get user statistics
+    from models.models import OrderItem, Order, Product
+    items_sold = (
+        OrderItem.query
+        .join(Order, OrderItem.order_id == Order.id)
+        .join(Product, OrderItem.product_id == Product.id)
+        .filter(Product.seller_id == user_id, Order.status == 'completed')
+        .count()
+    )
     stats = {
         'active_listings': Product.query.filter_by(seller_id=user_id, status='active').count(),
-        'items_sold': Order.query.filter_by(seller_id=user_id, status='completed').count(),
+        'items_sold': items_sold,
         'messages': 0,  # Implement message count when messaging system is added
         'reviews': Review.query.filter_by(seller_id=user_id).count()
     }
@@ -168,6 +176,14 @@ def profile():
         return redirect(url_for('auth.login'))
 
     # Get user statistics
+    from models.models import OrderItem, Order, Product
+    items_sold = (
+        OrderItem.query
+        .join(Order, OrderItem.order_id == Order.id)
+        .join(Product, OrderItem.product_id == Product.id)
+        .filter(Product.seller_id == user_id, Order.status == 'completed')
+        .count()
+    )
     stats = [
         {
             'icon': '📦',
@@ -177,7 +193,7 @@ def profile():
         {
             'icon': '💰',
             'title': 'Items Sold',
-            'value': Order.query.filter_by(seller_id=user_id, status='completed').count()
+            'value': items_sold
         },
         {
             'icon': '⭐',
@@ -219,7 +235,7 @@ def profile():
     return render_template(
         'user/profile.html',
         title='My Profile',
-        current_user=user,
+        user=user,
         stats=stats,
         recent_listings=recent_listings,
         recent_reviews=formatted_reviews
@@ -279,6 +295,34 @@ def previous_purchases():
         title='Previous Purchases',
         purchases=formatted_purchases,
         current_user=user
+    )
+
+
+# Personalized Recommendations
+@user.route('/recommendations')
+def recommendations():
+    # Check if user is logged in
+    user_id = session.get('user_id')
+    if not user_id:
+        flash('Please login to see recommendations', 'warning')
+        return redirect(url_for('auth.login'))
+        
+    # Get user data
+    user = User.query.get(user_id)
+    
+    # Get random products as recommendations for MVP
+    # In a full implementation, this would be based on user preferences and history
+    recommended_products = Product.query.filter(
+        (Product.seller_id != user_id) & 
+        (Product.status == 'active') & 
+        (Product.is_deleted == False)
+    ).order_by(db.func.random()).limit(8).all()
+    
+    return render_template(
+        'user/recomendation.html',
+        title='Your Recommendations',
+        username=user.username,
+        recommended_products=recommended_products
     )
 
 

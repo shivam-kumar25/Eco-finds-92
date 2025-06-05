@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}Verify OTP{% endblock %}
+
+{% block content %}
+<div class="container auth-container">
+    <div class="auth-form-container">
+        <h1>Verify Your Email</h1>
+        <p class="subtitle">We've sent a verification code to <strong>{{ email }}</strong></p>
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+          <!-- Debug OTP display (only shown in development) -->        {% if config.DEBUG %}
+        <div class="alert alert-info">
+            <strong>DEBUG MODE:</strong> For testing purposes, your current OTP in session is: {{ session.get('otp', 'Not available') }}
+            <br>
+            <button id="show-otp-popup" class="btn btn-sm btn-info">Show OTP Details in Popup</button>
+            <small>This is only displayed in debug mode</small>
+        </div>
+        <script>
+            document.getElementById('show-otp-popup').addEventListener('click', function() {
+                var otp = "{{ session.get('otp', 'Not available') }}";
+                var email = "{{ session.get('email', 'Email not set') }}";
+                showOtp(otp, email);
+            });
+            
+            // Auto-show OTP on page load
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(function() {
+                    var otp = "{{ session.get('otp', 'Not available') }}";
+                    var email = "{{ session.get('email', 'Email not set') }}";
+                    showOtp(otp, email);
+                }, 500);
+            });
+        </script>
+        {% endif %}
+          <form method="POST" action="{{ url_for('auth.verify_otp') }}">
+            <div class="form-group">
+                <label for="otp">Verification Code</label>
+                <input type="text" class="form-control" id="otp" name="otp" placeholder="Enter the 6-digit code" required>
+                <small class="form-text text-muted">Check your email for the 6-digit verification code</small>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Verify</button>
+        </form>
+        
+        <div class="verify-info">
+            <p>A verification code has been sent to your email address. If you don't receive it within a few minutes:</p>
+            <ul>
+                <li>Check your spam/junk folder</li>
+                <li>Use the "Resend Code" option below</li>
+                <li>Ensure you entered the correct email address</li>
+            </ul>
+        </div>
+        
+        <div class="auth-footer">
+            <p>Didn't receive the code? <a href="#" id="resend-otp">Resend Code</a></p>
+            <p><a href="{{ url_for('auth.login') }}">Back to Login</a></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Add resend OTP functionality with better user feedback
+    document.getElementById('resend-otp').addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // Show sending state
+        const originalText = this.textContent;
+        this.textContent = 'Sending...';
+        this.style.pointerEvents = 'none';
+        
+        // Create status message element if it doesn't exist
+        let statusEl = document.getElementById('otp-status');
+        if (!statusEl) {
+            statusEl = document.createElement('p');
+            statusEl.id = 'otp-status';
+            statusEl.style.marginTop = '10px';
+            statusEl.style.padding = '8px';
+            statusEl.style.borderRadius = '4px';
+            document.querySelector('.auth-footer').insertBefore(statusEl, document.querySelector('.auth-footer').firstChild);
+        }
+        
+        fetch('/auth/send_otp', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                email: '{{ email }}'
+            }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Reset button
+            this.textContent = originalText;
+            this.style.pointerEvents = 'auto';
+              if (data.success) {
+                statusEl.textContent = 'A new verification code has been sent to your email.';
+                statusEl.style.backgroundColor = '#d4edda';
+                statusEl.style.color = '#155724';
+                
+                // If in debug mode and OTP is in the response
+                if (data.otp) {
+                    const otpDebug = document.createElement('p');
+                    otpDebug.textContent = 'DEBUG MODE: Your OTP is ' + data.otp;
+                    otpDebug.style.backgroundColor = '#cce5ff';
+                    otpDebug.style.color = '#004085';
+                    otpDebug.style.padding = '8px';
+                    otpDebug.style.borderRadius = '4px';
+                    otpDebug.style.marginTop = '10px';
+                    document.querySelector('.auth-footer').insertBefore(otpDebug, statusEl.nextSibling);
+                    
+                    // Pre-fill the OTP input
+                    document.getElementById('otp').value = data.otp;
+                    
+                    // Show OTP in popup
+                    showOtp(data.otp, "{{ session.get('email') }}");
+                }
+            } else {
+                statusEl.textContent = 'Failed to send code: ' + (data.message || 'Please try again.');
+                statusEl.style.backgroundColor = '#f8d7da';
+                statusEl.style.color = '#721c24';
+                
+                // If debug info is available
+                if (data.debug_info && data.debug_info.otp) {
+                    const otpDebug = document.createElement('p');
+                    otpDebug.textContent = 'For testing: Your OTP is ' + data.debug_info.otp;
+                    otpDebug.style.backgroundColor = '#fff3cd';
+                    otpDebug.style.color = '#856404';
+                    otpDebug.style.padding = '8px';
+                    otpDebug.style.borderRadius = '4px';
+                    otpDebug.style.marginTop = '10px';
+                    document.querySelector('.auth-footer').insertBefore(otpDebug, statusEl.nextSibling);
+                    
+                    // Pre-fill the OTP input
+                    document.getElementById('otp').value = data.debug_info.otp;
+                }
+            }
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            this.textContent = originalText;
+            this.style.pointerEvents = 'auto';
+            
+            statusEl.textContent = 'An error occurred. Please try again.';
+            statusEl.style.backgroundColor = '#f8d7da';
+            statusEl.style.color = '#721c24';
+        });
+    });
+</script>
+{% endblock %}

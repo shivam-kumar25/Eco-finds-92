@@ -44,10 +44,85 @@
     </div>
   </header>
 
-  
-  <!-- Search Main Content -->
+    <!-- Search Main Content -->
   <main class="search-main">
     <div class="container">
+      <div class="search-hero">
+        <h1>Search Products</h1>
+        <form action="{{ url_for('product.product_search') }}" method="GET" class="search-form">
+          <div class="search-input-group">
+            <input 
+              type="text" 
+              name="query" 
+              placeholder="What are you looking for?" 
+              value="{{ search_query }}"
+              class="search-input"
+            >
+            <button type="submit" class="search-button">Search</button>
+          </div>
+        </form>
+      </div>
+      
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+      
+      <div class="search-results">
+        {% if search_query %}
+          <h2>Search Results for "{{ search_query }}"</h2>
+          
+          {% if products %}
+            <div class="product-grid">
+              {% for product in products %}
+                <div class="product-card">
+                  {% if product.image_filename %}
+                    <img src="{{ url_for('static', filename='uploads/products/' + product.image_filename) }}" alt="{{ product.name }}" class="product-image">
+                  {% else %}
+                    <img src="https://via.placeholder.com/300x200?text=Product+Image" alt="{{ product.name }}" class="product-image">
+                  {% endif %}
+                  <div class="product-details">
+                    <h3>{{ product.name }}</h3>
+                    <p class="product-price">${{ "%.2f"|format(product.price) }}</p>
+                    <p class="product-condition">Condition: {{ product.condition }}</p>
+                    <div class="product-actions">
+                      <a href="{{ url_for('product.product_details', product_id=product.id) }}" class="btn view-btn">View Details</a>
+                      <form action="{{ url_for('payment.add_to_cart', product_id=product.id) }}" method="POST">
+                        <input type="hidden" name="quantity" value="1">
+                        <button type="submit" class="btn cart-btn">Add to Cart</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="no-results">
+              <p>No products found matching your search criteria.</p>
+              <p>Try using different keywords or browse our categories.</p>
+              <a href="{{ url_for('product.product_category') }}" class="btn browse-btn">Browse Categories</a>
+            </div>
+          {% endif %}
+        {% else %}
+          <div class="search-placeholder">
+            <h2>Find Your Next Treasure</h2>
+            <p>Enter keywords above to search for sustainable second-hand items.</p>
+            <div class="popular-searches">
+              <p>Popular searches:</p>
+              <div class="search-tags">
+                <a href="{{ url_for('product.product_search', query='vintage') }}">Vintage</a>
+                <a href="{{ url_for('product.product_search', query='furniture') }}">Furniture</a>
+                <a href="{{ url_for('product.product_search', query='electronics') }}">Electronics</a>
+                <a href="{{ url_for('product.product_search', query='clothing') }}">Clothing</a>
+                <a href="{{ url_for('product.product_search', query='books') }}">Books</a>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
       <!-- Search Form Section -->
       <section class="search-form-section animate-fade-in-up" style="animation-delay: 0.8s;">
         <h1 class="section-title">Find Sustainable Goods</h1>

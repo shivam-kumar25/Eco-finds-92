@@ -1,52 +1,52 @@
-# from src import create_app, db
-# from src.models.category import Category
-# from src.models.user import User
-# from src.models.product import Product
-# from datetime import datetime, timedelta
-# import sys
+from __init__ import create_app, db
+from models.models import Category, User
 
-# def reset_db():
-#     """Drop all tables and recreate them"""
-#     app = create_app()
-#     with app.app_context():
-#         # Drop all tables
-#         db.drop_all()
-#         print('All tables dropped!')
-        
-#         # Create tables
-#         db.create_all()
-#         print('Tables recreated successfully!')
+app = create_app()
 
-# def init_db():
-#     app = create_app()
-#     with app.app_context():
-#         # Create tables
-#         db.create_all()
-        
-#         # Check if we already have categories
-#         if Category.query.count() == 0:
-#             # Create default categories
-#             categories = [
-#                 Category(name='Electronics', description='Electronic devices and gadgets'),
-#                 Category(name='Clothing', description='Sustainable and second-hand clothing'),
-#                 Category(name='Home & Garden', description='Eco-friendly home products and garden items'),
-#                 Category(name='Books & Media', description='Used books, movies, and music'),
-#                 Category(name='Sports & Outdoors', description='Sporting goods and outdoor equipment')
-#             ]
-            
-#             db.session.add_all(categories)
-#             db.session.commit()
-#             print('Default categories created!')
-#           # Create demo users if no users exist
-#         if User.query.count() == 0:
-#             admin = User(username='admin', email='admin@example.com', is_admin=True)
-#             admin.set_password('adminpassword')
-            
-#             seller1 = User(username='ecoSeller', email='seller@example.com', is_admin=False)
-#             seller1.set_password('password')
-            
-#             buyer1 = User(username='greenBuyer', email='buyer@example.com', is_admin=False)
-#             buyer1.set_password('password')
+# Create database tables and populate them
+with app.app_context():
+    db.create_all()
+    
+    # Add categories if they don't exist
+    categories = [
+        {"name": "Furniture", "description": "Tables, chairs, sofas, and more"},
+        {"name": "Electronics", "description": "Phones, laptops, cameras, and more"},
+        {"name": "Clothing", "description": "Shirts, pants, dresses, and more"},
+        {"name": "Books", "description": "Fiction, non-fiction, textbooks, and more"},
+        {"name": "Kitchen", "description": "Utensils, appliances, cookware, and more"},
+        {"name": "Home Decor", "description": "Art, lighting, decorative items, and more"},
+        {"name": "Sports", "description": "Equipment, apparel, accessories, and more"},
+        {"name": "Toys", "description": "Games, action figures, dolls, and more"}
+    ]
+    
+    for category_data in categories:
+        if not Category.query.filter_by(name=category_data["name"]).first():
+            category = Category(name=category_data["name"], description=category_data["description"])
+            db.session.add(category)
+    
+    # Create admin user if it doesn't exist
+    admin_email = 'admin@ecofinds.com'
+    if not User.query.filter_by(email=admin_email).first():
+        admin_user = User(
+            username='admin',
+            email=admin_email,
+            full_name='Admin User',
+            bio='EcoFinds Administrator',
+            is_admin=True,
+            is_active=True,
+            profile_picture='',
+            phone_number='',
+            address='',
+            communication_preferences={},
+            preferred_language='en',
+            category_preferences=[]
+        )
+        admin_user.password = 'Admin@123' # This will be hashed
+        db.session.add(admin_user)
+    
+    db.session.commit()
+
+print("Database initialized with categories and admin user!")
             
 #             db.session.add_all([admin, seller1, buyer1])
 #             db.session.commit()

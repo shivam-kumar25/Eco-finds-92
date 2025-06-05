@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="admin-dashboard">
+  <div class="dashboard-header">
+    <h1>Admin Dashboard</h1>
+    <p class="subtitle">Welcome to the EcoFinds admin dashboard</p>
+  </div>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <div class="admin-menu">
+    <div class="menu-card">
+      <h2>User Management</h2>
+      <p>View and manage user accounts</p>
+      <a href="#" class="btn admin-btn">Manage Users</a>
+    </div>
+
+    <div class="menu-card">
+      <h2>Product Listings</h2>
+      <p>Review and moderate product listings</p>
+      <a href="#" class="btn admin-btn">Manage Products</a>
+    </div>
+
+    <div class="menu-card">
+      <h2>Complaint Management</h2>
+      <p>Handle user complaints and disputes</p>
+      <a href="{{ url_for('admin.complaints') }}" class="btn admin-btn">Manage Complaints</a>
+    </div>
+
+    <div class="menu-card">
+      <h2>Auction Monitoring</h2>
+      <p>Track and moderate auctions</p>
+      <a href="#" class="btn admin-btn">Monitor Auctions</a>
+    </div>
+
+    <div class="menu-card">
+      <h2>Platform Analytics</h2>
+      <p>View website statistics and usage data</p>
+      <a href="#" class="btn admin-btn">View Analytics</a>
+    </div>
+
+    <div class="menu-card">
+      <h2>System Settings</h2>
+      <p>Configure platform settings</p>
+      <a href="#" class="btn admin-btn">System Settings</a>
+    </div>
+  </div>
+</div>
+{% endblock %}
