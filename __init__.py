@@ -23,7 +23,8 @@ def create_app(config_class=Config):
     
     
     # Import models to ensure they are registered with SQLAlchemy
-    from models.user import User
+    from models.models import User, Product, Payment, Bid, CartItem, Order, Category
+    
 
     # Import blueprints to register them
     from routes.auth import auth 

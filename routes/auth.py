@@ -1,4 +1,4 @@
-from models.user import User
+from models.models import User
 from flask_mail import Message
 from flask_mail import Mail
 import random
@@ -8,7 +8,6 @@ import random
 
 from flask import Blueprint, render_template, redirect, url_for, flash, request, session
 from __init__ import db
-from models.user import User
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadSignature
 from flask import current_app
 
@@ -99,7 +98,7 @@ def register():
         flash('Registration successful! Please check your email for the OTP to verify your account.', 'success')
         return redirect(url_for('auth.verify_otp'))
 
-    return render_template('auth/register.html', title='Register')
+    return render_template('auth/register.html', title='Register'  )
 
 @auth.route('/verify', methods=['GET', 'POST'])
 def verify_otp():

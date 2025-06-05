@@ -1,0 +1,245 @@
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoFinds | Live Auctions</title>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="/static/CSS/create_auction.css" />
+</head>
+<body>
+  <!-- Decorative Animated Background Shapes -->
+  <div class="bg-shape shape-circle circle-1"></div>
+  <div class="bg-shape shape-circle circle-2"></div>
+  <div class="bg-shape shape-blob blob-1"></div>
+  <div class="bg-shape shape-blob blob-2"></div>
+
+  <!-- Header / Navigation -->
+  <header class="header animate-fade-down">
+    <div class="container header-container">
+      <div class="logo">
+        <a href="/">EcoFinds</a>
+      </div>
+      <nav class="main-nav">
+        <ul class="nav-list">
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/listings">Browse Listings</a></li>
+          <li><a href="/search">Search</a></li>
+          <li><a href="/categories">Categories</a></li>
+          <li><a href="/cart">Cart</a></li>
+          <li><a href="/auctions" class="active">Auctions</a></li>
+          <li><a href="/profile">Profile</a></li>
+        </ul>
+      </nav>
+      <div class="header-actions">
+        <span class="user-greeting animate-pop-in" style="animation-delay: 0.4s;">
+          Hello, <strong>Jane Doe</strong>
+        </span>
+        <a href="/logout" class="btn logout-link animate-pop-in" style="animation-delay: 0.6s;">
+          Log Out
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Auctions Hero Section -->
+  <section class="auctions-hero animate-fade-in-up" style="animation-delay: 0.8s;">
+    <div class="container hero-container">
+      <h1 class="hero-title">🔨 Live Auctions</h1>
+      <p class="hero-subtitle">
+        Bid on unique items—browse current auctions and join in!
+      </p>
+    </div>
+  </section>
+
+  <!-- Auction Filters -->
+  <section class="auction-filters animate-fade-in-up" style="animation-delay: 1s;">
+    <div class="container filters-container">
+      <form class="filters-form" action="/auctions" method="GET">
+        <div class="form-row">
+          <div class="filter-group">
+            <label for="categoryFilter">Category</label>
+            <select id="categoryFilter" name="category">
+              <option value="">All Categories</option>
+              <option>Electronics</option>
+              <option>Furniture</option>
+              <option>Home Decor</option>
+              <option>Clothing</option>
+              <option>Art & Collectibles</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="minPriceFilter">Min Bid</label>
+            <input type="number" id="minPriceFilter" name="minBid" placeholder="$0" />
+          </div>
+          <div class="filter-group">
+            <label for="maxPriceFilter">Max Bid</label>
+            <input type="number" id="maxPriceFilter" name="maxBid" placeholder="$500+" />
+          </div>
+          <div class="filter-group">
+            <label for="sortFilter">Sort By</label>
+            <select id="sortFilter" name="sort">
+              <option value="endingSoon">Ending Soon</option>
+              <option value="newest">Newest</option>
+              <option value="highestBid">Highest Bid</option>
+            </select>
+          </div>
+          <button type="submit" class="btn apply-filters-btn">Apply Filters</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Auctions Grid -->
+  <main class="auctions-main">
+    <div class="container auctions-grid">
+      <!-- Auction Card 1 -->
+      <div class="auction-card animate-slide-in-left" style="animation-delay: 1.2s;">
+        <div class="auction-image">
+          <img src="https://via.placeholder.com/300x200?text=Vintage+Turntable" alt="Vintage Turntable" />
+        </div>
+        <div class="auction-info">
+          <h2 class="item-name">Vintage Turntable</h2>
+          <p class="item-location">Chicago, IL</p>
+          <div class="auction-meta">
+            <span class="current-bid">Current Bid: $110</span>
+            <span class="time-remaining" data-time="02:15:30">02:15:30</span>
+          </div>
+          <a href="/auction/1" class="btn view-auction-btn">View Auction</a>
+        </div>
+      </div>
+
+      <!-- Auction Card 2 -->
+      <div class="auction-card animate-fade-in-up" style="animation-delay: 1.4s;">
+        <div class="auction-image">
+          <img src="https://via.placeholder.com/300x200?text=Retro+Headphones" alt="Retro Headphones" />
+        </div>
+        <div class="auction-info">
+          <h2 class="item-name">Retro Headphones</h2>
+          <p class="item-location">Los Angeles, CA</p>
+          <div class="auction-meta">
+            <span class="current-bid">Current Bid: $75</span>
+            <span class="time-remaining" data-time="05:42:10">05:42:10</span>
+          </div>
+          <a href="/auction/2" class="btn view-auction-btn">View Auction</a>
+        </div>
+      </div>
+
+      <!-- Auction Card 3 -->
+      <div class="auction-card animate-slide-in-right" style="animation-delay: 1.6s;">
+        <div class="auction-image">
+          <img src="https://via.placeholder.com/300x200?text=Handmade+Chair" alt="Handmade Chair" />
+        </div>
+        <div class="auction-info">
+          <h2 class="item-name">Handmade Wooden Chair</h2>
+          <p class="item-location">Portland, OR</p>
+          <div class="auction-meta">
+            <span class="current-bid">Current Bid: $200</span>
+            <span class="time-remaining" data-time="01:05:45">01:05:45</span>
+          </div>
+          <a href="/auction/3" class="btn view-auction-btn">View Auction</a>
+        </div>
+      </div>
+
+      <!-- Auction Card 4 -->
+      <div class="auction-card animate-slide-in-left" style="animation-delay: 1.8s;">
+        <div class="auction-image">
+          <img src="https://via.placeholder.com/300x200?text=Vintage+Lamp" alt="Vintage Lamp" />
+        </div>
+        <div class="auction-info">
+          <h2 class="item-name">Vintage Table Lamp</h2>
+          <p class="item-location">Denver, CO</p>
+          <div class="auction-meta">
+            <span class="current-bid">Current Bid: $45</span>
+            <span class="time-remaining" data-time="12:30:00">12:30:00</span>
+          </div>
+          <a href="/auction/4" class="btn view-auction-btn">View Auction</a>
+        </div>
+      </div>
+
+      <!-- Auction Card 5 -->
+      <div class="auction-card animate-fade-in-up" style="animation-delay: 2s;">
+        <div class="auction-image">
+          <img src="https://via.placeholder.com/300x200?text=Retro+Camera" alt="Retro Camera" />
+        </div>
+        <div class="auction-info">
+          <h2 class="item-name">Retro 35mm Camera</h2>
+          <p class="item-location">San Francisco, CA</p>
+          <div class="auction-meta">
+            <span class="current-bid">Current Bid: $95</span>
+            <span class="time-remaining" data-time="03:20:15">03:20:15</span>
+          </div>
+          <a href="/auction/5" class="btn view-auction-btn">View Auction</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer animate-fade-up" style="animation-delay: 2.4s;">
+    <div class="container footer-container">
+      <ul class="footer-links">
+        <li><a href="/help">Help Center</a></li>
+        <li><a href="/privacy">Privacy Policy</a></li>
+        <li><a href="/terms">Terms of Service</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+      <div class="social-icons">
+        <a href="#" aria-label="Twitter">🐦</a>
+        <a href="#" aria-label="Facebook">📘</a>
+        <a href="#" aria-label="Instagram">📷</a>
+      </div>
+      <p class="footer-copy">© 2025 EcoFinds. All rights reserved.</p>
+      <p class="footer-contact">support@ecofinds.com | +1 (800) 123-4567</p>
+    </div>
+  </footer>
+
+  <!-- Optional JS for countdown timers -->
+  <script>
+    function startCountdowns() {
+      document.querySelectorAll('.time-remaining').forEach((elem) => {
+        let timeParts = elem.getAttribute('data-time').split(':').map(Number);
+        let totalSeconds = timeParts[0] * 3600 + timeParts[1] * 60 + timeParts[2];
+        const updateTimer = () => {
+          let h = Math.floor(totalSeconds / 3600);
+          let m = Math.floor((totalSeconds % 3600) / 60);
+          let s = totalSeconds % 60;
+          elem.textContent = 
+            (h < 10 ? '0' + h : h) + ':' + 
+            (m < 10 ? '0' + m : m) + ':' + 
+            (s < 10 ? '0' + s : s);
+          if (totalSeconds > 0) {
+            totalSeconds--;
+          } else {
+            elem.textContent = 'ENDED';
+            clearInterval(interval);
+          }
+        };
+        updateTimer();
+        let interval = setInterval(updateTimer, 1000);
+      });
+    }
+    window.addEventListener('load', startCountdowns);
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

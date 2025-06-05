@@ -1,7 +1,7 @@
 
 
 
-from models.user import User
+from models.models import User
 from flask_mail import Message
 from flask_mail import Mail
 
@@ -10,7 +10,6 @@ from flask_mail import Mail
 
 from flask import Blueprint, render_template, redirect, url_for, flash, request, session
 from __init__ import db
-from models.user import User
 
 
 
