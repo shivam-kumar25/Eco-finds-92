@@ -58,37 +58,20 @@ The application will be accessible at [http://127.0.0.1:5000](http://127.0.0.1:5
 
 ---
 
-## Project Structure
-
-```
-eco-finds-92/
-│
-├── src/
-│   ├── templates/         # HTML templates (Jinja2)
-│   ├── static/            # CSS, JS, images
-│   ├── init_db.py         # Database initialization logic
-│   └── ...                # Other modules
-├── reset_db.py            # Script to reset and reinitialize the database
-├── run.py                 # Application entry point
-├── requirements.txt
-└── README.md
-```
 
 ---
 
 ## Video
-Link: https://drive.google.com/file/d/1Gl7CSseizFGrnMWZnwjRZN4Lq8pZ3rsm/view?usp=drive_link
+Link: https://drive.google.com/file/d/1c6_sPsgTrBtCQWpdRxHH0b5LN3veuiru/view?usp=sharing
 
 
 ## Default Users
 
 After database initialization, the following default users are available for testing:
+Email      | Password|
+|2@gmail.com-|12345|
 
-| Username      | Email               | Password        | Role    |
-|---------------|---------------------|-----------------|---------|
-| admin         | admin@example.com   | adminpassword   | Admin   |
-| ecoSeller     | seller@example.com  | password        | Seller  |
-| greenBuyer    | buyer@example.com   | password        | Buyer   |
+
 
 
 ## Contributing
