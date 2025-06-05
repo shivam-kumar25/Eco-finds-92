@@ -7,7 +7,7 @@ from flask_mail import Message
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-import re
+from flask import jsonify
 
 
 
@@ -151,36 +151,58 @@ def register():
         return redirect(url_for('main.index'))
 
     if request.method == 'POST':
-        username = request.form.get('username')
-        email = request.form.get('email')
-        password = request.form.get('password')
-        confirm_password = request.form.get('confirm_password')
+        try:
+            username = request.form.get('username')
+            email = request.form.get('email')
+            password = request.form.get('password')
+            confirm_password = request.form.get('confirm_password')
 
+            # Form validation
+            if not all([username, email, password, confirm_password]):
+                flash('All fields are required', 'danger')
+                return render_template('auth/register.html', title='Register')
 
-        # Form validation
-        if not all([username, email, password, confirm_password]):
-            flash('All fields are required', 'danger')
+            if password != confirm_password:
+                flash('Passwords do not match', 'danger')
+                return render_template('auth/register.html', title='Register')
+
+            if User.query.filter_by(username=username).first():
+                flash('Username already taken', 'danger')
+                return render_template('auth/register.html', title='Register')
+
+            if User.query.filter_by(email=email).first():
+                flash('Email already registered', 'danger')
+                return render_template('auth/register.html', title='Register')
+
+            # Create new user with default values
+            new_user = User(
+                username=username,
+                email=email,
+                is_active=True,  # Set default active status
+                is_admin=False,  # Set default admin status
+                full_name='',  # Empty default values for optional fields
+                bio='',
+                profile_picture='',
+                phone_number='',
+                address='',
+                communication_preferences={},
+                preferred_language='en',
+                category_preferences=[]
+            )
+            new_user.password = password  # This will hash the password
+
+            # Add and commit the new user
+            db.session.add(new_user)
+            db.session.commit()
+
+            flash('Registration successful! Please check your email for the OTP to verify your account.', 'success')
+            return redirect(url_for('auth.verify_otp'))
+
+        except Exception as e:
+            db.session.rollback()
+            current_app.logger.error(f"Registration error: {str(e)}")
+            flash('An error occurred during registration. Please try again.', 'danger')
             return render_template('auth/register.html', title='Register')
-
-        if password != confirm_password:
-            flash('Passwords do not match', 'danger')
-            return render_template('auth/register.html', title='Register')
-
-        if User.query.filter_by(username=username).first():
-            flash('Username already taken', 'danger')
-            return render_template('auth/register.html', title='Register')
-
-        if User.query.filter_by(email=email).first():
-            flash('Email already registered', 'danger')
-            return render_template('/auth/register.html', title='Register')
-
-
-        
-
-
-
-        flash('Registration successful! Please check your email for the OTP to verify your account.', 'success')
-        return redirect(url_for('auth.verify_otp'))
 
     return render_template('auth/register.html', title='Register'  )
 
