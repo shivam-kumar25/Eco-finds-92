@@ -66,7 +66,8 @@ class Product(db.Model):
     # Relationships
     cart_items = db.relationship('CartItem', backref='product', lazy='dynamic')
     order_items = db.relationship('OrderItem', backref='product', lazy='dynamic')
-    auction = db.relationship('Auction', backref='product', uselist=False)  # one-to-one relationship
+    # Fix: Remove backref from Product side, let Auction handle the relationship
+    auction = db.relationship('Auction', uselist=False, back_populates='product')
 
     def __repr__(self):
         return f'<Product {self.name}>'
@@ -186,12 +187,13 @@ class Auction(db.Model):
     auto_confirm = db.Column(db.Boolean, default=False)
     entry_fee = db.Column(db.Numeric(10, 2), default=0)
     
-    # Relationships
+   # Relationships
     bids = db.relationship('Bid', back_populates='auction', lazy='dynamic',
                           cascade='all, delete-orphan')
     registrations = db.relationship('AuctionRegistration', back_populates='auction',
                                   lazy='dynamic', cascade='all, delete-orphan')
-    product = db.relationship('Product', backref='auction')
+    # Fix: Change backref to back_populates
+    product = db.relationship('Product', back_populates='auction', uselist=False)
 
     def __repr__(self):
         return f'<Auction {self.id} for Product {self.product_id}>'

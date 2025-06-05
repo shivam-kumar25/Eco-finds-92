@@ -2,7 +2,11 @@ from models.models import User
 from flask_mail import Message
 from flask_mail import Mail
 import random
-
+from datetime import datetime, timedelta
+from flask_mail import Message
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 
 
@@ -16,40 +20,97 @@ from flask import current_app
 
 auth = Blueprint('auth', __name__)
 
-# Initialize Flask-Mail (add this after db import)
-mail = Mail()
 
-def send_welcome_email(user_email, username):
-    msg = Message(
-        subject="Welcome to EmpowerHer!",
-        recipients=[user_email],
-        body=f"Hello {username},\n\nThank you for registering at EmpowerHer. We're excited to have you on board!\n\nBest regards,\nEmpowerHer Team"
-    )
-    mail.send(msg)
 
-def generate_verification_token(email):
-    serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
-    return serializer.dumps(email, salt='email-verify')
 
-def confirm_verification_token(token, expiration=3600):
-    serializer = URLSafeTimedSerializer(current_app.config['SECRET_KEY'])
-    try:
-        email = serializer.loads(token, salt='email-verify', max_age=expiration)
-    except (SignatureExpired, BadSignature):
-        return None
-    return email
+
+
+
+
+
+
 
 
 def generate_otp():
     return str(random.randint(100000, 999999))
 
-def send_verification_otp(user_email, username, otp):
-    msg = Message(
-        subject="EcoFinds Email Verification OTP",
-        recipients=[user_email],
-        body=f"Hello {username},\n\nYour OTP for email verification is: {otp}\n\nIf you did not register, please ignore this email.\n\nBest,\nEcoFinds Team"
-    )
-    mail.send(msg)
+
+@auth.route('/send_otp', methods=['POST' , "GET"])
+def send_otp():
+    try:
+        email = request.json.get('email')
+        if not email:
+            return "Email is required", 400
+
+
+        otp = generate_otp()
+        # Store OTP and timestamp in session
+        session['otp'] = otp
+        session['otp_time'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        session['email'] = email
+
+
+        message = Message(
+            subject="Your OTP for Verification",
+            recipients=[email],
+            body=f"Your OTP is: {otp}\nThis OTP is valid for 5 minutes."
+        )
+       
+        mail.send(message)
+        return "OTP sent successfully!", 200
+   
+    except Exception as e:
+        print(f"Error sending OTP: {str(e)}")
+        return f"Failed to send OTP: {str(e)}", 500
+
+
+@auth.route('/verify-otp', methods=['POST'])
+def verify_otp():
+    try:
+        user_otp = request.json.get('otp')
+        if not user_otp:
+            return "OTP is required", 400
+
+
+        stored_otp = session.get('otp')
+        stored_time = session.get('otp_time')
+        stored_email = session.get('email')
+
+
+        if not all([stored_otp, stored_time, stored_email]):
+            return "No OTP request found", 400
+
+
+        # Check if OTP is expired (5 minutes)
+        otp_time = datetime.strptime(stored_time, '%Y-%m-%d %H:%M:%S')
+        if datetime.now() - otp_time > timedelta(minutes=5):
+            session.pop('otp', None)
+            session.pop('otp_time', None)
+            session.pop('email', None)
+            return "OTP expired", 400
+
+
+        if user_otp == stored_otp:
+            # Clear session after successful verification
+            session.pop('otp', None)
+            session.pop('otp_time', None)
+            session.pop('email', None)
+            return "OTP verified successfully!", 200
+        else:
+            return "Invalid OTP", 400
+
+
+    except Exception as e:
+        print(f"Error verifying OTP: {str(e)}")
+        return f"Failed to verify OTP: {str(e)}", 500
+
+
+
+
+
+
+
+
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
@@ -57,7 +118,7 @@ def register():
         return redirect(url_for('main.index'))
 
     if request.method == 'POST':
-        username = request.form.get('name')
+        username = request.form.get('username')
         email = request.form.get('email')
         password = request.form.get('password')
         confirm_password = request.form.get('confirm_password')
@@ -80,54 +141,15 @@ def register():
             flash('Email already registered', 'danger')
             return render_template('/auth/register.html', title='Register')
 
-        # Create new user (not yet verified)
-        user = User(username=username, email=email)
-        user.set_password(password)
-        db.session.add(user)
-        db.session.commit()
 
-        # Generate OTP and store in session
-        otp = generate_otp()
-        session['pending_verification_email'] = email
-        session['pending_verification_username'] = username
-        session['pending_verification_otp'] = otp
 
-        # Send OTP email
-        send_verification_otp(email, username, otp)
+
+
 
         flash('Registration successful! Please check your email for the OTP to verify your account.', 'success')
         return redirect(url_for('auth.verify_otp'))
 
     return render_template('auth/register.html', title='Register'  )
-
-@auth.route('/verify', methods=['GET', 'POST'])
-def verify_otp():
-    if 'pending_verification_email' not in session:
-        flash('No verification in progress.', 'warning')
-        return redirect(url_for('auth.login'))
-
-    if request.method == 'POST':
-        input_otp = request.form.get('otp')
-        if input_otp == session.get('pending_verification_otp'):
-            user = User.query.filter_by(email=session['pending_verification_email']).first()
-            if user:
-                # If you have an is_verified field, set it here
-                # user.is_verified = True
-                # db.session.commit()
-                flash('Your email has been verified! You can now log in.', 'success')
-            else:
-                flash('User not found.', 'danger')
-            # Clear verification session data
-            session.pop('pending_verification_email', None)
-            session.pop('pending_verification_username', None)
-            session.pop('pending_verification_otp', None)
-            return redirect(url_for('auth.login'))
-        else:
-            flash('Invalid OTP. Please try again.', 'danger')
-    return render_template('auth/verify_otp.html', title='Verify Email')
-
-
-
 
 
 
@@ -174,25 +196,6 @@ def profile():
         return redirect(url_for('auth.login'))
     # Redirect to user dashboard
     return redirect(url_for('main.user_dashboard'))
-
-@auth.route('/verify/<token>')
-def verify_email(token):
-    email = confirm_verification_token(token)
-    if not email:
-        flash('The verification link is invalid or has expired.', 'danger')
-        return redirect(url_for('auth.login'))
-    user = User.query.filter_by(email=email).first()
-    if not user:
-        flash('Account not found.', 'danger')
-        return redirect(url_for('auth.login'))
-    # You can add a field like user.is_verified = True and save it
-    # user.is_verified = True
-    # db.session.commit()
-    flash('Your email has been verified! You can now log in.', 'success')
-    return redirect(url_for('auth.login'))
-
-
-
 
 
 

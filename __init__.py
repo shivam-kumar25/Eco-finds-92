@@ -14,13 +14,21 @@ def create_app(config_class=Config):
     app.config.from_object(config_class)
     db.init_app(app)
 
-    app.config['MAIL_SERVER'] = 'smtp.example.com'
-    app.config['MAIL_PORT'] = 587
-    app.config['MAIL_USE_TLS'] = True
-    app.config['MAIL_USERNAME'] = 'your_email@example.com'
-    app.config['MAIL_PASSWORD'] = 'your_password'
-    mail.init_app(app)
-    
+    mail = Mail(app)
+
+    # Configuration for Flask-Mail - Replace with your Ethereal credentials
+    app.config.update(
+        MAIL_SERVER = 'smtp.ethereal.email',
+        MAIL_PORT = 587,
+        MAIL_USERNAME = 'elisa.hoeger28@ethereal.email',    # Get from Ethereal
+        MAIL_PASSWORD = 'cTK6m8UsD3p8Ss1KMk',    # Get from Ethereal
+        MAIL_USE_TLS = True,
+        MAIL_USE_SSL = False,
+        MAIL_DEBUG = True,
+        MAIL_DEFAULT_SENDER = 'from@example.com'
+    )
+
+
     
     # Import models to ensure they are registered with SQLAlchemy
     from models.models import User, Product, Payment, Bid, CartItem, Order, Category

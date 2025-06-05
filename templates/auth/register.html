@@ -1,5 +1,5 @@
 
-
+ 
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +14,22 @@
   <link rel="stylesheet" href="/static/CSS/register.css" />
 </head>
 <body>
+
+  
+  <!-- Flash Messages Section -->
+  <div class="flash-messages">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} animate-fade-in-up">
+            {{ message }}
+            <button type="button" class="close-btn" onclick="this.parentElement.style.display='none'">&times;</button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </div>
+
   <!-- Animated Background Shapes -->
   <div class="bg-shape shape-circle circle-a"></div>
   <div class="bg-shape shape-circle circle-b"></div>
@@ -39,11 +55,11 @@
         <div class="form-section animate-slide-in-left" style="animation-delay: 0.3s;">
           <h3 class="section-heading">Personal Information</h3>
           <div class="form-group">
-            <label for="full_name">Full Name</label>
+            <label for="username">Username</label>
             <input
               type="text"
-              id="full_name"
-              name="full_name"
+              id="username"
+              name="username"
               required
             />
           </div>
@@ -58,6 +74,10 @@
           </div>
         </div>
 
+        <input type="button" href="/auth/send_otp" onclick="location.href='/auth/send_otp'" class="btn next-btn animate-pop-in" style="animation-delay: 0.5s;">
+          Send OTP
+        </input>
+
 
         <!-- Email/OTP Verification -->
         <div class="form-section animate-slide-in-right" style="animation-delay: 0.5s;">
@@ -70,7 +90,7 @@
               placeholder="Enter OTP"
               required
             />
-            <button type="button" class="btn otp-btn animate-pop-in" style="animation-delay: 0.7s;">
+            <button href="/auth/verify" type="button" class="btn otp-btn animate-pop-in" style="animation-delay: 0.7s;">
               Verify
             </button>
           </div>
