@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { padding: 20px; max-width: 600px; margin: auto; }
+        .otp-box {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px;
+            margin: 20px 0;
+            font-size: 24px;
+            letter-spacing: 2px;
+        }
+        .warning { color: #dc3545; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Your Verification Code</h2>
+        <p>Hello,</p>
+        <p>Your OTP for EcoFinds account verification is:</p>
+        <div class="otp-box">
+            <strong>{{ otp }}</strong>
+        </div>
+        <p class="warning">This OTP will expire in 5 minutes.</p>
+        <p>If you didn't request this code, please ignore this email.</p>
+        <p>Best regards,<br>EcoFinds Team</p>
+    </div>
+</body>
+</html>
